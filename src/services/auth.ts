@@ -1,22 +1,35 @@
 /**
- * Authentication Service
+ * Firebase Authentication Service
  * 
- * This service handles all authentication-related operations including
- * user registration, login, logout, and profile management.
+ * Comprehensive authentication service with:
+ * - User registration and login
+ * - Email verification
+ * - Password reset
+ * - User profile management in Firestore
+ * - Social authentication (future)
  * 
  * @author Fitcha Team
- * @version 1.0.0
+ * @version 2.0.0 - Firebase Integration
  */
 
-import {
-  createUserWithEmailAndPassword,
+import { 
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   signOut,
+  sendEmailVerification,
+  sendPasswordResetEmail,
   updateProfile,
   User as FirebaseUser,
+  AuthError,
   UserCredential
 } from 'firebase/auth';
-import { doc, setDoc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
+import { 
+  doc, 
+  setDoc, 
+  getDoc, 
+  updateDoc, 
+  serverTimestamp
+} from 'firebase/firestore';
 import { auth, db } from './firebase';
 import { User } from '../types';
 
@@ -139,11 +152,12 @@ export const registerUser = async (userData: SignupData): Promise<AuthResponse> 
       user: completeUser
     };
 
-  } catch (error: any) {
-    console.error('Registration error:', error);
+  } catch (error) {
+    const authError = error as AuthError;
+    console.error('Registration error:', authError);
     return {
       success: false,
-      error: getAuthErrorMessage(error.code)
+      error: getAuthErrorMessage(authError.code)
     };
   }
 };
@@ -192,11 +206,12 @@ export const loginUser = async (email: string, password: string): Promise<AuthRe
       user
     };
 
-  } catch (error: any) {
-    console.error('Login error:', error);
+  } catch (error) {
+    const authError = error as AuthError;
+    console.error('Login error:', authError);
     return {
       success: false,
-      error: getAuthErrorMessage(error.code)
+      error: getAuthErrorMessage(authError.code)
     };
   }
 };
@@ -274,12 +289,52 @@ export const updateUserProfile = async (uid: string, updates: Partial<User>): Pr
 };
 
 /**
+ * Send password reset email
+ * 
+ * @param email - User email
+ * @returns Promise<AuthResponse>
+ */
+export const resetPassword = async (email: string): Promise<AuthResponse> => {
+  try {
+    await sendPasswordResetEmail(auth, email);
+    return { success: true };
+  } catch (error) {
+    const authError = error as AuthError;
+    return {
+      success: false,
+      error: getAuthErrorMessage(authError.code)
+    };
+  }
+};
+
+/**
+ * Resend email verification
+ * 
+ * @param user - Firebase user
+ * @returns Promise<AuthResponse>
+ */
+export const resendEmailVerification = async (user: FirebaseUser): Promise<AuthResponse> => {
+  try {
+    await sendEmailVerification(user);
+    return { success: true };
+  } catch (error) {
+    const authError = error as AuthError;
+    return {
+      success: false,
+      error: authError.message || 'Failed to send verification email.'
+    };
+  }
+};
+
+/**
  * Convert Firebase Auth error codes to user-friendly messages
  * 
  * @param errorCode - Firebase error code
  * @returns User-friendly error message
  */
 const getAuthErrorMessage = (errorCode: string): string => {
+  console.log('Firebase Auth Error Code:', errorCode); // Debug logging
+  
   switch (errorCode) {
     case 'auth/email-already-in-use':
       return 'This email is already registered. Please use a different email or try logging in.';
@@ -294,9 +349,15 @@ const getAuthErrorMessage = (errorCode: string): string => {
     case 'auth/too-many-requests':
       return 'Too many failed attempts. Please try again later.';
     case 'auth/network-request-failed':
-      return 'Network error. Please check your connection and try again.';
+      return 'Network connection failed. Please check your internet connection and try again.';
+    case 'auth/configuration-not-found':
+      return 'Firebase configuration error. Please contact support.';
+    case 'auth/invalid-api-key':
+      return 'Invalid Firebase API key. Please contact support.';
+    case 'auth/app-deleted':
+      return 'Firebase app configuration error. Please contact support.';
     default:
-      return 'An error occurred. Please try again.';
+      return `An error occurred: ${errorCode}. Please try again.`;
   }
 };
 

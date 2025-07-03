@@ -50,9 +50,8 @@ export const SignupPage: React.FC = () => {
     });
     
     if (success) {
-      // Navigation will be handled by the useEffect above
-      // when isAuthenticated becomes true
-      console.log('Signup successful, redirecting...');
+      // Redirect to email verification page instead of home
+      navigate('/verify-email');
     }
     // Error handling is managed by the useAuth hook
   };
@@ -121,7 +120,6 @@ export const SignupPage: React.FC = () => {
                 onChange={(e) => setFirstName(e.target.value)}
                 icon={User}
                 disabled={isLoading}
-                required
               />
               <Input
                 placeholder="Last name"
@@ -129,7 +127,6 @@ export const SignupPage: React.FC = () => {
                 onChange={(e) => setLastName(e.target.value)}
                 icon={User}
                 disabled={isLoading}
-                required
               />
             </div>
 
@@ -140,7 +137,6 @@ export const SignupPage: React.FC = () => {
               onChange={(e) => setEmail(e.target.value)}
               icon={Mail}
               disabled={isLoading}
-              required
             />
 
             <Input
@@ -149,7 +145,6 @@ export const SignupPage: React.FC = () => {
               onChange={(e) => setLocation(e.target.value)}
               icon={MapPin}
               disabled={isLoading}
-              required
             />
 
             <div className="relative">
@@ -160,7 +155,6 @@ export const SignupPage: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 icon={Lock}
                 disabled={isLoading}
-                required
               />
               <button
                 type="button"

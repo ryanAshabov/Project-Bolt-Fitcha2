@@ -60,13 +60,6 @@ export const LoginPage: React.FC = () => {
         </div>
 
         <div className="bg-white p-8 rounded-2xl shadow-xl border border-slate-200">
-          {/* Test Credentials Helper */}
-          <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <p className="text-sm text-blue-800 font-medium mb-2">Test Credentials:</p>
-            <p className="text-xs text-blue-700">Email: obada@gmail.com</p>
-            <p className="text-xs text-blue-700">Password: quds123456</p>
-          </div>
-
           {/* Error Message Display */}
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center space-x-3">
@@ -84,7 +77,6 @@ export const LoginPage: React.FC = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 icon={Mail}
                 disabled={isLoading}
-                required
               />
             </div>
 
@@ -97,7 +89,6 @@ export const LoginPage: React.FC = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   icon={Lock}
                   disabled={isLoading}
-                  required
                 />
                 <button
                   type="button"

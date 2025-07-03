@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { useAuth } from './hooks/useAuth';
 import { LoginPage } from './components/auth/LoginPage';
 import { SignupPage } from './components/auth/SignupPage';
+import { ForgotPasswordPage } from './components/auth/ForgotPasswordPage';
+import { EmailVerificationPage } from './components/auth/EmailVerificationPage';
 import { HomePage } from './pages/HomePage';
 import { FindPartnersPage } from './pages/FindPartnersPage';
 import { CourtsPage } from './pages/CourtsPage';
@@ -26,6 +28,14 @@ function App() {
           <Route 
             path="/signup" 
             element={!isAuthenticated ? <SignupPage /> : <Navigate to="/" />} 
+          />
+          <Route 
+            path="/forgot-password" 
+            element={!isAuthenticated ? <ForgotPasswordPage /> : <Navigate to="/" />} 
+          />
+          <Route 
+            path="/verify-email" 
+            element={!isAuthenticated ? <EmailVerificationPage /> : <Navigate to="/" />} 
           />
           <Route 
             path="/" 

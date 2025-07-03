@@ -9,10 +9,10 @@
  */
 
 import { initializeApp } from 'firebase/app';
-import { getAuth, connectAuthEmulator } from 'firebase/auth';
-import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
-import { getStorage, connectStorageEmulator } from 'firebase/storage';
-import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
+import { getFunctions } from 'firebase/functions';
 
 // Firebase configuration from environment variables
 const firebaseConfig = {
@@ -25,6 +25,38 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
+// Validate Firebase configuration
+const validateFirebaseConfig = () => {
+  console.log('🔥 Validating Firebase configuration...');
+  console.log('📋 Current config values:', {
+    apiKey: firebaseConfig.apiKey ? '✅ Present' : '❌ Missing',
+    authDomain: firebaseConfig.authDomain ? '✅ Present' : '❌ Missing',
+    projectId: firebaseConfig.projectId ? '✅ Present' : '❌ Missing',
+    storageBucket: firebaseConfig.storageBucket ? '✅ Present' : '❌ Missing',
+    messagingSenderId: firebaseConfig.messagingSenderId ? '✅ Present' : '❌ Missing',
+    appId: firebaseConfig.appId ? '✅ Present' : '❌ Missing'
+  });
+  
+  const requiredFields = ['apiKey', 'authDomain', 'projectId', 'storageBucket', 'messagingSenderId', 'appId'];
+  const missing = requiredFields.filter(field => !firebaseConfig[field as keyof typeof firebaseConfig]);
+  
+  if (missing.length > 0) {
+    console.error('❌ Missing Firebase configuration fields:', missing);
+    console.error('📄 Please check your .env.local file');
+    return false;
+  }
+  
+  console.log('✅ Firebase configuration validated successfully');
+  return true;
+};
+
+// Validate configuration before initializing
+if (!validateFirebaseConfig()) {
+  throw new Error('Firebase configuration is incomplete. Please check your environment variables.');
+}
+
+console.log('🚀 Initializing Firebase...');
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
@@ -34,7 +66,15 @@ export const db = getFirestore(app);
 export const storage = getStorage(app);
 export const functions = getFunctions(app);
 
-// Connect to emulators in development
+console.log('✅ Firebase services initialized successfully');
+console.log('🔐 Auth service:', auth ? 'Ready' : 'Failed');
+console.log('🗃️ Firestore service:', db ? 'Ready' : 'Failed');
+console.log('📦 Storage service:', storage ? 'Ready' : 'Failed');
+console.log('⚡ Functions service:', functions ? 'Ready' : 'Failed');
+
+// Note: Emulator connections disabled to use production Firebase services
+// To enable emulators for development, uncomment the code below and start Firebase emulators
+/*
 if (import.meta.env.DEV) {
   // Only connect to emulators if not already connected
   try {
@@ -47,5 +87,6 @@ if (import.meta.env.DEV) {
     console.log('Firebase emulators connection skipped:', error);
   }
 }
+*/
 
 export default app;

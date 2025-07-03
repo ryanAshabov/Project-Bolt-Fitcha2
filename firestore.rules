@@ -21,7 +21,7 @@ service cloud.firestore {
       // Users can read their own data and basic info of others
       allow read: if isAuthenticated();
       
-      // Users can only write their own data
+      // Users can write their own data (allow creation even without email verification)
       allow write: if isAuthenticated() && isOwner(userId) &&
                    validateUserData();
       
