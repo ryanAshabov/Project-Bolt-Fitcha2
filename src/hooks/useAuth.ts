@@ -61,7 +61,7 @@ const createUserProfile = async (firebaseUser: FirebaseUser, additionalData?: Pa
         avatar: firebaseUser.photoURL || 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2',
         headline: additionalData?.headline || 'New Fitcha Member',
         location: additionalData?.location || '',
-        coordinates: additionalData?.coordinates,
+        coordinates: additionalData?.coordinates || { lat: 0, lng: 0 },
         connections: 0,
         isOnline: true,
         verified: firebaseUser.emailVerified,
