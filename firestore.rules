@@ -1,0 +1,227 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+    
+    function isValidUser() {
+      return isAuthenticated() && 
+             request.auth.token.email_verified == true;
+    }
+
+    // Users collection
+    match /users/{userId} {
+      // Users can read their own data and basic info of others
+      allow read: if isAuthenticated();
+      
+      // Users can only write their own data
+      allow write: if isAuthenticated() && isOwner(userId) &&
+                   validateUserData();
+      
+      function validateUserData() {
+        return request.resource.data.keys().hasAll(['firstName', 'lastName', 'email']) &&
+               request.resource.data.firstName is string &&
+               request.resource.data.lastName is string &&
+               request.resource.data.email is string;
+      }
+    }
+
+    // Courts collection
+    match /courts/{courtId} {
+      // All authenticated users can read courts
+      allow read: if isAuthenticated();
+      
+      // Only court owners can create/update courts
+      allow create: if isAuthenticated() && 
+                    request.resource.data.ownerId == request.auth.uid &&
+                    validateCourtData();
+      
+      allow update: if isAuthenticated() && 
+                    (resource.data.ownerId == request.auth.uid ||
+                     isAdmin()) &&
+                    validateCourtData();
+      
+      // Only court owners or admins can delete courts
+      allow delete: if isAuthenticated() && 
+                    (resource.data.ownerId == request.auth.uid ||
+                     isAdmin());
+      
+      function validateCourtData() {
+        return request.resource.data.keys().hasAll(['name', 'sport', 'location', 'price']) &&
+               request.resource.data.name is string &&
+               request.resource.data.sport is list &&
+               request.resource.data.location is string &&
+               request.resource.data.price is number &&
+               request.resource.data.price >= 0;
+      }
+    }
+
+    // Activities collection
+    match /activities/{activityId} {
+      // All authenticated users can read activities
+      allow read: if isAuthenticated();
+      
+      // Authenticated users can create activities
+      allow create: if isAuthenticated() && 
+                    request.resource.data.creator == request.auth.uid &&
+                    validateActivityData();
+      
+      // Only activity creators can update activities
+      allow update: if isAuthenticated() && 
+                    resource.data.creator == request.auth.uid &&
+                    validateActivityData();
+      
+      // Only activity creators can delete activities
+      allow delete: if isAuthenticated() && 
+                    resource.data.creator == request.auth.uid;
+      
+      function validateActivityData() {
+        return request.resource.data.keys().hasAll(['type', 'category', 'name', 'datetime', 'maxParticipants']) &&
+               request.resource.data.type is string &&
+               request.resource.data.category is string &&
+               request.resource.data.name is string &&
+               request.resource.data.datetime is timestamp &&
+               request.resource.data.maxParticipants is number &&
+               request.resource.data.maxParticipants > 0;
+      }
+    }
+
+    // Posts collection
+    match /posts/{postId} {
+      // All authenticated users can read posts
+      allow read: if isAuthenticated();
+      
+      // Authenticated users can create posts
+      allow create: if isAuthenticated() && 
+                    request.resource.data.authorId == request.auth.uid &&
+                    validatePostData();
+      
+      // Only post authors can update/delete posts
+      allow update, delete: if isAuthenticated() && 
+                            resource.data.authorId == request.auth.uid;
+      
+      function validatePostData() {
+        return request.resource.data.keys().hasAll(['content', 'type']) &&
+               request.resource.data.content is string &&
+               request.resource.data.type is string &&
+               request.resource.data.content.size() <= 2000; // Max 2000 characters
+      }
+    }
+
+    // Comments collection
+    match /comments/{commentId} {
+      // All authenticated users can read comments
+      allow read: if isAuthenticated();
+      
+      // Authenticated users can create comments
+      allow create: if isAuthenticated() && 
+                    request.resource.data.authorId == request.auth.uid &&
+                    validateCommentData();
+      
+      // Only comment authors can update/delete comments
+      allow update, delete: if isAuthenticated() && 
+                            resource.data.authorId == request.auth.uid;
+      
+      function validateCommentData() {
+        return request.resource.data.keys().hasAll(['postId', 'content']) &&
+               request.resource.data.postId is string &&
+               request.resource.data.content is string &&
+               request.resource.data.content.size() <= 500; // Max 500 characters
+      }
+    }
+
+    // Bookings collection
+    match /bookings/{bookingId} {
+      // Users can read their own bookings and court owners can read bookings for their courts
+      allow read: if isAuthenticated() && 
+                  (resource.data.userId == request.auth.uid ||
+                   isCourtOwner(resource.data.courtId));
+      
+      // Authenticated users can create bookings
+      allow create: if isAuthenticated() && 
+                    request.resource.data.userId == request.auth.uid &&
+                    validateBookingData();
+      
+      // Only booking owners can update/cancel bookings
+      allow update: if isAuthenticated() && 
+                    resource.data.userId == request.auth.uid;
+      
+      // Only booking owners or court owners can delete bookings
+      allow delete: if isAuthenticated() && 
+                    (resource.data.userId == request.auth.uid ||
+                     isCourtOwner(resource.data.courtId));
+      
+      function validateBookingData() {
+        return request.resource.data.keys().hasAll(['courtId', 'date', 'startTime', 'endTime']) &&
+               request.resource.data.courtId is string &&
+               request.resource.data.date is string &&
+               request.resource.data.startTime is string &&
+               request.resource.data.endTime is string;
+      }
+      
+      function isCourtOwner(courtId) {
+        return exists(/databases/$(database)/documents/courts/$(courtId)) &&
+               get(/databases/$(database)/documents/courts/$(courtId)).data.ownerId == request.auth.uid;
+      }
+    }
+
+    // Messages collection (for chat functionality)
+    match /messages/{messageId} {
+      // Users can read messages in conversations they're part of
+      allow read: if isAuthenticated() && 
+                  request.auth.uid in resource.data.participants;
+      
+      // Users can create messages in conversations they're part of
+      allow create: if isAuthenticated() && 
+                    request.auth.uid in request.resource.data.participants &&
+                    request.resource.data.senderId == request.auth.uid;
+      
+      // Only message senders can update their messages
+      allow update: if isAuthenticated() && 
+                    resource.data.senderId == request.auth.uid;
+      
+      // Only message senders can delete their messages
+      allow delete: if isAuthenticated() && 
+                    resource.data.senderId == request.auth.uid;
+    }
+
+    // Notifications collection
+    match /notifications/{notificationId} {
+      // Users can only read their own notifications
+      allow read: if isAuthenticated() && 
+                  resource.data.userId == request.auth.uid;
+      
+      // System can create notifications, users can update read status
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated() && 
+                    resource.data.userId == request.auth.uid &&
+                    onlyUpdatingReadStatus();
+      
+      // Users can delete their own notifications
+      allow delete: if isAuthenticated() && 
+                    resource.data.userId == request.auth.uid;
+      
+      function onlyUpdatingReadStatus() {
+        return request.resource.data.diff(resource.data).affectedKeys().hasOnly(['isRead', 'updatedAt']);
+      }
+    }
+
+    // Admin helper function
+    function isAdmin() {
+      return isAuthenticated() && 
+             request.auth.token.admin == true;
+    }
+
+    // Deny all other access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

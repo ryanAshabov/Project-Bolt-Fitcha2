@@ -1,0 +1,90 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+    
+    function isValidImageFile() {
+      return request.resource.contentType.matches('image/.*') &&
+             request.resource.size < 10 * 1024 * 1024; // 10MB limit
+    }
+    
+    function isValidVideoFile() {
+      return request.resource.contentType.matches('video/.*') &&
+             request.resource.size < 100 * 1024 * 1024; // 100MB limit
+    }
+
+    // User profile images
+    match /users/{userId}/profile/{imageId} {
+      allow read: if true; // Public read access for profile images
+      allow write: if isAuthenticated() && 
+                   isOwner(userId) && 
+                   isValidImageFile();
+      allow delete: if isAuthenticated() && isOwner(userId);
+    }
+
+    // Post images
+    match /posts/{postId}/images/{imageId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && isValidImageFile();
+      allow delete: if isAuthenticated() && 
+                    isPostOwner(postId);
+    }
+
+    // Court images
+    match /courts/{courtId}/images/{imageId} {
+      allow read: if true; // Public read access for court images
+      allow write: if isAuthenticated() && 
+                   isCourtOwner(courtId) && 
+                   isValidImageFile();
+      allow delete: if isAuthenticated() && isCourtOwner(courtId);
+    }
+
+    // Activity images
+    match /activities/{activityId}/images/{imageId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && 
+                   isActivityCreator(activityId) && 
+                   isValidImageFile();
+      allow delete: if isAuthenticated() && isActivityCreator(activityId);
+    }
+
+    // Chat attachments
+    match /chats/{chatId}/attachments/{attachmentId} {
+      allow read: if isAuthenticated() && isChatParticipant(chatId);
+      allow write: if isAuthenticated() && 
+                   isChatParticipant(chatId) && 
+                   (isValidImageFile() || isValidVideoFile());
+      allow delete: if isAuthenticated() && isChatParticipant(chatId);
+    }
+
+    // Helper functions for ownership checks
+    function isPostOwner(postId) {
+      return firestore.get(/databases/(default)/documents/posts/$(postId)).data.authorId == request.auth.uid;
+    }
+    
+    function isCourtOwner(courtId) {
+      return firestore.get(/databases/(default)/documents/courts/$(courtId)).data.ownerId == request.auth.uid;
+    }
+    
+    function isActivityCreator(activityId) {
+      return firestore.get(/databases/(default)/documents/activities/$(activityId)).data.creator == request.auth.uid;
+    }
+    
+    function isChatParticipant(chatId) {
+      return request.auth.uid in firestore.get(/databases/(default)/documents/chats/$(chatId)).data.participants;
+    }
+
+    // Deny all other access
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
