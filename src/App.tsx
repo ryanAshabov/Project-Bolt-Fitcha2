@@ -12,6 +12,7 @@ import { MessagesPage } from './pages/MessagesPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { CreateGamePage } from './pages/CreateGamePage';
 import { CreateGamePageV2 } from './pages/CreateGamePageV2';
+import { CreateGamePageEnhanced } from './pages/CreateGamePageEnhanced';
 import { AnalyticsPage } from './pages/AnalyticsPage';
 import { SmartFeaturesPage } from './pages/SmartFeaturesPage';
 
@@ -60,6 +61,10 @@ function App() {
           />
           <Route 
             path="/create-game" 
+            element={isAuthenticated ? <CreateGamePageEnhanced /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/create-game-v2" 
             element={isAuthenticated ? <CreateGamePageV2 /> : <Navigate to="/login" />} 
           />
           <Route 
