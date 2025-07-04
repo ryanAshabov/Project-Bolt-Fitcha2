@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Header } from '../components/layout/Header';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
-import { mockCourts, mockUsers } from '../data/mockData';
 import { useAuth } from '../hooks/useAuth';
+import { useGeolocation } from '../hooks/useGeolocation';
 import { 
   Gamepad2, 
   Plus, 
@@ -27,7 +28,18 @@ import {
   Dumbbell,
   Mountain,
   Coffee,
-  Zap
+  Zap,
+  Send,
+  UserPlus,
+  Globe,
+  Lock,
+  CreditCard,
+  Gift,
+  Camera,
+  RotateCcw,
+  Save,
+  Share2,
+  Bell
 } from 'lucide-react';
 
 interface ActivitySession {
