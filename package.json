@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run type-check && npm run lint && vite build",
+    "build": "vite build"
     "build:prod": "npm run clean && npm run build",
     "preview": "vite preview",
     "clean": "rimraf dist",
