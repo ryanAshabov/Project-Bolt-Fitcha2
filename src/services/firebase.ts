@@ -71,6 +71,8 @@ console.warn('🔐 Auth service:', auth ? 'Ready' : 'Failed');
 console.warn('🗃️ Firestore service:', db ? 'Ready' : 'Failed');
 console.warn('📦 Storage service:', storage ? 'Ready' : 'Failed');
 console.warn('⚡ Functions service:', functions ? 'Ready' : 'Failed');
+
+/*
 if (import.meta.env.DEV) {
   // Only connect to emulators if not already connected
   try {
