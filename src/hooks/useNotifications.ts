@@ -86,7 +86,7 @@ export const useNotifications = () => {
     if (notification && !notification.isRead) {
       setUnreadCount(prev => Math.max(0, prev - 1));
     }
-  };
+  }, [notifications]);
 
   return {
     notifications,
@@ -95,5 +95,5 @@ export const useNotifications = () => {
     markAllAsRead,
     addNotification,
     removeNotification,
-  }, [notifications, unreadCount, markAsRead, markAllAsRead, addNotification, removeNotification]);
+  };
 };
