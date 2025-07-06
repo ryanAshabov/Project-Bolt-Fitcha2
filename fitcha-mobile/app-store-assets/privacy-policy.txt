@@ -1,0 +1,69 @@
+PRIVACY POLICY
+
+Last Updated: July 15, 2025
+
+This Privacy Policy describes how Fitcha ("we", "our", or "us") collects, uses, and shares your personal information when you use our mobile application ("Fitcha" or the "App").
+
+1. INFORMATION WE COLLECT
+
+1.1 Information You Provide to Us
+• Account Information: When you register, we collect your name, email address, password, and profile information.
+• Profile Information: Your profile photo, location, sports preferences, skill level, and other details you choose to provide.
+• Content: Information you post, upload, or provide through the App, including messages, photos, and activity details.
+• Payment Information: If you make purchases, we collect payment details, transaction information, and billing address.
+
+1.2 Information We Collect Automatically
+• Usage Information: How you use the App, including features accessed, time spent, and actions taken.
+• Device Information: Device type, operating system, unique device identifiers, IP address, and mobile network information.
+• Location Information: With your permission, we collect precise location data to show nearby courts and players.
+• Activity Information: Sports activities, performance data, and statistics.
+
+2. HOW WE USE YOUR INFORMATION
+
+We use your information to:
+• Provide, maintain, and improve the App
+• Process transactions and send related information
+• Connect you with other users and courts based on your preferences
+• Send notifications, updates, and support messages
+• Personalize your experience and provide content recommendations
+• Analyze usage patterns and optimize the App's performance
+• Ensure safety and security of the App and users
+• Comply with legal obligations
+
+3. HOW WE SHARE YOUR INFORMATION
+
+We may share your information with:
+• Other Users: Your profile information and activity is shared with other users as part of the App's social features.
+• Service Providers: Companies that perform services on our behalf, such as payment processing, data analysis, and customer service.
+• Business Partners: Sports facilities, event organizers, and other partners who offer services through our App.
+• Legal Requirements: When required by law, legal process, or government authorities.
+• Business Transfers: In connection with a merger, acquisition, or sale of assets.
+
+4. YOUR CHOICES
+
+You can:
+• Update or correct your account information through the App settings
+• Control location sharing permissions through your device settings
+• Opt-out of promotional communications
+• Request deletion of your account and personal information
+
+5. DATA SECURITY
+
+We implement appropriate technical and organizational measures to protect your personal information.
+
+6. CHILDREN'S PRIVACY
+
+The App is not intended for children under 13, and we do not knowingly collect information from children under 13.
+
+7. INTERNATIONAL DATA TRANSFERS
+
+Your information may be transferred to and processed in countries other than your country of residence.
+
+8. CHANGES TO THIS POLICY
+
+We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.
+
+9. CONTACT US
+
+If you have any questions about this Privacy Policy, please contact us at:
+privacy@fitcha.app

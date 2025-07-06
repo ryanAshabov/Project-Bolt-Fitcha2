@@ -1,0 +1,94 @@
+{
+  "expo": {
+    "name": "Fitcha",
+    "slug": "fitcha-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.fitcha.app",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Fitcha needs access to your camera for profile photos and AR features",
+        "NSPhotoLibraryUsageDescription": "Fitcha needs access to your photo library to upload profile and court photos",
+        "NSLocationWhenInUseUsageDescription": "Fitcha uses your location to find nearby courts and players",
+        "NSFaceIDUsageDescription": "Fitcha uses Face ID for secure login",
+        "UIBackgroundModes": ["remote-notification"]
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.fitcha.app",
+      "versionCode": 1,
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "USE_BIOMETRIC",
+        "USE_FINGERPRINT",
+        "VIBRATE",
+        "RECEIVE_BOOT_COMPLETED"
+      ],
+      "googleServicesFile": "./google-services.json"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#ffffff",
+          "sounds": [
+            "./assets/notification-sound.wav"
+          ]
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Fitcha needs access to your camera for profile photos and AR features"
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Fitcha needs access to your location to find nearby courts and players"
+        }
+      ],
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Fitcha uses Face ID for secure login"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Fitcha needs access to your photos to upload profile and court images"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "fitcha-mobile"
+      }
+    }
+  }
+}

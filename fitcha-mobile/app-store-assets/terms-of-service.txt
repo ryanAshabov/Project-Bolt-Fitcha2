@@ -1,0 +1,83 @@
+TERMS OF SERVICE
+
+Last Updated: July 15, 2025
+
+These Terms of Service ("Terms") govern your access to and use of the Fitcha mobile application ("App"). Please read these Terms carefully before using the App.
+
+1. ACCEPTANCE OF TERMS
+
+By accessing or using the App, you agree to be bound by these Terms. If you do not agree to these Terms, do not use the App.
+
+2. CHANGES TO TERMS
+
+We may modify these Terms at any time. Your continued use of the App after any changes indicates your acceptance of the modified Terms.
+
+3. ELIGIBILITY
+
+You must be at least 13 years old to use the App. By using the App, you represent that you meet this requirement.
+
+4. ACCOUNT REGISTRATION
+
+4.1 You must register for an account to use certain features of the App.
+4.2 You are responsible for maintaining the confidentiality of your account credentials.
+4.3 You are responsible for all activities that occur under your account.
+
+5. USER CONDUCT
+
+You agree not to:
+• Violate any applicable laws or regulations
+• Impersonate any person or entity
+• Harass, abuse, or harm another person
+• Post or share inappropriate, offensive, or illegal content
+• Interfere with or disrupt the App or servers
+• Attempt to gain unauthorized access to any part of the App
+• Use the App for any commercial purpose without our consent
+• Engage in any activity that could damage, disable, or impair the App
+
+6. USER CONTENT
+
+6.1 You retain ownership of content you post on the App.
+6.2 By posting content, you grant us a non-exclusive, transferable, sub-licensable, royalty-free, worldwide license to use, modify, publicly display, and distribute such content on and through the App.
+6.3 You are solely responsible for your content and the consequences of posting it.
+
+7. INTELLECTUAL PROPERTY
+
+7.1 The App and its content, features, and functionality are owned by Fitcha and are protected by copyright, trademark, and other intellectual property laws.
+7.2 You may not copy, modify, distribute, sell, or lease any part of the App without our written permission.
+
+8. THIRD-PARTY LINKS AND CONTENT
+
+The App may contain links to third-party websites or services. We are not responsible for the content or practices of these third parties.
+
+9. TERMINATION
+
+We may terminate or suspend your account and access to the App at any time, without notice, for any reason.
+
+10. DISCLAIMER OF WARRANTIES
+
+THE APP IS PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+
+11. LIMITATION OF LIABILITY
+
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, FITCHA SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES.
+
+12. INDEMNIFICATION
+
+You agree to indemnify and hold harmless Fitcha from any claims, damages, liabilities, costs, or expenses arising from your use of the App or violation of these Terms.
+
+13. GOVERNING LAW
+
+These Terms shall be governed by the laws of [Jurisdiction], without regard to its conflict of law provisions.
+
+14. DISPUTE RESOLUTION
+
+Any dispute arising from these Terms shall be resolved through binding arbitration in accordance with the rules of [Arbitration Association].
+
+15. ENTIRE AGREEMENT
+
+These Terms constitute the entire agreement between you and Fitcha regarding the App.
+
+16. CONTACT INFORMATION
+
+If you have any questions about these Terms, please contact us at:
+terms@fitcha.app
