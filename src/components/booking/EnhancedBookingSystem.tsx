@@ -451,62 +451,6 @@ export const EnhancedBookingSystem: React.FC<EnhancedBookingSystemProps> = ({
     return suggestions;
   };
 
-  // Render booking confirmation
-  const renderBookingConfirmation = () => (
-    <div className="bg-white rounded-xl shadow-lg p-8 text-center">
-      <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-        <CheckCircle className="h-10 w-10 text-green-600" />
-      </div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">Booking Confirmed! 🎉</h2>
-      <p className="text-gray-600 mb-6">
-        Your court has been successfully booked. A confirmation has been sent to your email and phone.
-      </p>
-      
-      <div className="bg-gray-50 rounded-lg p-6 mb-6 text-left">
-        <h3 className="font-semibold text-gray-900 mb-4">Booking Details</h3>
-        <div className="space-y-2">
-          <div className="flex justify-between">
-            <span className="text-gray-600">Court:</span>
-            <span className="font-medium">{selectedCourt?.name}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-gray-600">Date:</span>
-            <span className="font-medium">{formatDate(bookingData.date)}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-gray-600">Time:</span>
-            <span className="font-medium">{bookingData.timeSlot}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-gray-600">Duration:</span>
-            <span className="font-medium">{bookingData.duration} hour(s)</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-gray-600">Players:</span>
-            <span className="font-medium">{bookingData.players}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-gray-600">Total:</span>
-            <span className="font-medium">${bookingData.totalPrice.toFixed(2)}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-gray-600">Booking ID:</span>
-            <span className="font-medium">BK-{Math.floor(Math.random() * 10000)}</span>
-          </div>
-        </div>
-      </div>
-      
-      <div className="flex flex-col space-y-3">
-        <Button onClick={handleReset} className="bg-blue-600 hover:bg-blue-700">
-          Book Another Court
-        </Button>
-        <Button variant="outline">
-          View My Bookings
-        </Button>
-      </div>
-    </div>
-  );
-
   // Render court selection step
   const renderCourtSelection = () => (
     <div className="space-y-6">

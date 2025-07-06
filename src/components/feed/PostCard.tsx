@@ -37,6 +37,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
     }
   };
 
+  const formatLikes = (count: number): string => {
     if (count >= 1000000) {
       return `${(count / 1000000).toFixed(1)}M`;
     }

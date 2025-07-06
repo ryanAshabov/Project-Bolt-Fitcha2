@@ -8,6 +8,10 @@ export const Sidebar: React.FC = memo(() => {
 
   if (!user) {
     return null;
+  }
+
+  return (
+    <div className="space-y-6">
       {/* User Profile Card */}
       <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
         <div className="h-16 bg-gradient-to-r from-blue-500 to-emerald-500"></div>
