@@ -316,12 +316,14 @@ export const CreateGamePageV2: React.FC = () => {
           <label className="block text-sm font-medium text-slate-700 mb-2">
             Duration (minutes)
           </label>
-          <Input
+          <input
             type="number"
             value={formData.duration.toString()}
             onChange={(e) => setFormData(prev => ({ ...prev, duration: parseInt(e.target.value) || 60 }))}
             min="30"
             max="480"
+            className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+            placeholder="60"
           />
         </div>
 
@@ -329,14 +331,18 @@ export const CreateGamePageV2: React.FC = () => {
           <label className="block text-sm font-medium text-slate-700 mb-2">
             Max Participants
           </label>
-          <Input
-            type="number"
-            value={formData.maxParticipants.toString()}
-            onChange={(e) => setFormData(prev => ({ ...prev, maxParticipants: parseInt(e.target.value) || 4 }))}
-            min="2"
-            max="50"
-            icon={Users}
-          />
+          <div className="relative">
+            <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-5 w-5" />
+            <input
+              type="number"
+              value={formData.maxParticipants.toString()}
+              onChange={(e) => setFormData(prev => ({ ...prev, maxParticipants: parseInt(e.target.value) || 4 }))}
+              min="2"
+              max="50"
+              className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+              placeholder="4"
+            />
+          </div>
         </div>
       </div>
 
@@ -401,16 +407,19 @@ export const CreateGamePageV2: React.FC = () => {
           <label className="block text-sm font-medium text-slate-700 mb-2">
             Price per Person ($)
           </label>
-          <Input
-            type="number"
-            value={formData.pricePerPerson.toString()}
-            onChange={(e) => setFormData(prev => ({ ...prev, pricePerPerson: parseFloat(e.target.value) || 0 }))}
-            min="1"
-            max="500"
-            step="0.5"
-            icon={DollarSign}
-            placeholder="e.g. 15"
-          />
+          <div className="relative">
+            <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-5 w-5" />
+            <input
+              type="number"
+              value={formData.pricePerPerson.toString()}
+              onChange={(e) => setFormData(prev => ({ ...prev, pricePerPerson: parseFloat(e.target.value) || 0 }))}
+              min="1"
+              max="500"
+              step="0.5"
+              className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+              placeholder="e.g. 15"
+            />
+          </div>
           <div className="mt-3 p-3 bg-blue-50 rounded-lg">
             <p className="text-sm text-blue-700">
               <strong>Estimated Earnings:</strong> ${(formData.pricePerPerson * formData.maxParticipants).toFixed(2)}

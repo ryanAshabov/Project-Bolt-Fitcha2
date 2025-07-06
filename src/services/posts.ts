@@ -26,10 +26,12 @@ import {
   arrayRemove,
   serverTimestamp,
   onSnapshot,
-  Unsubscribe
+  Unsubscribe,
+  QueryDocumentSnapshot,
+  DocumentData
 } from 'firebase/firestore';
 import { db } from './firebase';
-import { Post, MatchResult } from '../types';
+import { Post, MatchResult, User } from '../types';
 
 /**
  * Interface for post creation data
@@ -48,10 +50,13 @@ export interface CreatePostData {
  */
 export interface CommentData {
   id: string;
+  postId: string;
   authorId: string;
+  author?: User; // Will be populated with user data
   content: string;
   createdAt: Date;
   likes: number;
+  likedBy?: string[];
   replies?: CommentData[];
 }
 
@@ -91,13 +96,13 @@ export const createPost = async (
  * @param userId - User ID
  * @param pageSize - Number of posts per page
  * @param lastDoc - Last document for pagination
- * @returns Promise<{posts: Post[], hasMore: boolean, lastDoc: any}>
+ * @returns Promise<{posts: Post[], hasMore: boolean, lastDoc: QueryDocumentSnapshot<DocumentData> | null}>
  */
 export const getFeedPosts = async (
   userId: string,
   pageSize: number = 20,
-  lastDoc?: any
-): Promise<{ posts: Post[]; hasMore: boolean; lastDoc: any }> => {
+  lastDoc?: QueryDocumentSnapshot<DocumentData>
+): Promise<{ posts: Post[]; hasMore: boolean; lastDoc: QueryDocumentSnapshot<DocumentData> | null }> => {
   try {
     // For now, get all posts ordered by creation date
     // In production, you'd implement a more sophisticated feed algorithm
@@ -113,7 +118,7 @@ export const getFeedPosts = async (
 
     const querySnapshot = await getDocs(q);
     const posts: Post[] = [];
-    let newLastDoc = null;
+    let newLastDoc: QueryDocumentSnapshot<DocumentData> | null = null;
 
     // Get all posts with author information
     for (const docSnapshot of querySnapshot.docs) {
@@ -507,15 +512,15 @@ export const subscribeToPostUpdates = (
 ): Unsubscribe => {
   return onSnapshot(
     doc(db, 'posts', postId),
-    async (doc) => {
-      if (doc.exists()) {
-        const postData = doc.data();
+    async (docSnapshot) => {
+      if (docSnapshot.exists()) {
+        const postData = docSnapshot.data();
         
         // Get author information
         const authorDoc = await getDoc(doc(db, 'users', postData.authorId));
         if (authorDoc.exists()) {
           callback({
-            id: doc.id,
+            id: docSnapshot.id,
             ...postData,
             author: {
               id: authorDoc.id,

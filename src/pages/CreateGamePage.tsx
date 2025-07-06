@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import { Header } from '../components/layout/Header';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
-import { useAuth } from '../hooks/useAuth';
-import { useGeolocation } from '../hooks/useGeolocation';
 import { 
   Gamepad2, 
   Plus, 
@@ -14,37 +11,29 @@ import {
   Calendar, 
   DollarSign, 
   Trophy, 
-  Star,
   Search,
-  Filter,
   Crown,
-  Target,
   MessageCircle,
   CheckCircle,
   XCircle,
-  AlertCircle,
   Heart,
-  Brain,
   Dumbbell,
   Mountain,
   Coffee,
-  Zap,
-  Send,
-  UserPlus,
-  Globe,
-  Lock,
-  CreditCard,
-  Gift,
-  Camera,
-  RotateCcw,
-  Save,
-  Share2,
-  Bell
+  Zap
 } from 'lucide-react';
+
+interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  avatar: string;
+  isPro: boolean;
+}
 
 interface ActivitySession {
   id: string;
-  creator: any;
+  creator: User;
   type: 'sports' | 'wellness' | 'gaming' | 'outdoor' | 'social' | 'fitness';
   category: string;
   name: string;
@@ -53,7 +42,7 @@ interface ActivitySession {
   location: string;
   skillLevel: string;
   maxParticipants: number;
-  currentParticipants: any[];
+  currentParticipants: User[];
   isPaid: boolean;
   pricePerPerson?: number;
   description: string;
@@ -63,6 +52,38 @@ interface ActivitySession {
   ageRange?: { min: number; max: number };
   genderPreference?: 'mixed' | 'male' | 'female';
 }
+
+// Mock Users Data
+const mockUsers = [
+  {
+    id: '1',
+    firstName: 'أحمد',
+    lastName: 'محمد',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
+    isPro: false
+  },
+  {
+    id: '2',
+    firstName: 'سارة',
+    lastName: 'أحمد',
+    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face',
+    isPro: true
+  },
+  {
+    id: '3',
+    firstName: 'محمد',
+    lastName: 'العلي',
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face',
+    isPro: false
+  },
+  {
+    id: '4',
+    firstName: 'فاطمة',
+    lastName: 'الزهراء',
+    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
+    isPro: true
+  }
+];
 
 const activityCategories = {
   sports: {
@@ -223,7 +244,6 @@ const mockActivitySessions: ActivitySession[] = [
 ];
 
 export const CreateGamePage: React.FC = () => {
-  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<'create' | 'join'>('create');
   const [selectedType, setSelectedType] = useState<string>('sports');
   const [searchTerm, setSearchTerm] = useState('');
@@ -312,7 +332,7 @@ export const CreateGamePage: React.FC = () => {
     };
   };
 
-  const getActivityIcon = (type: string, category: string) => {
+  const getActivityIcon = (type: string) => {
     if (type === 'sports') return '⚽';
     if (type === 'wellness') return '🧘';
     if (type === 'gaming') return '🎮';
@@ -523,7 +543,7 @@ export const CreateGamePage: React.FC = () => {
                         value={activityForm.location}
                         onChange={(e) => setActivityForm({...activityForm, location: e.target.value})}
                         placeholder="e.g., Al-Azhar Park"
-                        required
+                        className="w-full"
                       />
                     </div>
 
@@ -536,7 +556,7 @@ export const CreateGamePage: React.FC = () => {
                         type="date"
                         value={activityForm.date}
                         onChange={(e) => setActivityForm({...activityForm, date: e.target.value})}
-                        required
+                        className="w-full"
                       />
                     </div>
 
@@ -549,7 +569,7 @@ export const CreateGamePage: React.FC = () => {
                         type="time"
                         value={activityForm.time}
                         onChange={(e) => setActivityForm({...activityForm, time: e.target.value})}
-                        required
+                        className="w-full"
                       />
                     </div>
 
@@ -578,10 +598,8 @@ export const CreateGamePage: React.FC = () => {
                       </label>
                       <Input
                         type="number"
-                        value={activityForm.maxParticipants}
+                        value={activityForm.maxParticipants.toString()}
                         onChange={(e) => setActivityForm({...activityForm, maxParticipants: parseInt(e.target.value)})}
-                        min="2"
-                        max="50"
                       />
                     </div>
 
@@ -626,18 +644,14 @@ export const CreateGamePage: React.FC = () => {
                         <Input
                           type="number"
                           placeholder="Min Age"
-                          value={activityForm.ageMin}
+                          value={activityForm.ageMin.toString()}
                           onChange={(e) => setActivityForm({...activityForm, ageMin: parseInt(e.target.value)})}
-                          min="10"
-                          max="80"
                         />
                         <Input
                           type="number"
                           placeholder="Max Age"
-                          value={activityForm.ageMax}
+                          value={activityForm.ageMax.toString()}
                           onChange={(e) => setActivityForm({...activityForm, ageMax: parseInt(e.target.value)})}
-                          min="10"
-                          max="80"
                         />
                       </div>
                     </div>
@@ -665,10 +679,8 @@ export const CreateGamePage: React.FC = () => {
                         </label>
                         <Input
                           type="number"
-                          value={activityForm.pricePerPerson}
+                          value={activityForm.pricePerPerson.toString()}
                           onChange={(e) => setActivityForm({...activityForm, pricePerPerson: parseFloat(e.target.value)})}
-                          min="0"
-                          step="0.01"
                           className="max-w-xs"
                         />
                       </div>
@@ -791,7 +803,7 @@ export const CreateGamePage: React.FC = () => {
                     {/* Activity Header */}
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center space-x-3">
-                        <div className="text-3xl">{getActivityIcon(activity.type, activity.category)}</div>
+                        <div className="text-3xl">{getActivityIcon(activity.type)}</div>
                         <div>
                           <h3 className="font-bold text-slate-900 text-lg">
                             {activity.name || activity.category}

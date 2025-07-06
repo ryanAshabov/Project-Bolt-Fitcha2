@@ -15,7 +15,6 @@ import {
   getDoc,
   addDoc,
   updateDoc,
-  deleteDoc,
   query,
   where,
   orderBy,
@@ -24,7 +23,8 @@ import {
   arrayRemove,
   serverTimestamp,
   onSnapshot,
-  Unsubscribe
+  Unsubscribe,
+  Timestamp
 } from 'firebase/firestore';
 import { db } from './firebase';
 import { ActivitySession } from '../types';
@@ -40,6 +40,15 @@ export interface ActivityFilters {
   date?: string;
   isPaid?: boolean;
   status?: string;
+}
+
+/**
+ * Database version of ActivitySession with string arrays for participants
+ */
+interface ActivitySessionDB extends Omit<ActivitySession, 'currentParticipants' | 'waitingList' | 'creator'> {
+  creator: string;
+  currentParticipants: string[];
+  waitingList: string[];
 }
 
 /**
@@ -77,12 +86,12 @@ export const createActivity = async (
  * 
  * @param filters - Search filters
  * @param pageSize - Number of activities per page
- * @returns Promise<ActivitySession[]>
+ * @returns Promise<ActivitySessionDB[]>
  */
 export const getActivities = async (
   filters: ActivityFilters = {},
   pageSize: number = 20
-): Promise<ActivitySession[]> => {
+): Promise<ActivitySessionDB[]> => {
   try {
     let q = query(collection(db, 'activities'));
 
@@ -111,13 +120,13 @@ export const getActivities = async (
     q = query(q, orderBy('createdAt', 'desc'), limit(pageSize));
 
     const querySnapshot = await getDocs(q);
-    const activities: ActivitySession[] = [];
+    const activities: ActivitySessionDB[] = [];
 
     querySnapshot.forEach((doc) => {
       activities.push({
         id: doc.id,
         ...doc.data()
-      } as ActivitySession);
+      } as ActivitySessionDB);
     });
 
     return activities;
@@ -131,9 +140,9 @@ export const getActivities = async (
  * Get a single activity by ID
  * 
  * @param activityId - Activity ID
- * @returns Promise<ActivitySession | null>
+ * @returns Promise<ActivitySessionDB | null>
  */
-export const getActivityById = async (activityId: string): Promise<ActivitySession | null> => {
+export const getActivityById = async (activityId: string): Promise<ActivitySessionDB | null> => {
   try {
     const activityDoc = await getDoc(doc(db, 'activities', activityId));
     
@@ -144,7 +153,7 @@ export const getActivityById = async (activityId: string): Promise<ActivitySessi
     return {
       id: activityDoc.id,
       ...activityDoc.data()
-    } as ActivitySession;
+    } as ActivitySessionDB;
 
   } catch (error) {
     console.error('Error fetching activity:', error);
@@ -264,7 +273,7 @@ export const updateActivity = async (
     }
 
     // Check if user is the creator
-    if (activity.creator.id !== userId) {
+    if (activity.creator !== userId) {
       throw new Error('Only the creator can update this activity');
     }
 
@@ -295,7 +304,7 @@ export const cancelActivity = async (activityId: string, userId: string): Promis
     }
 
     // Check if user is the creator
-    if (activity.creator.id !== userId) {
+    if (activity.creator !== userId) {
       throw new Error('Only the creator can cancel this activity');
     }
 
@@ -317,14 +326,14 @@ export const cancelActivity = async (activityId: string, userId: string): Promis
  * 
  * @param userId - User ID
  * @param type - 'created' | 'joined' | 'all'
- * @returns Promise<ActivitySession[]>
+ * @returns Promise<ActivitySessionDB[]>
  */
 export const getUserActivities = async (
   userId: string,
   type: 'created' | 'joined' | 'all' = 'all'
-): Promise<ActivitySession[]> => {
+): Promise<ActivitySessionDB[]> => {
   try {
-    const activities: ActivitySession[] = [];
+    const activities: ActivitySessionDB[] = [];
 
     if (type === 'created' || type === 'all') {
       const createdQuery = query(
@@ -337,7 +346,7 @@ export const getUserActivities = async (
         activities.push({
           id: doc.id,
           ...doc.data()
-        } as ActivitySession);
+        } as ActivitySessionDB);
       });
     }
 
@@ -352,7 +361,7 @@ export const getUserActivities = async (
         const activity = {
           id: doc.id,
           ...doc.data()
-        } as ActivitySession;
+        } as ActivitySessionDB;
         
         // Avoid duplicates if user is both creator and participant
         if (!activities.find(a => a.id === activity.id)) {
@@ -363,8 +372,10 @@ export const getUserActivities = async (
 
     // Sort by creation date (newest first)
     activities.sort((a, b) => {
-      const aTime = a.createdAt ? a.createdAt.toMillis() : 0;
-      const bTime = b.createdAt ? b.createdAt.toMillis() : 0;
+      const aTime = a.createdAt ? 
+        (a.createdAt instanceof Date ? a.createdAt.getTime() : (a.createdAt as Timestamp).toMillis()) : 0;
+      const bTime = b.createdAt ? 
+        (b.createdAt instanceof Date ? b.createdAt.getTime() : (b.createdAt as Timestamp).toMillis()) : 0;
       return bTime - aTime;
     });
 
@@ -380,12 +391,12 @@ export const getUserActivities = async (
  * 
  * @param searchQuery - Search query
  * @param filters - Additional filters
- * @returns Promise<ActivitySession[]>
+ * @returns Promise<ActivitySessionDB[]>
  */
 export const searchActivities = async (
   searchQuery: string,
   filters: ActivityFilters = {}
-): Promise<ActivitySession[]> => {
+): Promise<ActivitySessionDB[]> => {
   try {
     const activities = await getActivities(filters);
 
@@ -412,7 +423,7 @@ export const searchActivities = async (
  */
 export const subscribeToActivityUpdates = (
   activityId: string,
-  callback: (activity: ActivitySession | null) => void
+  callback: (activity: ActivitySessionDB | null) => void
 ): Unsubscribe => {
   return onSnapshot(
     doc(db, 'activities', activityId),
@@ -421,7 +432,7 @@ export const subscribeToActivityUpdates = (
         callback({
           id: doc.id,
           ...doc.data()
-        } as ActivitySession);
+        } as ActivitySessionDB);
       } else {
         callback(null);
       }
@@ -436,9 +447,9 @@ export const subscribeToActivityUpdates = (
 /**
  * Get activities happening today
  * 
- * @returns Promise<ActivitySession[]>
+ * @returns Promise<ActivitySessionDB[]>
  */
-export const getTodaysActivities = async (): Promise<ActivitySession[]> => {
+export const getTodaysActivities = async (): Promise<ActivitySessionDB[]> => {
   try {
     const today = new Date();
     const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -453,13 +464,13 @@ export const getTodaysActivities = async (): Promise<ActivitySession[]> => {
     );
 
     const querySnapshot = await getDocs(q);
-    const activities: ActivitySession[] = [];
+    const activities: ActivitySessionDB[] = [];
 
     querySnapshot.forEach((doc) => {
       activities.push({
         id: doc.id,
         ...doc.data()
-      } as ActivitySession);
+      } as ActivitySessionDB);
     });
 
     return activities;
@@ -473,9 +484,9 @@ export const getTodaysActivities = async (): Promise<ActivitySession[]> => {
  * Get recommended activities for a user
  * 
  * @param userId - User ID
- * @returns Promise<ActivitySession[]>
+ * @returns Promise<ActivitySessionDB[]>
  */
-export const getRecommendedActivities = async (userId: string): Promise<ActivitySession[]> => {
+export const getRecommendedActivities = async (userId: string): Promise<ActivitySessionDB[]> => {
   try {
     // This is a simplified recommendation system
     // In production, you'd use more sophisticated algorithms

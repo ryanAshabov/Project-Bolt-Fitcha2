@@ -23,10 +23,12 @@ import {
   startAfter,
   serverTimestamp,
   onSnapshot,
-  Unsubscribe
+  Unsubscribe,
+  QueryDocumentSnapshot,
+  DocumentData
 } from 'firebase/firestore';
 import { db } from './firebase';
-import { Court, TimeSlot } from '../types';
+import { Court } from '../types';
 
 /**
  * Interface for court search filters
@@ -60,6 +62,17 @@ export interface BookingData {
 }
 
 /**
+ * Interface for booking record with database fields
+ */
+export interface BookingRecord extends BookingData {
+  id: string;
+  status: 'confirmed' | 'cancelled' | 'completed' | 'pending';
+  createdAt: Date;
+  updatedAt: Date;
+  cancelledAt?: Date;
+}
+
+/**
  * Fetch all courts with optional filters
  * 
  * @param filters - Search filters
@@ -70,8 +83,8 @@ export interface BookingData {
 export const getCourts = async (
   filters: CourtFilters = {},
   pageSize: number = 20,
-  lastDoc?: any
-): Promise<{ courts: Court[]; hasMore: boolean; lastDoc: any }> => {
+  lastDoc?: QueryDocumentSnapshot<DocumentData>
+): Promise<{ courts: Court[]; hasMore: boolean; lastDoc: QueryDocumentSnapshot<DocumentData> | null }> => {
   try {
     let q = query(collection(db, 'courts'));
 
@@ -97,7 +110,7 @@ export const getCourts = async (
 
     const querySnapshot = await getDocs(q);
     const courts: Court[] = [];
-    let newLastDoc = null;
+    let newLastDoc: QueryDocumentSnapshot<DocumentData> | null = null;
 
     querySnapshot.forEach((doc) => {
       courts.push({
@@ -344,12 +357,12 @@ const updateCourtAvailability = async (
  * 
  * @param userId - User ID
  * @param status - Booking status filter
- * @returns Promise<any[]>
+ * @returns Promise<BookingRecord[]>
  */
 export const getUserBookings = async (
   userId: string,
   status?: string
-): Promise<any[]> => {
+): Promise<BookingRecord[]> => {
   try {
     let q = query(
       collection(db, 'bookings'),
@@ -362,13 +375,13 @@ export const getUserBookings = async (
     }
 
     const querySnapshot = await getDocs(q);
-    const bookings: any[] = [];
+    const bookings: BookingRecord[] = [];
 
     querySnapshot.forEach((doc) => {
       bookings.push({
         id: doc.id,
         ...doc.data()
-      });
+      } as BookingRecord);
     });
 
     return bookings;

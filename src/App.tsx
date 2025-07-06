@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 import { LoginPage } from './components/auth/LoginPage';
@@ -6,14 +5,17 @@ import { SignupPage } from './components/auth/SignupPage';
 import { ForgotPasswordPage } from './components/auth/ForgotPasswordPage';
 import { EmailVerificationPage } from './components/auth/EmailVerificationPage';
 import { HomePage } from './pages/HomePage';
-import { FindPartnersPage } from './pages/FindPartnersPage';
-import { CourtsPage } from './pages/CourtsPage';
-import { MessagesPage } from './pages/MessagesPage';
-import { ProfilePage } from './pages/ProfilePage';
-import { CreateGamePage } from './pages/CreateGamePage';
+import FindPartnersPageEnhanced from './pages/FindPartnersPageEnhanced';
+import CourtsPageProfessional from './pages/CourtsPageProfessional';
+import MessagesPageEnhanced from './pages/MessagesPageEnhanced';
+import ProfilePageEnhanced from './pages/ProfilePageEnhanced';
+import AnalyticsPageEnhanced from './pages/AnalyticsPageEnhanced';
+import NetworkPageEnhanced from './pages/NetworkPageEnhanced';
+import AllPagesDemo from './pages/AllPagesDemo';
+import CreateGameWorking from './pages/CreateGameWorking';
+import CreateGameTest from './pages/CreateGameTest';
 import { CreateGamePageV2 } from './pages/CreateGamePageV2';
 import { CreateGamePageEnhanced } from './pages/CreateGamePageEnhanced';
-import { AnalyticsPage } from './pages/AnalyticsPage';
 import { SmartFeaturesPage } from './pages/SmartFeaturesPage';
 
 function App() {
@@ -45,23 +47,31 @@ function App() {
           />
           <Route 
             path="/find-partners" 
-            element={isAuthenticated ? <FindPartnersPage /> : <Navigate to="/login" />} 
+            element={isAuthenticated ? <FindPartnersPageEnhanced /> : <Navigate to="/login" />} 
           />
           <Route 
             path="/courts" 
-            element={isAuthenticated ? <CourtsPage /> : <Navigate to="/login" />} 
+            element={isAuthenticated ? <CourtsPageProfessional /> : <Navigate to="/login" />} 
           />
           <Route 
             path="/messages" 
-            element={isAuthenticated ? <MessagesPage /> : <Navigate to="/login" />} 
+            element={isAuthenticated ? <MessagesPageEnhanced /> : <Navigate to="/login" />} 
           />
           <Route 
             path="/profile" 
-            element={isAuthenticated ? <ProfilePage /> : <Navigate to="/login" />} 
+            element={isAuthenticated ? <ProfilePageEnhanced /> : <Navigate to="/login" />} 
           />
           <Route 
             path="/create-game" 
-            element={isAuthenticated ? <CreateGamePageEnhanced /> : <Navigate to="/login" />} 
+            element={isAuthenticated ? <CreateGameWorking /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/create-game-demo" 
+            element={<CreateGameWorking />} 
+          />
+          <Route 
+            path="/test" 
+            element={<CreateGameTest />} 
           />
           <Route 
             path="/create-game-v2" 
@@ -69,15 +79,27 @@ function App() {
           />
           <Route 
             path="/create-game-old" 
-            element={isAuthenticated ? <CreateGamePage /> : <Navigate to="/login" />} 
+            element={isAuthenticated ? <CreateGamePageEnhanced /> : <Navigate to="/login" />} 
           />
           <Route 
             path="/analytics" 
-            element={isAuthenticated ? <AnalyticsPage /> : <Navigate to="/login" />} 
+            element={isAuthenticated ? <AnalyticsPageEnhanced /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/network" 
+            element={isAuthenticated ? <NetworkPageEnhanced /> : <Navigate to="/login" />} 
           />
           <Route 
             path="/smart-features" 
             element={isAuthenticated ? <SmartFeaturesPage /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/demo" 
+            element={<AllPagesDemo />} 
+          />
+          <Route 
+            path="/all-pages" 
+            element={<AllPagesDemo />} 
           />
         </Routes>
       </div>
