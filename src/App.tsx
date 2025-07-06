@@ -23,6 +23,7 @@ const CreateGameTest = lazy(() => import('./pages/CreateGameTest'));
 const CreateGamePageV2 = lazy(() => import('./pages/CreateGamePageV2').then(module => ({ default: module.CreateGamePageV2 })));
 const CreateGamePageEnhanced = lazy(() => import('./pages/CreateGamePageEnhanced').then(module => ({ default: module.CreateGamePageEnhanced })));
 const SmartFeaturesPage = lazy(() => import('./pages/SmartFeaturesPage').then(module => ({ default: module.SmartFeaturesPage })));
+const BookingPage = lazy(() => import('./pages/BookingPage'));
 
 // Loading fallback component
 const LoadingFallback = () => {
@@ -115,6 +116,10 @@ function App() {
             <Route 
               path="/smart-features" 
               element={isAuthenticated ? <SmartFeaturesPage /> : <Navigate to="/login" />} 
+            />
+            <Route 
+              path="/booking" 
+              element={isAuthenticated ? <BookingPage /> : <Navigate to="/login" />} 
             />
             <Route 
               path="/demo" 
