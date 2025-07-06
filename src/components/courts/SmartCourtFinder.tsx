@@ -259,13 +259,10 @@ return;
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Max Price ($/hour)</label>
                 <Input
-                <OptimizedImage
+                  type="number"
                   value={filters.maxPrice}
                   onChange={(e) => setFilters(prev => ({ ...prev, maxPrice: parseInt(e.target.value) }))}
-                  className="w-full h-full"
-                  objectFit="cover"
-                  width={400}
-                  height={200}
+                  icon={DollarSign}
                 />
               </div>
 
