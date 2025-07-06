@@ -45,41 +45,41 @@ export const RightSidebar: React.FC = memo(() => {
   ];
 
   return (
-    <div className="w-80 space-y-6">
+    <div className="w-80 space-y-6 dark:text-white">
       {/* Weather Widget */}
       <WeatherWidget />
 
       {/* Celebrity Spotlight */}
-      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-200 p-6 shadow-sm">
+      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950 rounded-xl border border-blue-200 dark:border-blue-800 p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-semibold text-blue-900 flex items-center space-x-2">
-            <Crown className="h-5 w-5 text-blue-600" />
+          <h3 className="font-semibold text-blue-900 dark:text-blue-300 flex items-center space-x-2">
+            <Crown className="h-5 w-5 text-blue-600 dark:text-blue-400" />
             <span>Celebrity Athletes</span>
           </h3>
-          <Sparkles className="h-5 w-5 text-blue-500" />
+          <Sparkles className="h-5 w-5 text-blue-500 dark:text-blue-400" />
         </div>
         
         <div className="space-y-3">
           {celebrities.map((celebrity) => (
-            <div key={celebrity.id} className="flex items-center space-x-3 p-3 bg-white rounded-lg border border-blue-200">
+            <div key={celebrity.id} className="flex items-center space-x-3 p-3 bg-white dark:bg-slate-800 rounded-lg border border-blue-200 dark:border-blue-800">
               <div className="relative">
                 <img
                   src={celebrity.avatar}
                   alt={`${celebrity.firstName} ${celebrity.lastName}`}
-                  className="w-12 h-12 rounded-full ring-2 ring-blue-300"
+                  className="w-12 h-12 rounded-full ring-2 ring-blue-300 dark:ring-blue-700"
                 />
-                <CheckCircle className="absolute -top-1 -right-1 w-4 h-4 text-blue-500 fill-current" />
+                <CheckCircle className="absolute -top-1 -right-1 w-4 h-4 text-blue-500 dark:text-blue-400 fill-current" />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center space-x-1">
-                  <p className="font-semibold text-blue-900 text-sm truncate">
+                  <p className="font-semibold text-blue-900 dark:text-blue-300 text-sm truncate">
                     {celebrity.firstName} {celebrity.lastName}
                   </p>
-                  <Crown className="h-3 w-3 text-blue-500" />
+                  <Crown className="h-3 w-3 text-blue-500 dark:text-blue-400" />
                 </div>
-                <p className="text-xs text-blue-700 truncate">{celebrity.headline}</p>
+                <p className="text-xs text-blue-700 dark:text-blue-400 truncate">{celebrity.headline}</p>
                 <div className="flex items-center space-x-2 mt-1">
-                  <span className="text-xs text-blue-600">
+                  <span className="text-xs text-blue-600 dark:text-blue-400">
                     {(celebrity.connections / 1000000).toFixed(1)}M followers
                   </span>
                   {celebrity.isOnline && (
@@ -93,16 +93,16 @@ export const RightSidebar: React.FC = memo(() => {
         
         <Link 
           to="/find-partners" 
-          className="block mt-4 text-sm text-blue-700 hover:text-blue-800 font-medium text-center"
+          className="block mt-4 text-sm text-blue-700 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium text-center"
         >
           Discover more celebrities →
         </Link>
       </div>
 
       {/* Sports Media */}
-      <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-xl border border-purple-200 p-6 shadow-sm">
+      <div className="bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-950 dark:to-indigo-950 rounded-xl border border-purple-200 dark:border-purple-800 p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-semibold text-purple-900 flex items-center space-x-2">
+          <h3 className="font-semibold text-purple-900 dark:text-purple-300 flex items-center space-x-2">
             <span>📺</span>
             <span>Sports Media</span>
           </h3>
@@ -110,24 +110,24 @@ export const RightSidebar: React.FC = memo(() => {
         
         <div className="space-y-3">
           {mediaOrgs.map((org) => (
-            <div key={org.id} className="flex items-center space-x-3 p-3 bg-white rounded-lg border border-purple-200">
+            <div key={org.id} className="flex items-center space-x-3 p-3 bg-white dark:bg-slate-800 rounded-lg border border-purple-200 dark:border-purple-800">
               <div className="relative">
                 <img
                   src={org.avatar}
                   alt={`${org.firstName} ${org.lastName}`}
-                  className="w-12 h-12 rounded-full ring-2 ring-purple-300"
+                  className="w-12 h-12 rounded-full ring-2 ring-purple-300 dark:ring-purple-700"
                 />
-                <CheckCircle className="absolute -top-1 -right-1 w-4 h-4 text-purple-500 fill-current" />
+                <CheckCircle className="absolute -top-1 -right-1 w-4 h-4 text-purple-500 dark:text-purple-400 fill-current" />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center space-x-1">
-                  <p className="font-semibold text-purple-900 text-sm truncate">
+                  <p className="font-semibold text-purple-900 dark:text-purple-300 text-sm truncate">
                     {org.firstName} {org.lastName}
                   </p>
-                  <span className="text-xs bg-purple-100 text-purple-800 px-1 py-0.5 rounded">MEDIA</span>
+                  <span className="text-xs bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-300 px-1 py-0.5 rounded">MEDIA</span>
                 </div>
-                <p className="text-xs text-purple-700 truncate">{org.headline}</p>
-                <span className="text-xs text-purple-600">
+                <p className="text-xs text-purple-700 dark:text-purple-400 truncate">{org.headline}</p>
+                <span className="text-xs text-purple-600 dark:text-purple-400">
                   {(org.connections / 1000000).toFixed(1)}M followers
                 </span>
               </div>
@@ -135,52 +135,52 @@ export const RightSidebar: React.FC = memo(() => {
           ))}
         </div>
         
-        <div className="mt-4 p-3 bg-purple-100 rounded-lg">
-          <p className="text-xs text-purple-800 font-medium">🚨 Breaking News</p>
-          <p className="text-xs text-purple-700 mt-1">
+        <div className="mt-4 p-3 bg-purple-100 dark:bg-purple-900/50 rounded-lg">
+          <p className="text-xs text-purple-800 dark:text-purple-300 font-medium">🚨 Breaking News</p>
+          <p className="text-xs text-purple-700 dark:text-purple-400 mt-1">
             Major sports networks are joining Fitcha to connect directly with athletes and fans!
           </p>
         </div>
       </div>
 
       {/* Recent Achievement */}
-      <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+      <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm">
         <div className="flex items-center justify-between mb-3">
-          <h3 className="font-semibold text-slate-900">Latest Achievement</h3>
-          <Trophy className="h-5 w-5 text-purple-500" />
+          <h3 className="font-semibold text-slate-900 dark:text-white">Latest Achievement</h3>
+          <Trophy className="h-5 w-5 text-purple-500 dark:text-purple-400" />
         </div>
         <AchievementCard achievement={recentAchievement} size="sm" />
         <Link 
           to="/profile?tab=achievements" 
-          className="block mt-3 text-sm text-blue-600 hover:text-blue-700 font-medium text-center"
+          className="block mt-3 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium text-center"
         >
           View all achievements →
         </Link>
       </div>
 
       {/* Upcoming Games */}
-      <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+      <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-semibold text-slate-900">Upcoming Games</h3>
-          <Calendar className="h-5 w-5 text-slate-400" />
+          <h3 className="font-semibold text-slate-900 dark:text-white">Upcoming Games</h3>
+          <Calendar className="h-5 w-5 text-slate-400 dark:text-slate-500" />
         </div>
         <div className="space-y-3">
           {upcomingGames.map((game) => (
-            <div key={game.id} className="p-3 bg-slate-50 rounded-lg">
+            <div key={game.id} className="p-3 bg-slate-50 dark:bg-slate-700 rounded-lg">
               <div className="flex items-center justify-between mb-2">
-                <span className="font-medium text-slate-900">{game.sport}</span>
-                <span className="text-xs bg-emerald-100 text-emerald-800 px-2 py-1 rounded-full">
+                <span className="font-medium text-slate-900 dark:text-white">{game.sport}</span>
+                <span className="text-xs bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300 px-2 py-1 rounded-full">
                   {game.players} joined
                 </span>
               </div>
-              <p className="text-sm text-slate-600">{game.time}</p>
-              <p className="text-xs text-slate-500">{game.location}</p>
+              <p className="text-sm text-slate-600 dark:text-slate-300">{game.time}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{game.location}</p>
             </div>
           ))}
         </div>
         <Link 
           to="/create-game" 
-          className="block mt-4 text-sm text-blue-600 hover:text-blue-700 font-medium"
+          className="block mt-4 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
         >
           View all games →
         </Link>

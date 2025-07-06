@@ -3,12 +3,14 @@ import { Heart, MessageCircle, Share2, MoreHorizontal, Trophy, Target, Crown, Ch
 import { Post } from '../../types';
 import { Button } from '../ui/Button';
 import { OptimizedImage } from '../ui/Image';
+import { useTheme } from '../../hooks/useTheme';
 
 interface PostCardProps {
   post: Post;
 }
 
 export const PostCard: React.FC<PostCardProps> = ({ post }) => {
+  const { isDark } = useTheme();
   const [isLiked, setIsLiked] = useState(post.isLiked);
   const [likes, setLikes] = useState(post.likes);
 
@@ -69,10 +71,10 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
   const isMediaOrganization = post.author.email?.includes('@espn.com') || post.author.email?.includes('@beinsports.com');
 
   return (
-    <div className={`bg-white rounded-xl border shadow-sm hover:shadow-md transition-shadow ${
+    <div className={`bg-white dark:bg-slate-800 rounded-xl border shadow-sm hover:shadow-md transition-shadow ${
       isCelebrity ? 'border-blue-200 bg-gradient-to-br from-white to-blue-50' : 
       isMediaOrganization ? 'border-purple-200 bg-gradient-to-br from-white to-purple-50' : 
-      'border-slate-200'
+      'border-slate-200 dark:border-slate-700'
     } p-6`}>
       {/* Post Header */}
       <div className="flex items-start justify-between mb-4">
@@ -94,9 +96,9 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
           <div>
             <div className="flex items-center space-x-2">
               <h3 className={`font-semibold ${
-                isCelebrity ? 'text-lg text-blue-900' : 
-                isMediaOrganization ? 'text-lg text-purple-900' : 
-                'text-slate-900'
+                isCelebrity ? 'text-lg text-blue-900 dark:text-blue-300' : 
+                isMediaOrganization ? 'text-lg text-purple-900 dark:text-purple-300' : 
+                'text-slate-900 dark:text-white'
               }`}>
                 {post.author.firstName} {post.author.lastName}
               </h3>
@@ -109,8 +111,8 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
               )}
               {post.author.isPro && (
                 <span className={`text-xs px-2 py-1 rounded-full font-medium ${
-                  isCelebrity ? 'bg-blue-100 text-blue-800' : 
-                  'bg-purple-100 text-purple-800'
+                  isCelebrity ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300' : 
+                  'bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300'
                 }`}>
                   PRO
                 </span>
@@ -127,16 +129,16 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
               )}
             </div>
             <p className={`text-sm ${
-              isCelebrity ? 'text-blue-700' : 
-              isMediaOrganization ? 'text-purple-700' : 
-              'text-slate-600'
+              isCelebrity ? 'text-blue-700 dark:text-blue-400' : 
+              isMediaOrganization ? 'text-purple-700 dark:text-purple-400' : 
+              'text-slate-600 dark:text-slate-300'
             }`}>
               {post.author.headline}
             </p>
             <div className="flex items-center space-x-2 mt-1">
               <p className="text-xs text-slate-500">{formatTime(post.timestamp)}</p>
               {post.type !== 'text' && (
-                <span className={`text-xs px-2 py-1 rounded-full flex items-center space-x-1 ${getPostTypeColor(post.type)}`}>
+                <span className={`text-xs px-2 py-1 rounded-full flex items-center space-x-1 ${getPostTypeColor(post.type)} ${isDark ? 'bg-opacity-50' : ''}`}>
                   {getPostTypeIcon(post.type)}
                   <span className="capitalize">{post.type.replace('_', ' ')}</span>
                 </span>
@@ -155,24 +157,24 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
       {/* Post Content */}
       <div className="mb-4">
         <p className={`whitespace-pre-wrap ${
-          isCelebrity ? 'text-slate-800 text-lg leading-relaxed' : 
-          isMediaOrganization ? 'text-slate-800 leading-relaxed' : 
-          'text-slate-900'
+          isCelebrity ? 'text-slate-800 dark:text-slate-200 text-lg leading-relaxed' : 
+          isMediaOrganization ? 'text-slate-800 dark:text-slate-200 leading-relaxed' : 
+          'text-slate-900 dark:text-slate-200'
         }`}>
           {post.content}
         </p>
         
         {/* Match Result Display */}
         {post.type === 'match_result' && post.matchData && (
-          <div className="mt-3 p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+          <div className="mt-3 p-3 bg-emerald-50 dark:bg-emerald-900/30 rounded-lg border border-emerald-200 dark:border-emerald-800">
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-semibold text-emerald-900">{post.matchData.sport} Match</p>
-                <p className="text-sm text-emerald-700">vs {post.matchData.opponent}</p>
-                <p className="text-sm text-emerald-600">{post.matchData.court}</p>
+                <p className="font-semibold text-emerald-900 dark:text-emerald-300">{post.matchData.sport} Match</p>
+                <p className="text-sm text-emerald-700 dark:text-emerald-400">vs {post.matchData.opponent}</p>
+                <p className="text-sm text-emerald-600 dark:text-emerald-500">{post.matchData.court}</p>
               </div>
               <div className="text-right">
-                <p className="text-lg font-bold text-emerald-900">{post.matchData.score}</p>
+                <p className="text-lg font-bold text-emerald-900 dark:text-emerald-300">{post.matchData.score}</p>
               </div>
             </div>
           </div>
@@ -198,9 +200,9 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
               <span
                 key={tag}
                 className={`text-xs px-2 py-1 rounded-full ${
-                  isCelebrity ? 'bg-blue-100 text-blue-800' : 
-                  isMediaOrganization ? 'bg-purple-100 text-purple-800' : 
-                  'bg-slate-100 text-slate-600'
+                  isCelebrity ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300' : 
+                  isMediaOrganization ? 'bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300' : 
+                  'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300'
                 }`}
               >
                 #{tag}
@@ -212,23 +214,23 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
       {/* Engagement Stats for Celebrities */}
       {isCelebrity && (
-        <div className="mb-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
-          <div className="flex items-center justify-between text-sm">
+        <div className="mb-3 p-3 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800">
+          <div className="flex items-center justify-between text-sm dark:text-blue-300">
             <div className="flex items-center space-x-4">
-              <span className="text-blue-800">
+              <span className="text-blue-800 dark:text-blue-300">
                 <Heart className="h-4 w-4 inline mr-1" />
                 {formatLikes(likes)} likes
               </span>
-              <span className="text-blue-800">
+              <span className="text-blue-800 dark:text-blue-300">
                 <MessageCircle className="h-4 w-4 inline mr-1" />
                 {formatLikes(post.comments)} comments
               </span>
-              <span className="text-blue-800">
+              <span className="text-blue-800 dark:text-blue-300">
                 <Share2 className="h-4 w-4 inline mr-1" />
                 {formatLikes(post.shares)} shares
               </span>
             </div>
-            <span className="text-blue-700 font-medium">
+            <span className="text-blue-700 dark:text-blue-400 font-medium">
               🔥 Trending Worldwide
             </span>
           </div>
@@ -236,14 +238,14 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
       )}
 
       {/* Post Actions */}
-      <div className="flex items-center justify-between pt-3 border-t border-slate-100">
+      <div className="flex items-center justify-between pt-3 border-t border-slate-100 dark:border-slate-700">
         <div className="flex items-center space-x-6">
           <button
             onClick={handleLike}
             className={`flex items-center space-x-2 text-sm transition-colors ${
               isLiked 
-                ? 'text-red-600 hover:text-red-700' 
-                : 'text-slate-600 hover:text-red-600'
+                ? 'text-red-600 dark:text-red-500 hover:text-red-700 dark:hover:text-red-400' 
+                : 'text-slate-600 dark:text-slate-300 hover:text-red-600 dark:hover:text-red-500'
             }`}
           >
             <Heart 
@@ -252,12 +254,12 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
             <span>{formatLikes(likes)}</span>
           </button>
           
-          <button className="flex items-center space-x-2 text-sm text-slate-600 hover:text-blue-600 transition-colors">
+          <button className="flex items-center space-x-2 text-sm text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
             <MessageCircle className="h-5 w-5" />
             <span>{formatLikes(post.comments)}</span>
           </button>
           
-          <button className="flex items-center space-x-2 text-sm text-slate-600 hover:text-emerald-600 transition-colors">
+          <button className="flex items-center space-x-2 text-sm text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
             <Share2 className="h-5 w-5" />
             <span>{formatLikes(post.shares)}</span>
           </button>
@@ -266,7 +268,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
         {/* Special Actions for Celebrity Posts */}
         {isCelebrity && (
           <div className="flex items-center space-x-2">
-            <Button size="sm" variant="outline" className="text-blue-700 border-blue-300 hover:bg-blue-50">
+            <Button size="sm" variant="outline" className="text-blue-700 dark:text-blue-400 border-blue-300 dark:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/30">
               <Star className="h-4 w-4 mr-1" />
               Follow
             </Button>

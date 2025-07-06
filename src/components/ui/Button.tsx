@@ -45,7 +45,7 @@ export const Button: React.FC<ButtonProps> = ({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
+      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className} dark:text-white dark:border-slate-600 dark:hover:bg-slate-700`}
     >
       {Icon && <Icon className="w-4 h-4" />}
       {children}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Trophy, Lock, Star, Target, Users, MapPin, Calendar } from 'lucide-react';
 import { Achievement } from '../../types';
+import { useTheme } from '../../hooks/useTheme';
 
 interface AchievementCardProps {
   achievement: Achievement;
@@ -8,6 +9,8 @@ interface AchievementCardProps {
 }
 
 export const AchievementCard: React.FC<AchievementCardProps> = ({ achievement, size = 'md' }) => {
+  const { isDark } = useTheme();
+
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case 'games': return <Trophy className="h-4 w-4" />;
@@ -42,7 +45,7 @@ export const AchievementCard: React.FC<AchievementCardProps> = ({ achievement, s
   };
 
   return (
-    <div className={`bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-all duration-200 ${sizeClasses[size]} ${
+    <div className={`bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-all duration-200 ${sizeClasses[size]} ${
       achievement.completed ? 'ring-2 ring-emerald-200' : 'opacity-75'
     }`}>
       <div className="text-center">
@@ -52,14 +55,14 @@ export const AchievementCard: React.FC<AchievementCardProps> = ({ achievement, s
         </div>
 
         {/* Achievement Name */}
-        <h3 className={`font-semibold text-slate-900 mb-2 ${
+        <h3 className={`font-semibold text-slate-900 dark:text-white mb-2 ${
           size === 'sm' ? 'text-sm' : size === 'md' ? 'text-base' : 'text-lg'
         }`}>
           {achievement.name}
         </h3>
 
         {/* Description */}
-        <p className={`text-slate-600 mb-3 ${
+        <p className={`text-slate-600 dark:text-slate-300 mb-3 ${
           size === 'sm' ? 'text-xs' : 'text-sm'
         }`}>
           {achievement.description}
@@ -69,12 +72,12 @@ export const AchievementCard: React.FC<AchievementCardProps> = ({ achievement, s
         {!achievement.completed && (
           <div className="mb-3">
             <div className="flex justify-between items-center mb-1">
-              <span className="text-xs text-slate-500">Progress</span>
-              <span className="text-xs font-medium text-slate-700">
+              <span className="text-xs text-slate-500 dark:text-slate-400">Progress</span>
+              <span className="text-xs font-medium text-slate-700 dark:text-slate-300">
                 {achievement.progress}/{achievement.target}
               </span>
             </div>
-            <div className="w-full bg-slate-200 rounded-full h-2">
+            <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
               <div 
                 className="bg-gradient-to-r from-blue-500 to-emerald-500 h-2 rounded-full transition-all duration-300"
                 style={{ width: `${Math.min((achievement.progress / achievement.target) * 100, 100)}%` }}
@@ -84,21 +87,21 @@ export const AchievementCard: React.FC<AchievementCardProps> = ({ achievement, s
         )}
 
         {/* Category and Rarity */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-1 text-slate-500">
+        <div className="flex items-center justify-between dark:text-slate-300">
+          <div className="flex items-center space-x-1 text-slate-500 dark:text-slate-400">
             {getCategoryIcon(achievement.category)}
             <span className="text-xs capitalize">{achievement.category}</span>
           </div>
           
-          <div className={`px-2 py-1 rounded-full text-xs font-medium bg-gradient-to-r ${getRarityColor(achievement.rarity)} text-white`}>
+          <div className={`px-2 py-1 rounded-full text-xs font-medium bg-gradient-to-r ${getRarityColor(achievement.rarity)} text-white dark:text-white`}>
             {achievement.rarity}
           </div>
         </div>
 
         {/* Completion Date */}
         {achievement.completed && achievement.unlockedAt && (
-          <div className="mt-3 pt-3 border-t border-slate-200">
-            <p className="text-xs text-slate-500">
+          <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-700">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               Unlocked {new Date(achievement.unlockedAt).toLocaleDateString()}
             </p>
           </div>

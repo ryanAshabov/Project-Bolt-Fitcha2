@@ -8,6 +8,7 @@
  * - Email verification
  * - Password reset functionality
  * - User profile creation and management
+ * - Social authentication (Google, Facebook, Apple)
  * 
  * @author Fitcha Team
  * @version 3.0.0 - Complete Firebase Integration
@@ -24,6 +25,10 @@ import {
   User as FirebaseUser,
   updateProfile,
   AuthError,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  OAuthProvider,
+  signInWithPopup,
 } from 'firebase/auth';
 import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../services/firebase';
@@ -166,6 +171,11 @@ export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Initialize auth providers
+  const googleProvider = new GoogleAuthProvider();
+  const facebookProvider = new FacebookAuthProvider();
+  const appleProvider = new OAuthProvider('apple.com');
+
   // Real-time Firebase Auth state listener
   useEffect(() => {
     setIsLoading(true);
@@ -232,6 +242,69 @@ export const useAuth = () => {
         default:
           errorMessage = authError.message || 'Login failed. Please try again.';
       }
+      
+      setError(errorMessage);
+      setIsLoading(false);
+      return false;
+    }
+  };
+
+  /**
+   * Sign in with Google
+   */
+  const signInWithGoogle = async (): Promise<boolean> => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      // Firebase Auth state change will automatically handle user setup
+      return true;
+    } catch (error) {
+      const authError = error as AuthError;
+      let errorMessage = 'Google sign-in failed. Please try again.';
+      
+      setError(errorMessage);
+      setIsLoading(false);
+      return false;
+    }
+  };
+
+  /**
+   * Sign in with Facebook
+   */
+  const signInWithFacebook = async (): Promise<boolean> => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const result = await signInWithPopup(auth, facebookProvider);
+      // Firebase Auth state change will automatically handle user setup
+      return true;
+    } catch (error) {
+      const authError = error as AuthError;
+      let errorMessage = 'Facebook sign-in failed. Please try again.';
+      
+      setError(errorMessage);
+      setIsLoading(false);
+      return false;
+    }
+  };
+
+  /**
+   * Sign in with Apple
+   */
+  const signInWithApple = async (): Promise<boolean> => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const result = await signInWithPopup(auth, appleProvider);
+      // Firebase Auth state change will automatically handle user setup
+      return true;
+    } catch (error) {
+      const authError = error as AuthError;
+      let errorMessage = 'Apple sign-in failed. Please try again.';
       
       setError(errorMessage);
       setIsLoading(false);
@@ -404,6 +477,9 @@ export const useAuth = () => {
     isLoading,
     error,
     login,
+    signInWithGoogle,
+    signInWithFacebook,
+    signInWithApple,
     signup,
     logout,
     resetPassword,

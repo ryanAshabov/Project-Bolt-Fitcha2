@@ -24,7 +24,7 @@ export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   const colorClasses = {
     primary: 'text-blue-600',
     secondary: 'text-gray-500',
-    white: 'text-white',
+    white: 'text-white dark:text-slate-200',
   };
 
   return (
@@ -47,7 +47,7 @@ export const PageLoading: React.FC<PageLoadingProps> = ({
   showLogo = true,
 }) => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-900">
       <div className="text-center">
         {showLogo && (
           <div className="mb-8">
@@ -57,12 +57,12 @@ export const PageLoading: React.FC<PageLoadingProps> = ({
             `}>
               <span className="text-white font-bold text-xl">F</span>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">Fitcha</h1>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Fitcha</h1>
           </div>
         )}
         
         <LoadingSpinner size="lg" className="mb-4" />
-        <p className="text-gray-600">{message}</p>
+        <p className="text-gray-600 dark:text-gray-300">{message}</p>
       </div>
     </div>
   );
@@ -88,7 +88,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
   
   return (
     <div
-      className={`animate-pulse bg-gray-200 ${width} ${height} ${roundedClass} ${className}`}
+      className={`animate-pulse bg-gray-200 dark:bg-gray-700 ${width} ${height} ${roundedClass} ${className}`}
     />
   );
 };

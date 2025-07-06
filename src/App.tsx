@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 import { OnboardingProvider } from './components/onboarding/OnboardingProvider';
+import { ThemeProvider } from './hooks/useTheme';
 import { LoadingSpinner } from './components/ui/Loading';
 import { MobileNavbar } from './components/layout/MobileNavbar';
 import { useDeviceDetection } from './components/ui/MobileDetection';
@@ -49,6 +50,7 @@ function App() {
 
   return (
     <Router>
+      <ThemeProvider>
       <OnboardingProvider>
       <div className="App">
         <Suspense fallback={<LoadingFallback />}>
@@ -146,6 +148,7 @@ function App() {
         {isMobile && isAuthenticated && <MobileNavbar />}
       </div>
       </OnboardingProvider>
+      </ThemeProvider>
     </Router>
   );
 }
