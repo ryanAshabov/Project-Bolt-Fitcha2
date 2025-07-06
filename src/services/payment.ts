@@ -84,7 +84,7 @@ export const PAYMENT_CONFIG = {
   COMMISSION_RATES: {
     COURT_BOOKING: 0.08, // 8% commission
     GAME_ENTRY: 0.15, // 15% platform fee
-    PRO_SUBSCRIPTION: 1.0 // 100% to platform
+    PRO_SUBSCRIPTION: 1.0, // 100% to platform
   },
   
   PRO_PLANS: {
@@ -99,8 +99,8 @@ export const PAYMENT_CONFIG = {
         'Smart Notifications',
         'Unlimited Connections',
         'Tournament Access',
-        'Early Feature Access'
-      ]
+        'Early Feature Access',
+      ],
     },
     yearly: {
       price: 99.99,
@@ -110,19 +110,19 @@ export const PAYMENT_CONFIG = {
         'All Monthly Features',
         'Annual Analytics Report',
         'VIP Support',
-        'Exclusive Events Access'
-      ]
-    }
+        'Exclusive Events Access',
+      ],
+    },
   },
   
   GAME_ENTRY_FEES: {
     casual: 2.99,
     competitive: 4.99,
-    tournament: 9.99
+    tournament: 9.99,
   },
   
   MINIMUM_WALLET_BALANCE: 5.00,
-  MAXIMUM_WALLET_BALANCE: 1000.00
+  MAXIMUM_WALLET_BALANCE: 1000.00,
 };
 
 // Mock Payment Service
@@ -154,7 +154,7 @@ class PaymentService {
       currency: 'USD',
       pendingBalance: 12.00,
       transactions: [],
-      lastUpdated: new Date()
+      lastUpdated: new Date(),
     };
 
     // Mock payment methods
@@ -167,14 +167,14 @@ class PaymentService {
         expiryMonth: 12,
         expiryYear: 2026,
         isDefault: true,
-        name: 'Main Card'
+        name: 'Main Card',
       },
       {
         id: 'pm-2',
         type: 'wallet',
         isDefault: false,
-        name: 'Fitcha Wallet'
-      }
+        name: 'Fitcha Wallet',
+      },
     ];
 
     // Mock transactions
@@ -187,7 +187,7 @@ class PaymentService {
         status: 'completed',
         description: 'City Sports Complex - Basketball Court',
         timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
-        metadata: { courtId: 'court-1', bookingId: 'booking-1' }
+        metadata: { courtId: 'court-1', bookingId: 'booking-1' },
       },
       {
         id: 'txn-2',
@@ -197,7 +197,7 @@ class PaymentService {
         status: 'completed',
         description: 'Pro Membership - Monthly',
         timestamp: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
-        metadata: { subscriptionId: 'sub-1' }
+        metadata: { subscriptionId: 'sub-1' },
       },
       {
         id: 'txn-3',
@@ -206,8 +206,8 @@ class PaymentService {
         currency: 'USD',
         status: 'completed',
         description: 'Wallet Top-up',
-        timestamp: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000)
-      }
+        timestamp: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000),
+      },
     ];
 
     // Mock pro subscription
@@ -221,7 +221,7 @@ class PaymentService {
       autoRenew: true,
       features: PAYMENT_CONFIG.PRO_PLANS.monthly.features,
       price: PAYMENT_CONFIG.PRO_PLANS.monthly.price,
-      currency: 'USD'
+      currency: 'USD',
     };
   }
 
@@ -241,7 +241,7 @@ class PaymentService {
       status: 'pending',
       description: `Wallet Top-up - $${amount}`,
       timestamp: new Date(),
-      paymentMethod
+      paymentMethod,
     };
 
     // Simulate payment processing
@@ -261,7 +261,7 @@ class PaymentService {
   async processCourtBooking(
     courtId: string, 
     amount: number, 
-    paymentMethodId: string
+    paymentMethodId: string,
   ): Promise<Transaction> {
     const commission = amount * PAYMENT_CONFIG.COMMISSION_RATES.COURT_BOOKING;
     const courtOwnerAmount = amount - commission;
@@ -276,7 +276,7 @@ class PaymentService {
       description: `Court Booking - ${courtId}`,
       timestamp: new Date(),
       paymentMethod,
-      metadata: { courtId, bookingId: `booking-${Date.now()}` }
+      metadata: { courtId, bookingId: `booking-${Date.now()}` },
     };
 
     // Simulate payment processing
@@ -302,7 +302,7 @@ class PaymentService {
       status: 'pending',
       description: `Pro Membership - ${plan}`,
       timestamp: new Date(),
-      paymentMethod
+      paymentMethod,
     };
 
     // Simulate payment processing
@@ -321,7 +321,7 @@ class PaymentService {
       autoRenew: true,
       features: planConfig.features,
       price: planConfig.price,
-      currency: planConfig.currency
+      currency: planConfig.currency,
     };
 
     this.subscription = subscription;
@@ -332,7 +332,7 @@ class PaymentService {
   async processGameEntry(
     gameId: string, 
     gameType: 'casual' | 'competitive' | 'tournament',
-    paymentMethodId: string
+    paymentMethodId: string,
   ): Promise<Transaction> {
     const amount = PAYMENT_CONFIG.GAME_ENTRY_FEES[gameType];
     const platformFee = amount * PAYMENT_CONFIG.COMMISSION_RATES.GAME_ENTRY;
@@ -348,7 +348,7 @@ class PaymentService {
       description: `${gameType} Game Entry`,
       timestamp: new Date(),
       paymentMethod,
-      metadata: { gameId }
+      metadata: { gameId },
     };
 
     // Simulate payment processing
@@ -369,7 +369,7 @@ class PaymentService {
   async addPaymentMethod(method: Omit<PaymentMethod, 'id'>): Promise<PaymentMethod> {
     const newMethod: PaymentMethod = {
       ...method,
-      id: `pm-${Date.now()}`
+      id: `pm-${Date.now()}`,
     };
     
     this.paymentMethods.push(newMethod);
@@ -416,7 +416,7 @@ class PaymentService {
       monthlyRevenue,
       transactionCount: this.transactions.length,
       activeSubscriptions: this.subscription?.status === 'active' ? 1 : 0,
-      projectedMonthly: 11500 // Based on your projections
+      projectedMonthly: 11500, // Based on your projections
     };
   }
 }

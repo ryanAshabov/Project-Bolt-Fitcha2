@@ -28,7 +28,7 @@ export const MessagesList: React.FC = () => {
         name: `${otherParticipant?.firstName || 'Unknown'} ${otherParticipant?.lastName || 'User'}`,
         isPro: otherParticipant?.isPro || false,
         isOnline: otherParticipant?.isOnline || false,
-        verified: otherParticipant?.verified || false
+        verified: otherParticipant?.verified || false,
       };
     } else {
       // For game conversations, use conversation-level properties
@@ -37,7 +37,7 @@ export const MessagesList: React.FC = () => {
         name: conversation.name || 'Game Chat',
         isPro: false,
         isOnline: false,
-        verified: false
+        verified: false,
       };
     }
   };

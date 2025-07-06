@@ -61,7 +61,7 @@ import {
   Award,
   Thermometer,
   Activity,
-  CreditCard
+  CreditCard,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 
@@ -74,7 +74,7 @@ const COURT_TYPES = [
   { id: 'swimming', name: 'Swimming', icon: '🏊', color: 'cyan' },
   { id: 'gym', name: 'Gym', icon: '🏋️', color: 'red' },
   { id: 'badminton', name: 'Badminton', icon: '🏸', color: 'yellow' },
-  { id: 'squash', name: 'Squash', icon: '🎯', color: 'indigo' }
+  { id: 'squash', name: 'Squash', icon: '🎯', color: 'indigo' },
 ];
 
 // Enhanced Mock Courts Database
@@ -95,7 +95,7 @@ const mockCourts = [
     images: [
       'https://images.pexels.com/photos/1099816/pexels-photo-1099816.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2',
       'https://images.pexels.com/photos/1552252/pexels-photo-1552252.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2',
-      'https://images.pexels.com/photos/2291599/pexels-photo-2291599.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
+      'https://images.pexels.com/photos/2291599/pexels-photo-2291599.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2',
     ],
     description: 'Premium basketball courts with professional lighting and sound system.',
     longDescription: 'State-of-the-art basketball facility featuring 4 indoor courts with NBA-standard flooring, professional lighting, and advanced sound system. Perfect for competitive games, training sessions, and tournaments.',
@@ -119,15 +119,15 @@ const mockCourts = [
         { time: '11:00 AM', price: 50, available: true },
         { time: '2:00 PM', price: 75, available: true },
         { time: '6:00 PM', price: 75, available: false },
-        { time: '8:00 PM', price: 75, available: true }
+        { time: '8:00 PM', price: 75, available: true },
       ],
       tomorrow: [
         { time: '8:00 AM', price: 50, available: true },
         { time: '10:00 AM', price: 50, available: true },
         { time: '1:00 PM', price: 75, available: true },
         { time: '4:00 PM', price: 75, available: true },
-        { time: '7:00 PM', price: 75, available: true }
-      ]
+        { time: '7:00 PM', price: 75, available: true },
+      ],
     },
     features: [
       'Professional courts',
@@ -135,14 +135,14 @@ const mockCourts = [
       'Equipment rental',
       'Coaching available',
       'Tournament hosting',
-      'Live streaming setup'
+      'Live streaming setup',
     ],
     services: ['Personal Training', 'Team Coaching', 'Equipment Rental', 'Event Hosting'],
     popularTimes: {
       morning: 'Low',
       afternoon: 'High',
-      evening: 'Very High'
-    }
+      evening: 'Very High',
+    },
   },
   {
     id: 'court-2',
@@ -160,7 +160,7 @@ const mockCourts = [
     images: [
       'https://images.pexels.com/photos/209977/pexels-photo-209977.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2',
       'https://images.pexels.com/photos/1263426/pexels-photo-1263426.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2',
-      'https://images.pexels.com/photos/114296/pexels-photo-114296.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
+      'https://images.pexels.com/photos/114296/pexels-photo-114296.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2',
     ],
     description: 'Exclusive tennis club with clay courts and professional facilities.',
     longDescription: 'Premier tennis club featuring 6 championship clay courts, professional coaching staff, and luxury amenities. Host to regional tournaments and perfect for serious players.',
@@ -183,15 +183,15 @@ const mockCourts = [
         { time: '7:00 AM', price: 80, available: true },
         { time: '10:00 AM', price: 80, available: true },
         { time: '3:00 PM', price: 120, available: true },
-        { time: '5:00 PM', price: 120, available: false }
+        { time: '5:00 PM', price: 120, available: false },
       ],
       tomorrow: [
         { time: '6:00 AM', price: 80, available: true },
         { time: '9:00 AM', price: 80, available: true },
         { time: '12:00 PM', price: 120, available: true },
         { time: '4:00 PM', price: 120, available: true },
-        { time: '6:00 PM', price: 120, available: true }
-      ]
+        { time: '6:00 PM', price: 120, available: true },
+      ],
     },
     features: [
       'Clay courts',
@@ -199,14 +199,14 @@ const mockCourts = [
       'Tournament facilities',
       'Member privileges',
       'Ball machine rental',
-      'Video analysis'
+      'Video analysis',
     ],
     services: ['Professional Coaching', 'Racket Stringing', 'Tournament Training', 'Fitness Programs'],
     popularTimes: {
       morning: 'Medium',
       afternoon: 'High',
-      evening: 'Very High'
-    }
+      evening: 'Very High',
+    },
   },
   {
     id: 'court-3',
@@ -224,7 +224,7 @@ const mockCourts = [
     images: [
       'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2',
       'https://images.pexels.com/photos/114296/pexels-photo-114296.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2',
-      'https://images.pexels.com/photos/1263426/pexels-photo-1263426.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
+      'https://images.pexels.com/photos/1263426/pexels-photo-1263426.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2',
     ],
     description: 'Professional football academy with FIFA-standard pitches and training facilities.',
     longDescription: 'Premier football training facility featuring multiple FIFA-standard pitches, professional coaching staff, and comprehensive training programs for all skill levels.',
@@ -247,15 +247,15 @@ const mockCourts = [
         { time: '8:00 AM', price: 60, available: true },
         { time: '4:00 PM', price: 90, available: true },
         { time: '6:00 PM', price: 90, available: false },
-        { time: '8:00 PM', price: 90, available: true }
+        { time: '8:00 PM', price: 90, available: true },
       ],
       tomorrow: [
         { time: '7:00 AM', price: 60, available: true },
         { time: '10:00 AM', price: 60, available: true },
         { time: '5:00 PM', price: 90, available: true },
         { time: '7:00 PM', price: 90, available: true },
-        { time: '9:00 PM', price: 90, available: true }
-      ]
+        { time: '9:00 PM', price: 90, available: true },
+      ],
     },
     features: [
       'FIFA-standard pitch',
@@ -263,15 +263,15 @@ const mockCourts = [
       'Equipment included',
       'Team changing rooms',
       'Video analysis',
-      'Professional coaching'
+      'Professional coaching',
     ],
     services: ['Youth Training', 'Adult Leagues', 'Private Coaching', 'Tournament Hosting'],
     popularTimes: {
       morning: 'Low',
       afternoon: 'High',
-      evening: 'Very High'
-    }
-  }
+      evening: 'Very High',
+    },
+  },
 ];
 
 const CourtsPageProfessional: React.FC = () => {
@@ -345,7 +345,7 @@ const CourtsPageProfessional: React.FC = () => {
     setBookmarkedCourts(prev => 
       prev.includes(courtId) 
         ? prev.filter(id => id !== courtId)
-        : [...prev, courtId]
+        : [...prev, courtId],
     );
   };
 
@@ -357,7 +357,7 @@ const CourtsPageProfessional: React.FC = () => {
     setSelectedAmenities(prev => 
       prev.includes(amenity)
         ? prev.filter(a => a !== amenity)
-        : [...prev, amenity]
+        : [...prev, amenity],
     );
   };
 
@@ -376,7 +376,7 @@ const CourtsPageProfessional: React.FC = () => {
       equipment_rental: Users,
       ac: Thermometer,
       security: Shield,
-      medical_room: Activity
+      medical_room: Activity,
     };
     return icons[amenity] || Users;
   };
@@ -434,7 +434,7 @@ const CourtsPageProfessional: React.FC = () => {
 
             <div className="flex gap-3 flex-wrap">
               <Button
-                variant={showMap ? "primary" : "outline"}
+                variant={showMap ? 'primary' : 'outline'}
                 onClick={() => setShowMap(!showMap)}
                 className="flex items-center gap-2 px-6 py-3"
               >
@@ -455,7 +455,7 @@ const CourtsPageProfessional: React.FC = () => {
               </select>
 
               <Button
-                variant={showAdvancedFilters ? "primary" : "outline"}
+                variant={showAdvancedFilters ? 'primary' : 'outline'}
                 onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
                 className="flex items-center gap-2 px-6 py-3"
               >
@@ -616,7 +616,7 @@ const CourtsPageProfessional: React.FC = () => {
                           : 'border-slate-300 hover:border-slate-400 hover:shadow-md'
                       }`}
                     >
-                      {React.createElement(getAmenityIcon(amenity), { className: "h-4 w-4" })}
+                      {React.createElement(getAmenityIcon(amenity), { className: 'h-4 w-4' })}
                       {amenity.replace('_', ' ')}
                     </button>
                   ))}

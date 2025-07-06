@@ -10,7 +10,7 @@ export const NotificationCenter: React.FC = () => {
   const [filter, setFilter] = useState<'all' | 'unread'>('all');
 
   const filteredNotifications = notifications.filter(notification => 
-    filter === 'all' || !notification.isRead
+    filter === 'all' || !notification.isRead,
   );
 
   const getNotificationIcon = (type: string) => {

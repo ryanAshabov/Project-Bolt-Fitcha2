@@ -51,7 +51,7 @@ export const useChat = (conversationId?: string) => {
     loading: false,
     typing: [],
     error: null,
-    connectionStatus: 'connected'
+    connectionStatus: 'connected',
   });
 
   const typingTimeoutRef = useRef<number>();
@@ -69,7 +69,7 @@ export const useChat = (conversationId?: string) => {
           isRead: true,
           isDelivered: true,
           type: 'text',
-          gameId: 'game-1'
+          gameId: 'game-1',
         },
         {
           id: 'msg-1b',
@@ -78,7 +78,7 @@ export const useChat = (conversationId?: string) => {
           timestamp: new Date(Date.now() - 45 * 60 * 1000),
           isRead: true,
           isDelivered: true,
-          type: 'text'
+          type: 'text',
         },
         {
           id: 'msg-1c',
@@ -87,7 +87,7 @@ export const useChat = (conversationId?: string) => {
           timestamp: new Date(Date.now() - 30 * 60 * 1000),
           isRead: true,
           isDelivered: true,
-          type: 'text'
+          type: 'text',
         },
         {
           id: 'msg-1d',
@@ -96,8 +96,8 @@ export const useChat = (conversationId?: string) => {
           timestamp: new Date(Date.now() - 2 * 60 * 1000),
           isRead: false,
           isDelivered: true,
-          type: 'quick_message'
-        }
+          type: 'quick_message',
+        },
       ],
       'chat-2': [
         {
@@ -107,9 +107,9 @@ export const useChat = (conversationId?: string) => {
           timestamp: new Date(Date.now() - 15 * 60 * 1000),
           isRead: false,
           isDelivered: true,
-          type: 'text'
-        }
-      ]
+          type: 'text',
+        },
+      ],
     };
 
     return mockMessages[convId] || [];
@@ -128,13 +128,13 @@ export const useChat = (conversationId?: string) => {
           content: 'I\'m running 5 minutes late ⏰',
           timestamp: new Date(Date.now() - 2 * 60 * 1000),
           isRead: false,
-          type: 'quick_message'
+          type: 'quick_message',
         },
         unreadCount: 2,
         isActive: true,
         createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000),
         name: 'Basketball Game - City Sports',
-        gameId: 'game-1'
+        gameId: 'game-1',
       },
       {
         id: 'chat-2',
@@ -146,12 +146,12 @@ export const useChat = (conversationId?: string) => {
           content: 'Want to join for tennis tomorrow?',
           timestamp: new Date(Date.now() - 15 * 60 * 1000),
           isRead: false,
-          type: 'text'
+          type: 'text',
         },
         unreadCount: 1,
         isActive: true,
         createdAt: new Date(Date.now() - 12 * 60 * 60 * 1000),
-        name: 'Mohamed S.'
+        name: 'Mohamed S.',
       },
       {
         id: 'chat-3',
@@ -163,19 +163,19 @@ export const useChat = (conversationId?: string) => {
           content: 'Football this Friday?',
           timestamp: new Date(Date.now() - 45 * 60 * 1000),
           isRead: true,
-          type: 'text'
+          type: 'text',
         },
         unreadCount: 0,
         isActive: true,
         createdAt: new Date(Date.now() - 36 * 60 * 60 * 1000),
-        name: 'Weekend Warriors'
-      }
+        name: 'Weekend Warriors',
+      },
     ];
 
     setChatState(prev => ({
       ...prev,
       conversations: mockConversations,
-      loading: false
+      loading: false,
     }));
   }, []);
 
@@ -190,7 +190,7 @@ export const useChat = (conversationId?: string) => {
         setChatState(prev => ({
           ...prev,
           messages,
-          loading: false
+          loading: false,
         }));
       }, 300);
 
@@ -200,7 +200,9 @@ export const useChat = (conversationId?: string) => {
 
   // Enhanced send message function
   const sendMessage = useCallback(async (content: string, type: 'text' | 'quick_message' | 'image' | 'system' = 'text') => {
-    if (!conversationId || !content.trim()) return;
+    if (!conversationId || !content.trim()) {
+return;
+}
 
     const newMessage: EnhancedMessage = {
       id: `msg-${Date.now()}`,
@@ -235,21 +237,21 @@ export const useChat = (conversationId?: string) => {
             achievements: true,
             weatherAlerts: true,
             pushNotifications: true,
-            emailNotifications: true
+            emailNotifications: true,
           },
           privacy: {
             showLocation: true,
             showOnlineStatus: true,
             allowGameInvites: 'everyone',
-            showStatistics: true
+            showStatistics: true,
           },
           gameDefaults: {
             preferredSports: [],
             skillLevel: 'Beginner',
             maxDistance: 10,
             preferredTimes: [],
-            paymentPreference: 'both'
-          }
+            paymentPreference: 'both',
+          },
         },
         statistics: {
           totalGames: 0,
@@ -260,20 +262,20 @@ export const useChat = (conversationId?: string) => {
           favoriteSport: 'Basketball',
           mostPlayedWith: [],
           monthlyGames: [],
-          courtVisits: []
-        }
+          courtVisits: [],
+        },
       },
       content: content.trim(),
       timestamp: new Date(),
       isRead: false,
       isDelivered: false,
-      type
+      type,
     };
 
     // Optimistically add message
     setChatState(prev => ({
       ...prev,
-      messages: [...prev.messages, newMessage]
+      messages: [...prev.messages, newMessage],
     }));
 
     try {
@@ -286,8 +288,8 @@ export const useChat = (conversationId?: string) => {
         messages: prev.messages.map(msg => 
           msg.id === newMessage.id 
             ? { ...msg, isDelivered: true }
-            : msg
-        )
+            : msg,
+        ),
       }));
 
       // Simulate read receipt after a short delay
@@ -297,8 +299,8 @@ export const useChat = (conversationId?: string) => {
           messages: prev.messages.map(msg => 
             msg.id === newMessage.id 
               ? { ...msg, isRead: true }
-              : msg
-          )
+              : msg,
+          ),
         }));
       }, 2000);
 
@@ -306,7 +308,7 @@ export const useChat = (conversationId?: string) => {
       console.error('Failed to send message:', error);
       setChatState(prev => ({
         ...prev,
-        error: 'Failed to send message. Please try again.'
+        error: 'Failed to send message. Please try again.',
       }));
     }
   }, [conversationId]);
@@ -323,8 +325,8 @@ export const useChat = (conversationId?: string) => {
       messages: prev.messages.map(msg => 
         messageIds.includes(msg.id) 
           ? { ...msg, isRead: true }
-          : msg
-      )
+          : msg,
+      ),
     }));
   }, []);
 
@@ -332,7 +334,7 @@ export const useChat = (conversationId?: string) => {
   const startTyping = useCallback((userId: string) => {
     setChatState(prev => ({
       ...prev,
-      typing: [...prev.typing.filter(id => id !== userId), userId]
+      typing: [...prev.typing.filter(id => id !== userId), userId],
     }));
 
     // Clear typing after 3 seconds
@@ -343,7 +345,7 @@ export const useChat = (conversationId?: string) => {
     typingTimeoutRef.current = window.setTimeout(() => {
       setChatState(prev => ({
         ...prev,
-        typing: prev.typing.filter(id => id !== userId)
+        typing: prev.typing.filter(id => id !== userId),
       }));
     }, 3000);
   }, []);
@@ -351,7 +353,7 @@ export const useChat = (conversationId?: string) => {
   const stopTyping = useCallback((userId: string) => {
     setChatState(prev => ({
       ...prev,
-      typing: prev.typing.filter(id => id !== userId)
+      typing: prev.typing.filter(id => id !== userId),
     }));
   }, []);
 
@@ -395,6 +397,6 @@ export const useChat = (conversationId?: string) => {
     reconnect,
     
     // Utilities
-    clearError: () => setChatState(prev => ({ ...prev, error: null }))
+    clearError: () => setChatState(prev => ({ ...prev, error: null })),
   };
 };

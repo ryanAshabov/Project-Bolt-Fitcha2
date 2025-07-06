@@ -7,7 +7,9 @@ export const useWeather = (location?: string) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!location) return;
+    if (!location) {
+return;
+}
 
     const fetchWeather = async () => {
       setLoading(true);
@@ -31,23 +33,23 @@ export const useWeather = (location?: string) => {
               temperature: { min: 18, max: 25 },
               condition: 'Partly Cloudy',
               precipitation: 10,
-              icon: '⛅'
+              icon: '⛅',
             },
             {
               date: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0],
               temperature: { min: 20, max: 27 },
               condition: 'Sunny',
               precipitation: 0,
-              icon: '☀️'
+              icon: '☀️',
             },
             {
               date: new Date(Date.now() + 48 * 60 * 60 * 1000).toISOString().split('T')[0],
               temperature: { min: 16, max: 23 },
               condition: 'Light Rain',
               precipitation: 70,
-              icon: '🌧️'
-            }
-          ]
+              icon: '🌧️',
+            },
+          ],
         };
 
         setWeather(mockWeather);
@@ -72,6 +74,6 @@ export const useWeather = (location?: string) => {
     weather,
     loading,
     error,
-    isGoodForOutdoorSports: weather ? isGoodForOutdoorSports(weather) : null
+    isGoodForOutdoorSports: weather ? isGoodForOutdoorSports(weather) : null,
   };
 };

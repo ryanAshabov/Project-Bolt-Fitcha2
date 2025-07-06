@@ -22,20 +22,20 @@ const firebaseConfig = {
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 // Validate Firebase configuration
 const validateFirebaseConfig = () => {
-  console.log('🔥 Validating Firebase configuration...');
-  console.log('📋 Current config values:', {
+  // Validate configuration values
+  const configStatus = {
     apiKey: firebaseConfig.apiKey ? '✅ Present' : '❌ Missing',
     authDomain: firebaseConfig.authDomain ? '✅ Present' : '❌ Missing',
     projectId: firebaseConfig.projectId ? '✅ Present' : '❌ Missing',
     storageBucket: firebaseConfig.storageBucket ? '✅ Present' : '❌ Missing',
     messagingSenderId: firebaseConfig.messagingSenderId ? '✅ Present' : '❌ Missing',
-    appId: firebaseConfig.appId ? '✅ Present' : '❌ Missing'
-  });
+    appId: firebaseConfig.appId ? '✅ Present' : '❌ Missing',
+  };
   
   const requiredFields = ['apiKey', 'authDomain', 'projectId', 'storageBucket', 'messagingSenderId', 'appId'];
   const missing = requiredFields.filter(field => !firebaseConfig[field as keyof typeof firebaseConfig]);
@@ -46,7 +46,7 @@ const validateFirebaseConfig = () => {
     return false;
   }
   
-  console.log('✅ Firebase configuration validated successfully');
+  console.warn('✅ Firebase configuration validated successfully');
   return true;
 };
 
@@ -55,7 +55,7 @@ if (!validateFirebaseConfig()) {
   throw new Error('Firebase configuration is incomplete. Please check your environment variables.');
 }
 
-console.log('🚀 Initializing Firebase...');
+console.warn('🚀 Initializing Firebase...');
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -66,11 +66,7 @@ export const db = getFirestore(app);
 export const storage = getStorage(app);
 export const functions = getFunctions(app);
 
-console.log('✅ Firebase services initialized successfully');
-console.log('🔐 Auth service:', auth ? 'Ready' : 'Failed');
-console.log('🗃️ Firestore service:', db ? 'Ready' : 'Failed');
-console.log('📦 Storage service:', storage ? 'Ready' : 'Failed');
-console.log('⚡ Functions service:', functions ? 'Ready' : 'Failed');
+console.warn('✅ Firebase services initialized successfully');
 
 // Note: Emulator connections disabled to use production Firebase services
 // To enable emulators for development, uncomment the code below and start Firebase emulators

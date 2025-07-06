@@ -14,7 +14,7 @@ import {
   Sliders,
   CheckCircle,
   AlertCircle,
-  TrendingUp
+  TrendingUp,
 } from 'lucide-react';
 import { Court, User } from '../../types';
 import { Button } from '../ui/Button';
@@ -36,7 +36,7 @@ interface SmartCourtFinderProps {
 
 export const SmartCourtFinder: React.FC<SmartCourtFinderProps> = ({ 
   gameSession, 
-  onCourtSelect 
+  onCourtSelect, 
 }) => {
   const { user } = useAuth();
   const { coordinates, loading: locationLoading } = useGeolocation();
@@ -49,7 +49,7 @@ export const SmartCourtFinder: React.FC<SmartCourtFinderProps> = ({
     maxDistance: 10,
     maxPrice: 100,
     skillLevel: user?.skillLevel || 'Intermediate',
-    isIndoor: undefined as boolean | undefined
+    isIndoor: undefined as boolean | undefined,
   });
 
   const [suggestions, setSuggestions] = useState<any[]>([]);
@@ -64,7 +64,9 @@ export const SmartCourtFinder: React.FC<SmartCourtFinderProps> = ({
   }, [filters, coordinates, searchMode]);
 
   const findSuggestions = async () => {
-    if (!coordinates) return;
+    if (!coordinates) {
+return;
+}
 
     const players = gameSession?.players || [user!];
     const courtSuggestions = await findOptimalCourt(players, filters);
@@ -77,9 +79,15 @@ export const SmartCourtFinder: React.FC<SmartCourtFinderProps> = ({
   };
 
   const getMatchScoreColor = (score: number) => {
-    if (score >= 80) return 'text-emerald-600 bg-emerald-100';
-    if (score >= 60) return 'text-blue-600 bg-blue-100';
-    if (score >= 40) return 'text-yellow-600 bg-yellow-100';
+    if (score >= 80) {
+return 'text-emerald-600 bg-emerald-100';
+}
+    if (score >= 60) {
+return 'text-blue-600 bg-blue-100';
+}
+    if (score >= 40) {
+return 'text-yellow-600 bg-yellow-100';
+}
     return 'text-red-600 bg-red-100';
   };
 
@@ -90,7 +98,7 @@ export const SmartCourtFinder: React.FC<SmartCourtFinderProps> = ({
       'Soccer': '⚽',
       'Volleyball': '🏐',
       'Football': '🏈',
-      'Badminton': '🏸'
+      'Badminton': '🏸',
     };
     return icons[sport] || '🏃';
   };
@@ -256,7 +264,7 @@ export const SmartCourtFinder: React.FC<SmartCourtFinderProps> = ({
                   value={filters.isIndoor === undefined ? 'any' : filters.isIndoor ? 'indoor' : 'outdoor'}
                   onChange={(e) => setFilters(prev => ({ 
                     ...prev, 
-                    isIndoor: e.target.value === 'any' ? undefined : e.target.value === 'indoor' 
+                    isIndoor: e.target.value === 'any' ? undefined : e.target.value === 'indoor', 
                   }))}
                   className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >

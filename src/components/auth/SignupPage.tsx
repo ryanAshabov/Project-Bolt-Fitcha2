@@ -46,7 +46,7 @@ export const SignupPage: React.FC = () => {
       lastName: lastName.trim(),
       email: email.trim(),
       password,
-      location: location.trim()
+      location: location.trim(),
     });
     
     if (success) {

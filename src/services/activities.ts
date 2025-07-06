@@ -24,7 +24,7 @@ import {
   serverTimestamp,
   onSnapshot,
   Unsubscribe,
-  Timestamp
+  Timestamp,
 } from 'firebase/firestore';
 import { db } from './firebase';
 import { ActivitySession } from '../types';
@@ -60,7 +60,7 @@ interface ActivitySessionDB extends Omit<ActivitySession, 'currentParticipants' 
  */
 export const createActivity = async (
   activityData: Omit<ActivitySession, 'id' | 'currentParticipants' | 'waitingList' | 'paymentStatus' | 'chatId' | 'createdAt' | 'updatedAt'>,
-  creatorId: string
+  creatorId: string,
 ): Promise<string> => {
   try {
     const docRef = await addDoc(collection(db, 'activities'), {
@@ -71,7 +71,7 @@ export const createActivity = async (
       paymentStatus: {},
       chatId: '', // Will be created separately
       createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp()
+      updatedAt: serverTimestamp(),
     });
 
     return docRef.id;
@@ -90,7 +90,7 @@ export const createActivity = async (
  */
 export const getActivities = async (
   filters: ActivityFilters = {},
-  pageSize: number = 20
+  pageSize: number = 20,
 ): Promise<ActivitySessionDB[]> => {
   try {
     let q = query(collection(db, 'activities'));
@@ -125,7 +125,7 @@ export const getActivities = async (
     querySnapshot.forEach((doc) => {
       activities.push({
         id: doc.id,
-        ...doc.data()
+        ...doc.data(),
       } as ActivitySessionDB);
     });
 
@@ -152,7 +152,7 @@ export const getActivityById = async (activityId: string): Promise<ActivitySessi
 
     return {
       id: activityDoc.id,
-      ...activityDoc.data()
+      ...activityDoc.data(),
     } as ActivitySessionDB;
 
   } catch (error) {
@@ -185,7 +185,7 @@ export const joinActivity = async (activityId: string, userId: string): Promise<
       // Add to waiting list
       await updateDoc(doc(db, 'activities', activityId), {
         waitingList: arrayUnion(userId),
-        updatedAt: serverTimestamp()
+        updatedAt: serverTimestamp(),
       });
       return false; // Added to waiting list
     }
@@ -193,13 +193,13 @@ export const joinActivity = async (activityId: string, userId: string): Promise<
     // Add user to participants
     await updateDoc(doc(db, 'activities', activityId), {
       currentParticipants: arrayUnion(userId),
-      updatedAt: serverTimestamp()
+      updatedAt: serverTimestamp(),
     });
 
     // Update status if activity is now full
     if (activity.currentParticipants.length + 1 >= activity.maxParticipants) {
       await updateDoc(doc(db, 'activities', activityId), {
-        status: 'full'
+        status: 'full',
       });
     }
 
@@ -227,7 +227,7 @@ export const leaveActivity = async (activityId: string, userId: string): Promise
     // Remove user from participants
     await updateDoc(doc(db, 'activities', activityId), {
       currentParticipants: arrayRemove(userId),
-      updatedAt: serverTimestamp()
+      updatedAt: serverTimestamp(),
     });
 
     // If there's someone on the waiting list, move them to participants
@@ -235,14 +235,14 @@ export const leaveActivity = async (activityId: string, userId: string): Promise
       const nextUser = activity.waitingList[0];
       await updateDoc(doc(db, 'activities', activityId), {
         currentParticipants: arrayUnion(nextUser),
-        waitingList: arrayRemove(nextUser)
+        waitingList: arrayRemove(nextUser),
       });
     }
 
     // Update status if activity is no longer full
     if (activity.status === 'full') {
       await updateDoc(doc(db, 'activities', activityId), {
-        status: 'open'
+        status: 'open',
       });
     }
 
@@ -264,7 +264,7 @@ export const leaveActivity = async (activityId: string, userId: string): Promise
 export const updateActivity = async (
   activityId: string,
   updates: Partial<ActivitySession>,
-  userId: string
+  userId: string,
 ): Promise<boolean> => {
   try {
     const activity = await getActivityById(activityId);
@@ -279,7 +279,7 @@ export const updateActivity = async (
 
     await updateDoc(doc(db, 'activities', activityId), {
       ...updates,
-      updatedAt: serverTimestamp()
+      updatedAt: serverTimestamp(),
     });
 
     return true;
@@ -311,7 +311,7 @@ export const cancelActivity = async (activityId: string, userId: string): Promis
     await updateDoc(doc(db, 'activities', activityId), {
       status: 'cancelled',
       cancelledAt: serverTimestamp(),
-      updatedAt: serverTimestamp()
+      updatedAt: serverTimestamp(),
     });
 
     return true;
@@ -330,7 +330,7 @@ export const cancelActivity = async (activityId: string, userId: string): Promis
  */
 export const getUserActivities = async (
   userId: string,
-  type: 'created' | 'joined' | 'all' = 'all'
+  type: 'created' | 'joined' | 'all' = 'all',
 ): Promise<ActivitySessionDB[]> => {
   try {
     const activities: ActivitySessionDB[] = [];
@@ -339,13 +339,13 @@ export const getUserActivities = async (
       const createdQuery = query(
         collection(db, 'activities'),
         where('creator', '==', userId),
-        orderBy('createdAt', 'desc')
+        orderBy('createdAt', 'desc'),
       );
       const createdSnapshot = await getDocs(createdQuery);
       createdSnapshot.forEach((doc) => {
         activities.push({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         } as ActivitySessionDB);
       });
     }
@@ -354,13 +354,13 @@ export const getUserActivities = async (
       const joinedQuery = query(
         collection(db, 'activities'),
         where('currentParticipants', 'array-contains', userId),
-        orderBy('createdAt', 'desc')
+        orderBy('createdAt', 'desc'),
       );
       const joinedSnapshot = await getDocs(joinedQuery);
       joinedSnapshot.forEach((doc) => {
         const activity = {
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         } as ActivitySessionDB;
         
         // Avoid duplicates if user is both creator and participant
@@ -395,7 +395,7 @@ export const getUserActivities = async (
  */
 export const searchActivities = async (
   searchQuery: string,
-  filters: ActivityFilters = {}
+  filters: ActivityFilters = {},
 ): Promise<ActivitySessionDB[]> => {
   try {
     const activities = await getActivities(filters);
@@ -404,7 +404,7 @@ export const searchActivities = async (
       activity.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       activity.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
       activity.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (activity.description && activity.description.toLowerCase().includes(searchQuery.toLowerCase()))
+      (activity.description && activity.description.toLowerCase().includes(searchQuery.toLowerCase())),
     );
 
     return filteredActivities;
@@ -423,7 +423,7 @@ export const searchActivities = async (
  */
 export const subscribeToActivityUpdates = (
   activityId: string,
-  callback: (activity: ActivitySessionDB | null) => void
+  callback: (activity: ActivitySessionDB | null) => void,
 ): Unsubscribe => {
   return onSnapshot(
     doc(db, 'activities', activityId),
@@ -431,7 +431,7 @@ export const subscribeToActivityUpdates = (
       if (doc.exists()) {
         callback({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         } as ActivitySessionDB);
       } else {
         callback(null);
@@ -440,7 +440,7 @@ export const subscribeToActivityUpdates = (
     (error) => {
       console.error('Error in activity subscription:', error);
       callback(null);
-    }
+    },
   );
 };
 
@@ -460,7 +460,7 @@ export const getTodaysActivities = async (): Promise<ActivitySessionDB[]> => {
       where('datetime', '>=', startOfDay),
       where('datetime', '<', endOfDay),
       where('status', '==', 'open'),
-      orderBy('datetime', 'asc')
+      orderBy('datetime', 'asc'),
     );
 
     const querySnapshot = await getDocs(q);
@@ -469,7 +469,7 @@ export const getTodaysActivities = async (): Promise<ActivitySessionDB[]> => {
     querySnapshot.forEach((doc) => {
       activities.push({
         id: doc.id,
-        ...doc.data()
+        ...doc.data(),
       } as ActivitySessionDB);
     });
 
@@ -498,7 +498,7 @@ export const getRecommendedActivities = async (userId: string): Promise<Activity
     // Filter out activities the user has already joined
     const recommendedActivities = activities.filter(activity =>
       !activity.currentParticipants.includes(userId) &&
-      !activity.waitingList.includes(userId)
+      !activity.waitingList.includes(userId),
     );
 
     return recommendedActivities;

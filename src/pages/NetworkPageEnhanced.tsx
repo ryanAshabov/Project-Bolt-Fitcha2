@@ -13,7 +13,7 @@ import {
   MoreHorizontal,
   CheckCircle,
   X,
-  Gamepad2
+  Gamepad2,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
@@ -33,7 +33,7 @@ const mockNetworkData = {
       mutualFriends: 5,
       gamesPlayed: 23,
       isOnline: true,
-      isFavorite: true
+      isFavorite: true,
     },
     {
       id: 2,
@@ -47,7 +47,7 @@ const mockNetworkData = {
       mutualFriends: 3,
       gamesPlayed: 45,
       isOnline: false,
-      isFavorite: false
+      isFavorite: false,
     },
     {
       id: 3,
@@ -61,7 +61,7 @@ const mockNetworkData = {
       mutualFriends: 8,
       gamesPlayed: 67,
       isOnline: false,
-      isFavorite: true
+      isFavorite: true,
     },
     {
       id: 4,
@@ -75,8 +75,8 @@ const mockNetworkData = {
       mutualFriends: 2,
       gamesPlayed: 34,
       isOnline: true,
-      isFavorite: false
-    }
+      isFavorite: false,
+    },
   ],
 
   suggestions: [
@@ -89,7 +89,7 @@ const mockNetworkData = {
       level: 'متوسط',
       mutualFriends: 4,
       commonInterests: ['كرة القدم', 'كرة السلة'],
-      reason: 'أصدقاء مشتركون'
+      reason: 'أصدقاء مشتركون',
     },
     {
       id: 6,
@@ -100,7 +100,7 @@ const mockNetworkData = {
       level: 'متقدم',
       mutualFriends: 2,
       commonInterests: ['كرة القدم'],
-      reason: 'نفس المنطقة'
+      reason: 'نفس المنطقة',
     },
     {
       id: 7,
@@ -111,8 +111,8 @@ const mockNetworkData = {
       level: 'متقدم',
       mutualFriends: 6,
       commonInterests: ['كرة القدم', 'كرة الطائرة'],
-      reason: 'اهتمامات مشتركة'
-    }
+      reason: 'اهتمامات مشتركة',
+    },
   ],
 
   requests: [
@@ -124,7 +124,7 @@ const mockNetworkData = {
       rating: 4.6,
       level: 'متوسط',
       mutualFriends: 1,
-      sentAt: '2024-01-14'
+      sentAt: '2024-01-14',
     },
     {
       id: 9,
@@ -134,8 +134,8 @@ const mockNetworkData = {
       rating: 4.4,
       level: 'مبتدئ',
       mutualFriends: 0,
-      sentAt: '2024-01-13'
-    }
+      sentAt: '2024-01-13',
+    },
   ],
 
   groups: [
@@ -146,7 +146,7 @@ const mockNetworkData = {
       avatar: 'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=150&h=150&fit=crop',
       description: 'مجموعة لمحبي كرة القدم في الرياض',
       isJoined: true,
-      activity: 'نشط'
+      activity: 'نشط',
     },
     {
       id: 2,
@@ -155,7 +155,7 @@ const mockNetworkData = {
       avatar: 'https://images.unsplash.com/photo-1579952363873-27d3bfad9c0d?w=150&h=150&fit=crop',
       description: 'تجمع اللاعبين المحترفين',
       isJoined: false,
-      activity: 'نشط جداً'
+      activity: 'نشط جداً',
     },
     {
       id: 3,
@@ -164,9 +164,9 @@ const mockNetworkData = {
       avatar: 'https://images.unsplash.com/photo-1552318965-6e6be7484ada?w=150&h=150&fit=crop',
       description: 'للشباب من عمر 18-25',
       isJoined: true,
-      activity: 'متوسط'
-    }
-  ]
+      activity: 'متوسط',
+    },
+  ],
 };
 
 type TabType = 'friends' | 'suggestions' | 'requests' | 'groups';
@@ -241,7 +241,7 @@ const NetworkPageEnhanced: React.FC = () => {
               { id: 'friends', label: 'الأصدقاء', icon: Users, count: mockNetworkData.friends.length },
               { id: 'suggestions', label: 'مقترحات', icon: UserPlus, count: mockNetworkData.suggestions.length },
               { id: 'requests', label: 'الطلبات', icon: Heart, count: mockNetworkData.requests.length },
-              { id: 'groups', label: 'المجموعات', icon: Badge, count: mockNetworkData.groups.length }
+              { id: 'groups', label: 'المجموعات', icon: Badge, count: mockNetworkData.groups.length },
             ].map((tab) => {
               const Icon = tab.icon;
               return (
@@ -287,7 +287,7 @@ const NetworkPageEnhanced: React.FC = () => {
                   { id: 'all', label: 'الكل' },
                   { id: 'online', label: 'متصل' },
                   { id: 'offline', label: 'غير متصل' },
-                  { id: 'favorites', label: 'المفضلة' }
+                  { id: 'favorites', label: 'المفضلة' },
                 ].map((filterOption) => (
                   <button
                     key={filterOption.id}

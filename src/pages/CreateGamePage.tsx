@@ -20,7 +20,7 @@ import {
   Dumbbell,
   Mountain,
   Coffee,
-  Zap
+  Zap,
 } from 'lucide-react';
 
 interface User {
@@ -60,29 +60,29 @@ const mockUsers = [
     firstName: 'أحمد',
     lastName: 'محمد',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
-    isPro: false
+    isPro: false,
   },
   {
     id: '2',
     firstName: 'سارة',
     lastName: 'أحمد',
     avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face',
-    isPro: true
+    isPro: true,
   },
   {
     id: '3',
     firstName: 'محمد',
     lastName: 'العلي',
     avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face',
-    isPro: false
+    isPro: false,
   },
   {
     id: '4',
     firstName: 'فاطمة',
     lastName: 'الزهراء',
     avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
-    isPro: true
-  }
+    isPro: true,
+  },
 ];
 
 const activityCategories = {
@@ -90,38 +90,38 @@ const activityCategories = {
     name: 'Sports',
     icon: Trophy,
     color: 'from-blue-600 to-emerald-600',
-    activities: ['Football', 'Basketball', 'Tennis', 'Volleyball', 'Handball', 'Padel', 'Squash']
+    activities: ['Football', 'Basketball', 'Tennis', 'Volleyball', 'Handball', 'Padel', 'Squash'],
   },
   wellness: {
     name: 'Wellness & Relaxation',
     icon: Heart,
     color: 'from-emerald-500 to-teal-600',
-    activities: ['Yoga', 'Meditation', 'Pilates', 'Tai Chi', 'Massage Therapy', 'Spa', 'Deep Breathing']
+    activities: ['Yoga', 'Meditation', 'Pilates', 'Tai Chi', 'Massage Therapy', 'Spa', 'Deep Breathing'],
   },
   gaming: {
     name: 'Gaming',
     icon: Gamepad2,
     color: 'from-purple-600 to-pink-600',
-    activities: ['PlayStation', 'Chess', 'Backgammon', 'Cards', 'Board Games', 'Domino', 'Video Games']
+    activities: ['PlayStation', 'Chess', 'Backgammon', 'Cards', 'Board Games', 'Domino', 'Video Games'],
   },
   outdoor: {
     name: 'Outdoor Activities',
     icon: Mountain,
     color: 'from-orange-500 to-red-600',
-    activities: ['Cycling', 'Running', 'Walking', 'Climbing', 'Camping', 'Hiking', 'Fishing']
+    activities: ['Cycling', 'Running', 'Walking', 'Climbing', 'Camping', 'Hiking', 'Fishing'],
   },
   social: {
     name: 'Social Activities',
     icon: Coffee,
     color: 'from-yellow-500 to-orange-600',
-    activities: ['Coffee', 'Dinner', 'Cinema', 'Traditional Cafes', 'Cultural Events', 'Parties', 'Discussions']
+    activities: ['Coffee', 'Dinner', 'Cinema', 'Traditional Cafes', 'Cultural Events', 'Parties', 'Discussions'],
   },
   fitness: {
     name: 'Fitness',
     icon: Dumbbell,
     color: 'from-red-600 to-pink-600',
-    activities: ['Gym', 'CrossFit', 'Zumba', 'Aerobics', 'Weight Lifting', 'Cardio', 'Functional Training']
-  }
+    activities: ['Gym', 'CrossFit', 'Zumba', 'Aerobics', 'Weight Lifting', 'Cardio', 'Functional Training'],
+  },
 };
 
 const mockActivitySessions: ActivitySession[] = [
@@ -144,7 +144,7 @@ const mockActivitySessions: ActivitySession[] = [
     requirements: ['Sports shoes', 'Athletic wear'],
     equipment: ['Basketball provided'],
     ageRange: { min: 16, max: 35 },
-    genderPreference: 'mixed'
+    genderPreference: 'mixed',
   },
   {
     id: '2',
@@ -163,7 +163,7 @@ const mockActivitySessions: ActivitySession[] = [
     status: 'open',
     requirements: ['Yoga mat', 'Comfortable clothes'],
     ageRange: { min: 18, max: 60 },
-    genderPreference: 'mixed'
+    genderPreference: 'mixed',
   },
   {
     id: '3',
@@ -182,7 +182,7 @@ const mockActivitySessions: ActivitySession[] = [
     description: 'FIFA 24 tournament with valuable prizes for winners!',
     status: 'open',
     requirements: ['FIFA experience'],
-    ageRange: { min: 16, max: 30 }
+    ageRange: { min: 16, max: 30 },
   },
   {
     id: '4',
@@ -201,7 +201,7 @@ const mockActivitySessions: ActivitySession[] = [
     status: 'open',
     requirements: ['Bicycle', 'Safety helmet'],
     ageRange: { min: 14, max: 50 },
-    genderPreference: 'mixed'
+    genderPreference: 'mixed',
   },
   {
     id: '5',
@@ -219,7 +219,7 @@ const mockActivitySessions: ActivitySession[] = [
     description: 'Friendly meet to drink coffee and discuss interesting topics',
     status: 'open',
     ageRange: { min: 20, max: 45 },
-    genderPreference: 'mixed'
+    genderPreference: 'mixed',
   },
   {
     id: '6',
@@ -239,8 +239,8 @@ const mockActivitySessions: ActivitySession[] = [
     status: 'open',
     requirements: ['Basic fitness', 'Athletic wear'],
     ageRange: { min: 18, max: 40 },
-    genderPreference: 'mixed'
-  }
+    genderPreference: 'mixed',
+  },
 ];
 
 export const CreateGamePage: React.FC = () => {
@@ -269,7 +269,7 @@ export const CreateGamePage: React.FC = () => {
     equipment: '',
     ageMin: 16,
     ageMax: 50,
-    genderPreference: 'mixed'
+    genderPreference: 'mixed',
   });
 
   const levels = ['All', 'Beginner', 'Intermediate', 'Advanced', 'Professional'];
@@ -315,7 +315,7 @@ export const CreateGamePage: React.FC = () => {
       equipment: '',
       ageMin: 16,
       ageMax: 50,
-      genderPreference: 'mixed'
+      genderPreference: 'mixed',
     });
   };
 
@@ -328,17 +328,29 @@ export const CreateGamePage: React.FC = () => {
     const date = new Date(datetime);
     return {
       date: date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }),
-      time: date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+      time: date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
     };
   };
 
   const getActivityIcon = (type: string) => {
-    if (type === 'sports') return '⚽';
-    if (type === 'wellness') return '🧘';
-    if (type === 'gaming') return '🎮';
-    if (type === 'outdoor') return '🚴';
-    if (type === 'social') return '☕';
-    if (type === 'fitness') return '💪';
+    if (type === 'sports') {
+return '⚽';
+}
+    if (type === 'wellness') {
+return '🧘';
+}
+    if (type === 'gaming') {
+return '🎮';
+}
+    if (type === 'outdoor') {
+return '🚴';
+}
+    if (type === 'social') {
+return '☕';
+}
+    if (type === 'fitness') {
+return '💪';
+}
     return '🏃';
   };
 
@@ -349,7 +361,7 @@ export const CreateGamePage: React.FC = () => {
       gaming: 'bg-purple-100 text-purple-800',
       outdoor: 'bg-orange-100 text-orange-800',
       social: 'bg-yellow-100 text-yellow-800',
-      fitness: 'bg-red-100 text-red-800'
+      fitness: 'bg-red-100 text-red-800',
     };
     return colors[type as keyof typeof colors] || 'bg-slate-100 text-slate-800';
   };
@@ -489,7 +501,7 @@ export const CreateGamePage: React.FC = () => {
                           setActivityForm({
                             ...activityForm, 
                             type: newType,
-                            category: activityCategories[newType as keyof typeof activityCategories].activities[0]
+                            category: activityCategories[newType as keyof typeof activityCategories].activities[0],
                           });
                         }}
                         className="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white"

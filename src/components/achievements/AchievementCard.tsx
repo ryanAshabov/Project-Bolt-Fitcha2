@@ -32,13 +32,13 @@ export const AchievementCard: React.FC<AchievementCardProps> = ({ achievement, s
   const sizeClasses = {
     sm: 'p-3',
     md: 'p-4',
-    lg: 'p-6'
+    lg: 'p-6',
   };
 
   const iconSizes = {
     sm: 'text-2xl',
     md: 'text-3xl',
-    lg: 'text-4xl'
+    lg: 'text-4xl',
   };
 
   return (

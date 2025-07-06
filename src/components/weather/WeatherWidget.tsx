@@ -27,14 +27,22 @@ export const WeatherWidget: React.FC = () => {
   }
 
   const getWeatherIcon = (condition: string) => {
-    if (condition.toLowerCase().includes('rain')) return <CloudRain className="h-6 w-6" />;
-    if (condition.toLowerCase().includes('cloud')) return <Cloud className="h-6 w-6" />;
+    if (condition.toLowerCase().includes('rain')) {
+return <CloudRain className="h-6 w-6" />;
+}
+    if (condition.toLowerCase().includes('cloud')) {
+return <Cloud className="h-6 w-6" />;
+}
     return <Sun className="h-6 w-6" />;
   };
 
   const getConditionColor = (condition: string) => {
-    if (condition.toLowerCase().includes('rain')) return 'text-blue-600';
-    if (condition.toLowerCase().includes('cloud')) return 'text-slate-600';
+    if (condition.toLowerCase().includes('rain')) {
+return 'text-blue-600';
+}
+    if (condition.toLowerCase().includes('cloud')) {
+return 'text-slate-600';
+}
     return 'text-yellow-600';
   };
 

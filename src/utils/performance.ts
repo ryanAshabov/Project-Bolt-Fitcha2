@@ -20,7 +20,7 @@ import { lazy, ComponentType } from 'react';
  */
 export const lazyWithRetry = <T extends ComponentType<any>>(
   importFunc: () => Promise<{ default: T }>,
-  fallback?: ComponentType
+  fallback?: ComponentType,
 ) => {
   return lazy(() =>
     importFunc().catch(() => {
@@ -30,7 +30,7 @@ export const lazyWithRetry = <T extends ComponentType<any>>(
           resolve(importFunc());
         }, 1000);
       });
-    })
+    }),
   );
 };
 
@@ -40,7 +40,7 @@ export const lazyWithRetry = <T extends ComponentType<any>>(
  */
 export const debounce = <T extends (...args: any[]) => any>(
   func: T,
-  delay: number
+  delay: number,
 ): ((...args: Parameters<T>) => void) => {
   let timeoutId: NodeJS.Timeout;
   
@@ -56,7 +56,7 @@ export const debounce = <T extends (...args: any[]) => any>(
  */
 export const throttle = <T extends (...args: any[]) => any>(
   func: T,
-  limit: number
+  limit: number,
 ): ((...args: Parameters<T>) => void) => {
   let inThrottle: boolean;
   
@@ -76,14 +76,18 @@ export const optimizeImageSrc = (
   src: string,
   width?: number,
   height?: number,
-  format: 'webp' | 'avif' | 'jpeg' = 'webp'
+  format: 'webp' | 'avif' | 'jpeg' = 'webp',
 ): string => {
   // In production, this would integrate with image optimization service
   // For now, return the original src with parameters
   const params = new URLSearchParams();
   
-  if (width) params.append('w', width.toString());
-  if (height) params.append('h', height.toString());
+  if (width) {
+params.append('w', width.toString());
+}
+  if (height) {
+params.append('h', height.toString());
+}
   params.append('f', format);
   params.append('q', '80'); // Quality
   
@@ -98,7 +102,9 @@ export const preloadResource = (href: string, as: string, type?: string) => {
   link.rel = 'preload';
   link.href = href;
   link.as = as;
-  if (type) link.type = type;
+  if (type) {
+link.type = type;
+}
   document.head.appendChild(link);
 };
 

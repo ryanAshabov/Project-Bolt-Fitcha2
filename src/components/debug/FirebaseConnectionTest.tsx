@@ -10,7 +10,7 @@ export const FirebaseConnectionTest: React.FC = () => {
   }>({
     auth: 'Testing...',
     firestore: 'Testing...',
-    config: null
+    config: null,
   });
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export const FirebaseConnectionTest: React.FC = () => {
         const unsubscribe = connectivityState(db).subscribe((state) => {
           setConnectionStatus(prev => ({ 
             ...prev, 
-            firestore: state.connected ? '✅ Connected' : '⚠️ Disconnected' 
+            firestore: state.connected ? '✅ Connected' : '⚠️ Disconnected', 
           }));
         });
         
@@ -48,7 +48,7 @@ export const FirebaseConnectionTest: React.FC = () => {
           authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
           hasApiKey: !!import.meta.env.VITE_FIREBASE_API_KEY,
           hasAppId: !!import.meta.env.VITE_FIREBASE_APP_ID,
-        }
+        },
       }));
     };
 

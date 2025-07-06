@@ -19,33 +19,33 @@ export const VoiceCommands: React.FC = () => {
     {
       command: 'احجز ملعب',
       action: 'book_court',
-      example: 'احجز ملعب تنس الساعة 6 مساءً'
+      example: 'احجز ملعب تنس الساعة 6 مساءً',
     },
     {
       command: 'ابحث عن ملعب',
       action: 'search_court',
-      example: 'ابحث عن ملعب كرة قدم قريب'
+      example: 'ابحث عن ملعب كرة قدم قريب',
     },
     {
       command: 'اعرض حجوزاتي',
       action: 'show_bookings',
-      example: 'اعرض حجوزاتي لهذا الأسبوع'
+      example: 'اعرض حجوزاتي لهذا الأسبوع',
     },
     {
       command: 'ألغي الحجز',
       action: 'cancel_booking',
-      example: 'ألغي حجز الغد'
+      example: 'ألغي حجز الغد',
     },
     {
       command: 'ابحث عن لاعبين',
       action: 'find_players',
-      example: 'ابحث عن لاعبين للتنس'
+      example: 'ابحث عن لاعبين للتنس',
     },
     {
       command: 'اعرض الطقس',
       action: 'show_weather',
-      example: 'كيف الطقس اليوم؟'
-    }
+      example: 'كيف الطقس اليوم؟',
+    },
   ];
 
   useEffect(() => {
@@ -55,7 +55,9 @@ export const VoiceCommands: React.FC = () => {
   }, []);
 
   const startListening = () => {
-    if (!isEnabled) return;
+    if (!isEnabled) {
+return;
+}
 
     const recognition = new (window as any).webkitSpeechRecognition();
     recognition.lang = 'ar-SA';
@@ -100,7 +102,7 @@ export const VoiceCommands: React.FC = () => {
     
     // Find matching command
     const matchedCommand = voiceCommands.find(cmd => 
-      lowerCommand.includes(cmd.command.toLowerCase())
+      lowerCommand.includes(cmd.command.toLowerCase()),
     );
 
     if (matchedCommand) {

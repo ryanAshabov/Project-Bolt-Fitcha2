@@ -74,7 +74,7 @@ export class ActivityBusinessLogic {
    */
   static calculateActivityPricing(
     activityData: Partial<ActivitySession>,
-    creatorLevel: string
+    creatorLevel: string,
   ) {
     let basePrice = 0;
     
@@ -180,7 +180,7 @@ export class ActivityBusinessLogic {
    */
   static generateActivityRecommendations(
     user: User,
-    allActivities: ActivitySession[]
+    allActivities: ActivitySession[],
   ) {
     const recommendations = allActivities
       .filter(activity => {
@@ -247,7 +247,7 @@ export class ActivityBusinessLogic {
   private static getRecommendationReasons(
     activity: ActivitySession,
     user: User,
-    score: number
+    score: number,
   ): string[] {
     const reasons: string[] = [];
     
@@ -281,7 +281,7 @@ export class ActivityBusinessLogic {
    */
   static async processActivityCompletion(
     activity: ActivitySession,
-    participants: Array<{ user: User; attended: boolean; rating?: number }>
+    participants: Array<{ user: User; attended: boolean; rating?: number }>,
   ) {
     try {
       // Update activity status

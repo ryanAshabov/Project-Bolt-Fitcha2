@@ -33,7 +33,7 @@ export const SmartBookingSystem: React.FC = () => {
     groupScheduling: false,
     backupCourt: false,
     dynamicPricing: true,
-    loyaltyPoints: true
+    loyaltyPoints: true,
   });
 
   const [preferences, setPreferences] = useState<BookingPreference>({
@@ -45,8 +45,8 @@ export const SmartBookingSystem: React.FC = () => {
     recurringPattern: {
       frequency: 'weekly',
       dayOfWeek: 5, // Friday
-      time: '18:00'
-    }
+      time: '18:00',
+    },
   });
 
   const [aiSuggestions, setAiSuggestions] = useState<any[]>([]);
@@ -66,7 +66,7 @@ export const SmartBookingSystem: React.FC = () => {
         description: 'بناءً على تحليل بياناتك، أفضل وقت لك هو الجمعة 6 مساءً',
         confidence: 92,
         action: 'احجز الآن',
-        savings: 15
+        savings: 15,
       },
       {
         id: '2',
@@ -75,7 +75,7 @@ export const SmartBookingSystem: React.FC = () => {
         description: 'ملعب Elite Tennis Center سينخفض سعره 20% غداً',
         confidence: 87,
         action: 'احجز غداً',
-        savings: 20
+        savings: 20,
       },
       {
         id: '3',
@@ -84,8 +84,8 @@ export const SmartBookingSystem: React.FC = () => {
         description: 'يمكنك توفير 30% بالانضمام لمجموعة أحمد محمد',
         confidence: 78,
         action: 'انضم للمجموعة',
-        savings: 30
-      }
+        savings: 30,
+      },
     ];
 
     setAiSuggestions(suggestions);
@@ -104,9 +104,15 @@ export const SmartBookingSystem: React.FC = () => {
   };
 
   const getConfidenceColor = (confidence: number) => {
-    if (confidence >= 90) return 'text-emerald-600 bg-emerald-100';
-    if (confidence >= 80) return 'text-blue-600 bg-blue-100';
-    if (confidence >= 70) return 'text-yellow-600 bg-yellow-100';
+    if (confidence >= 90) {
+return 'text-emerald-600 bg-emerald-100';
+}
+    if (confidence >= 80) {
+return 'text-blue-600 bg-blue-100';
+}
+    if (confidence >= 70) {
+return 'text-yellow-600 bg-yellow-100';
+}
     return 'text-red-600 bg-red-100';
   };
 

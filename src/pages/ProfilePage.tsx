@@ -24,7 +24,7 @@ import {
   Globe,
   Instagram,
   Twitter,
-  Facebook
+  Facebook,
 } from 'lucide-react';
 
 export const ProfilePage: React.FC = () => {
@@ -52,7 +52,7 @@ export const ProfilePage: React.FC = () => {
     { id: 'overview', label: 'Overview', icon: Users },
     { id: 'stats', label: 'Statistics', icon: TrendingUp },
     { id: 'achievements', label: 'Achievements', icon: Award },
-    { id: 'activity', label: 'Recent Activity', icon: Clock }
+    { id: 'activity', label: 'Recent Activity', icon: Clock },
   ];
 
   return (

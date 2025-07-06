@@ -15,7 +15,9 @@ export const CourtMap: React.FC<CourtMapProps> = ({ courts, selectedCourt, onCou
   const [mapView, setMapView] = useState<'map' | 'list'>('list');
 
   const getCourtsWithDistance = () => {
-    if (!coordinates) return courts;
+    if (!coordinates) {
+return courts;
+}
     
     return courts.map(court => ({
       ...court,
@@ -23,8 +25,8 @@ export const CourtMap: React.FC<CourtMapProps> = ({ courts, selectedCourt, onCou
         coordinates.lat,
         coordinates.lng,
         court.coordinates.lat,
-        court.coordinates.lng
-      )
+        court.coordinates.lng,
+      ),
     })).sort((a, b) => (a.distance || 0) - (b.distance || 0));
   };
 

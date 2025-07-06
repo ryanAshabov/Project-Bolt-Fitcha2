@@ -55,7 +55,7 @@ describe('Button Component', () => {
     render(
       <Button disabled onClick={handleClick}>
         Disabled Button
-      </Button>
+      </Button>,
     );
     
     const buttonElement = screen.getByRole('button');

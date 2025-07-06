@@ -28,7 +28,7 @@ import {
   onSnapshot,
   Unsubscribe,
   QueryDocumentSnapshot,
-  DocumentData
+  DocumentData,
 } from 'firebase/firestore';
 import { db } from './firebase';
 import { Post, MatchResult, User } from '../types';
@@ -69,7 +69,7 @@ export interface CommentData {
  */
 export const createPost = async (
   postData: CreatePostData,
-  authorId: string
+  authorId: string,
 ): Promise<string> => {
   try {
     const docRef = await addDoc(collection(db, 'posts'), {
@@ -80,7 +80,7 @@ export const createPost = async (
       shares: 0,
       likedBy: [],
       createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp()
+      updatedAt: serverTimestamp(),
     });
 
     return docRef.id;
@@ -101,7 +101,7 @@ export const createPost = async (
 export const getFeedPosts = async (
   userId: string,
   pageSize: number = 20,
-  lastDoc?: QueryDocumentSnapshot<DocumentData>
+  lastDoc?: QueryDocumentSnapshot<DocumentData>,
 ): Promise<{ posts: Post[]; hasMore: boolean; lastDoc: QueryDocumentSnapshot<DocumentData> | null }> => {
   try {
     // For now, get all posts ordered by creation date
@@ -109,7 +109,7 @@ export const getFeedPosts = async (
     let q = query(
       collection(db, 'posts'),
       orderBy('createdAt', 'desc'),
-      limit(pageSize)
+      limit(pageSize),
     );
 
     if (lastDoc) {
@@ -132,10 +132,10 @@ export const getFeedPosts = async (
           ...postData,
           author: {
             id: authorDoc.id,
-            ...authorDoc.data()
+            ...authorDoc.data(),
           },
           timestamp: postData.createdAt?.toDate() || new Date(),
-          isLiked: postData.likedBy?.includes(userId) || false
+          isLiked: postData.likedBy?.includes(userId) || false,
         } as Post);
       }
       
@@ -145,7 +145,7 @@ export const getFeedPosts = async (
     return {
       posts,
       hasMore: querySnapshot.size === pageSize,
-      lastDoc: newLastDoc
+      lastDoc: newLastDoc,
     };
 
   } catch (error) {
@@ -163,14 +163,14 @@ export const getFeedPosts = async (
  */
 export const getUserPosts = async (
   userId: string,
-  pageSize: number = 20
+  pageSize: number = 20,
 ): Promise<Post[]> => {
   try {
     const q = query(
       collection(db, 'posts'),
       where('authorId', '==', userId),
       orderBy('createdAt', 'desc'),
-      limit(pageSize)
+      limit(pageSize),
     );
 
     const querySnapshot = await getDocs(q);
@@ -187,7 +187,7 @@ export const getUserPosts = async (
           ...doc.data(),
           author: authorData,
           timestamp: doc.data().createdAt?.toDate() || new Date(),
-          isLiked: false // Will be updated based on current user
+          isLiked: false, // Will be updated based on current user
         } as Post);
       }
     });
@@ -210,7 +210,7 @@ export const getUserPosts = async (
 export const togglePostLike = async (
   postId: string,
   userId: string,
-  isLiking: boolean
+  isLiking: boolean,
 ): Promise<boolean> => {
   try {
     const postRef = doc(db, 'posts', postId);
@@ -219,13 +219,13 @@ export const togglePostLike = async (
       await updateDoc(postRef, {
         likes: increment(1),
         likedBy: arrayUnion(userId),
-        updatedAt: serverTimestamp()
+        updatedAt: serverTimestamp(),
       });
     } else {
       await updateDoc(postRef, {
         likes: increment(-1),
         likedBy: arrayRemove(userId),
-        updatedAt: serverTimestamp()
+        updatedAt: serverTimestamp(),
       });
     }
 
@@ -247,7 +247,7 @@ export const togglePostLike = async (
 export const addComment = async (
   postId: string,
   userId: string,
-  content: string
+  content: string,
 ): Promise<string> => {
   try {
     // Create comment document
@@ -258,13 +258,13 @@ export const addComment = async (
       likes: 0,
       likedBy: [],
       createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp()
+      updatedAt: serverTimestamp(),
     });
 
     // Increment post comment count
     await updateDoc(doc(db, 'posts', postId), {
       comments: increment(1),
-      updatedAt: serverTimestamp()
+      updatedAt: serverTimestamp(),
     });
 
     return commentRef.id;
@@ -283,14 +283,14 @@ export const addComment = async (
  */
 export const getPostComments = async (
   postId: string,
-  pageSize: number = 20
+  pageSize: number = 20,
 ): Promise<CommentData[]> => {
   try {
     const q = query(
       collection(db, 'comments'),
       where('postId', '==', postId),
       orderBy('createdAt', 'desc'),
-      limit(pageSize)
+      limit(pageSize),
     );
 
     const querySnapshot = await getDocs(q);
@@ -307,9 +307,9 @@ export const getPostComments = async (
           ...commentData,
           author: {
             id: authorDoc.id,
-            ...authorDoc.data()
+            ...authorDoc.data(),
           },
-          createdAt: commentData.createdAt?.toDate() || new Date()
+          createdAt: commentData.createdAt?.toDate() || new Date(),
         } as CommentData);
       }
     }
@@ -332,13 +332,13 @@ export const getPostComments = async (
 export const sharePost = async (
   postId: string,
   userId: string,
-  shareContent?: string
+  shareContent?: string,
 ): Promise<boolean> => {
   try {
     // Increment share count
     await updateDoc(doc(db, 'posts', postId), {
       shares: increment(1),
-      updatedAt: serverTimestamp()
+      updatedAt: serverTimestamp(),
     });
 
     // Create share record
@@ -346,7 +346,7 @@ export const sharePost = async (
       postId,
       userId,
       content: shareContent || '',
-      createdAt: serverTimestamp()
+      createdAt: serverTimestamp(),
     });
 
     return true;
@@ -399,7 +399,7 @@ export const deletePost = async (postId: string, userId: string): Promise<boolea
 export const updatePost = async (
   postId: string,
   userId: string,
-  updates: Partial<CreatePostData>
+  updates: Partial<CreatePostData>,
 ): Promise<boolean> => {
   try {
     // Check if user is the author
@@ -416,7 +416,7 @@ export const updatePost = async (
     // Update the post
     await updateDoc(doc(db, 'posts', postId), {
       ...updates,
-      updatedAt: serverTimestamp()
+      updatedAt: serverTimestamp(),
     });
 
     return true;
@@ -435,7 +435,7 @@ export const updatePost = async (
  */
 export const getTrendingPosts = async (
   timeframe: 'day' | 'week' | 'month' = 'week',
-  pageSize: number = 20
+  pageSize: number = 20,
 ): Promise<Post[]> => {
   try {
     // Calculate date threshold
@@ -459,7 +459,7 @@ export const getTrendingPosts = async (
       collection(db, 'posts'),
       where('createdAt', '>=', threshold),
       orderBy('createdAt', 'desc'),
-      limit(pageSize * 2) // Get more to sort by engagement
+      limit(pageSize * 2), // Get more to sort by engagement
     );
 
     const querySnapshot = await getDocs(q);
@@ -477,10 +477,10 @@ export const getTrendingPosts = async (
           ...postData,
           author: {
             id: authorDoc.id,
-            ...authorDoc.data()
+            ...authorDoc.data(),
           },
           timestamp: postData.createdAt?.toDate() || new Date(),
-          isLiked: false
+          isLiked: false,
         } as Post);
       }
     }
@@ -508,7 +508,7 @@ export const getTrendingPosts = async (
  */
 export const subscribeToPostUpdates = (
   postId: string,
-  callback: (post: Post | null) => void
+  callback: (post: Post | null) => void,
 ): Unsubscribe => {
   return onSnapshot(
     doc(db, 'posts', postId),
@@ -524,10 +524,10 @@ export const subscribeToPostUpdates = (
             ...postData,
             author: {
               id: authorDoc.id,
-              ...authorDoc.data()
+              ...authorDoc.data(),
             },
             timestamp: postData.createdAt?.toDate() || new Date(),
-            isLiked: false
+            isLiked: false,
           } as Post);
         }
       } else {
@@ -537,7 +537,7 @@ export const subscribeToPostUpdates = (
     (error) => {
       console.error('Error in post subscription:', error);
       callback(null);
-    }
+    },
   );
 };
 
@@ -550,7 +550,7 @@ export const subscribeToPostUpdates = (
  */
 export const searchPosts = async (
   searchQuery: string,
-  pageSize: number = 20
+  pageSize: number = 20,
 ): Promise<Post[]> => {
   try {
     // For now, we'll do a simple client-side search
@@ -559,7 +559,7 @@ export const searchPosts = async (
 
     const filteredPosts = posts.filter(post =>
       post.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (post.tags && post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())))
+      (post.tags && post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))),
     );
 
     return filteredPosts.slice(0, pageSize);

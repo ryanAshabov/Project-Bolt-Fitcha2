@@ -16,7 +16,7 @@ import {
   Mic, 
   Wifi,
   Zap,
-  Sparkles
+  Sparkles,
 } from 'lucide-react';
 
 export const SmartFeaturesPage: React.FC = () => {
@@ -29,7 +29,7 @@ export const SmartFeaturesPage: React.FC = () => {
       icon: Brain,
       description: 'Smart bot to help you find the perfect courts',
       component: CourtConcierge,
-      gradient: 'from-blue-600 to-purple-600'
+      gradient: 'from-blue-600 to-purple-600',
     },
     {
       id: 'ar-preview',
@@ -37,7 +37,7 @@ export const SmartFeaturesPage: React.FC = () => {
       icon: Camera,
       description: 'Explore courts using augmented reality',
       component: ARCourtPreview,
-      gradient: 'from-purple-600 to-pink-600'
+      gradient: 'from-purple-600 to-pink-600',
     },
     {
       id: 'real-time-rating',
@@ -45,7 +45,7 @@ export const SmartFeaturesPage: React.FC = () => {
       icon: Star,
       description: 'Real-time court conditions and crowd levels',
       component: RealTimeRating,
-      gradient: 'from-yellow-500 to-orange-600'
+      gradient: 'from-yellow-500 to-orange-600',
     },
     {
       id: 'community',
@@ -53,7 +53,7 @@ export const SmartFeaturesPage: React.FC = () => {
       icon: Users,
       description: 'Connect with other players and join events',
       component: CourtCommunity,
-      gradient: 'from-emerald-500 to-teal-600'
+      gradient: 'from-emerald-500 to-teal-600',
     },
     {
       id: 'smart-booking',
@@ -61,7 +61,7 @@ export const SmartFeaturesPage: React.FC = () => {
       icon: Calendar,
       description: 'Advanced booking system with AI optimization',
       component: SmartBookingSystem,
-      gradient: 'from-indigo-600 to-blue-600'
+      gradient: 'from-indigo-600 to-blue-600',
     },
     {
       id: 'voice-commands',
@@ -69,7 +69,7 @@ export const SmartFeaturesPage: React.FC = () => {
       icon: Mic,
       description: 'Control the app using your voice',
       component: VoiceCommands,
-      gradient: 'from-red-500 to-pink-600'
+      gradient: 'from-red-500 to-pink-600',
     },
     {
       id: 'iot-integration',
@@ -77,8 +77,8 @@ export const SmartFeaturesPage: React.FC = () => {
       icon: Wifi,
       description: 'Connect with smart sensors and devices',
       component: IoTIntegration,
-      gradient: 'from-cyan-500 to-blue-600'
-    }
+      gradient: 'from-cyan-500 to-blue-600',
+    },
   ];
 
   const activeFeatureData = features.find(f => f.id === activeFeature);

@@ -22,7 +22,7 @@ import {
   Clock,
   MessageCircle,
   UserPlus,
-  CheckCircle
+  CheckCircle,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 
@@ -47,7 +47,7 @@ const mockPartners = [
     preferredTime: 'Evening',
     trustScore: 92,
     verified: true,
-    matchScore: 95
+    matchScore: 95,
   },
   {
     id: 'partner-2',
@@ -68,7 +68,7 @@ const mockPartners = [
     preferredTime: 'Morning',
     trustScore: 88,
     verified: true,
-    matchScore: 87
+    matchScore: 87,
   },
   {
     id: 'partner-3',
@@ -89,7 +89,7 @@ const mockPartners = [
     preferredTime: 'Evening',
     trustScore: 96,
     verified: true,
-    matchScore: 82
+    matchScore: 82,
   },
   {
     id: 'partner-4',
@@ -110,7 +110,7 @@ const mockPartners = [
     preferredTime: 'Afternoon',
     trustScore: 90,
     verified: true,
-    matchScore: 78
+    matchScore: 78,
   },
   {
     id: 'partner-5',
@@ -131,7 +131,7 @@ const mockPartners = [
     preferredTime: 'Night',
     trustScore: 85,
     verified: false,
-    matchScore: 73
+    matchScore: 73,
   },
   {
     id: 'partner-6',
@@ -152,8 +152,8 @@ const mockPartners = [
     preferredTime: 'Morning',
     trustScore: 82,
     verified: true,
-    matchScore: 68
-  }
+    matchScore: 68,
+  },
 ];
 
 const FindPartnersPageEnhanced: React.FC = () => {
@@ -209,7 +209,7 @@ const FindPartnersPageEnhanced: React.FC = () => {
     setSelectedSports(prev => 
       prev.includes(sport) 
         ? prev.filter(s => s !== sport)
-        : [...prev, sport]
+        : [...prev, sport],
     );
   };
 
@@ -230,9 +230,15 @@ const FindPartnersPageEnhanced: React.FC = () => {
   };
 
   const getTrustScoreColor = (score: number) => {
-    if (score >= 90) return 'text-green-600';
-    if (score >= 80) return 'text-blue-600';
-    if (score >= 70) return 'text-yellow-600';
+    if (score >= 90) {
+return 'text-green-600';
+}
+    if (score >= 80) {
+return 'text-blue-600';
+}
+    if (score >= 70) {
+return 'text-yellow-600';
+}
     return 'text-red-600';
   };
 
@@ -267,7 +273,7 @@ const FindPartnersPageEnhanced: React.FC = () => {
             {/* Quick Filters */}
             <div className="flex gap-2 flex-wrap">
               <Button
-                variant={showFilters ? "primary" : "outline"}
+                variant={showFilters ? 'primary' : 'outline'}
                 onClick={() => setShowFilters(!showFilters)}
                 className="flex items-center gap-2"
               >

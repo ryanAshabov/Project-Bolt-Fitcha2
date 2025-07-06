@@ -28,7 +28,7 @@ import {
   ArrowLeft,
   Plus,
   Image,
-  File
+  File,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 
@@ -43,11 +43,11 @@ const mockConversations = [
       content: 'Great game today! Same time tomorrow?',
       timestamp: new Date(Date.now() - 1000 * 60 * 15), // 15 minutes ago
       senderId: 'ahmed-123',
-      read: false
+      read: false,
     },
     participants: ['current-user', 'ahmed-123'],
     isOnline: true,
-    unreadCount: 2
+    unreadCount: 2,
   },
   {
     id: 'conv-2',
@@ -58,11 +58,11 @@ const mockConversations = [
       content: 'Sarah: Who is bringing the water bottles?',
       timestamp: new Date(Date.now() - 1000 * 60 * 45), // 45 minutes ago
       senderId: 'sarah-456',
-      read: true
+      read: true,
     },
     participants: ['current-user', 'ahmed-123', 'sarah-456', 'omar-789'],
     isOnline: false,
-    unreadCount: 0
+    unreadCount: 0,
   },
   {
     id: 'conv-3',
@@ -73,11 +73,11 @@ const mockConversations = [
       content: 'Thanks for the yoga session recommendation!',
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2), // 2 hours ago
       senderId: 'sarah-456',
-      read: true
+      read: true,
     },
     participants: ['current-user', 'sarah-456'],
     isOnline: true,
-    unreadCount: 0
+    unreadCount: 0,
   },
   {
     id: 'conv-4',
@@ -88,11 +88,11 @@ const mockConversations = [
       content: 'Omar: Court 3 is available this weekend',
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 4), // 4 hours ago
       senderId: 'omar-789',
-      read: true
+      read: true,
     },
     participants: ['current-user', 'omar-789', 'nadia-101', 'khaled-202'],
     isOnline: false,
-    unreadCount: 0
+    unreadCount: 0,
   },
   {
     id: 'conv-5',
@@ -103,12 +103,12 @@ const mockConversations = [
       content: 'Looking forward to our doubles match!',
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24), // 1 day ago
       senderId: 'nadia-101',
-      read: true
+      read: true,
     },
     participants: ['current-user', 'nadia-101'],
     isOnline: false,
-    unreadCount: 0
-  }
+    unreadCount: 0,
+  },
 ];
 
 // Mock messages for active conversation
@@ -120,7 +120,7 @@ const mockMessages = [
     senderName: 'Ahmed Hassan',
     timestamp: new Date(Date.now() - 1000 * 60 * 30),
     read: true,
-    type: 'text'
+    type: 'text',
   },
   {
     id: 'msg-2',
@@ -129,7 +129,7 @@ const mockMessages = [
     senderName: 'You',
     timestamp: new Date(Date.now() - 1000 * 60 * 25),
     read: true,
-    type: 'text'
+    type: 'text',
   },
   {
     id: 'msg-3',
@@ -138,7 +138,7 @@ const mockMessages = [
     senderName: 'Ahmed Hassan',
     timestamp: new Date(Date.now() - 1000 * 60 * 20),
     read: true,
-    type: 'text'
+    type: 'text',
   },
   {
     id: 'msg-4',
@@ -147,7 +147,7 @@ const mockMessages = [
     senderName: 'You',
     timestamp: new Date(Date.now() - 1000 * 60 * 18),
     read: true,
-    type: 'text'
+    type: 'text',
   },
   {
     id: 'msg-5',
@@ -156,7 +156,7 @@ const mockMessages = [
     senderName: 'Ahmed Hassan',
     timestamp: new Date(Date.now() - 1000 * 60 * 16),
     read: true,
-    type: 'text'
+    type: 'text',
   },
   {
     id: 'msg-6',
@@ -165,8 +165,8 @@ const mockMessages = [
     senderName: 'Ahmed Hassan',
     timestamp: new Date(Date.now() - 1000 * 60 * 15),
     read: false,
-    type: 'text'
-  }
+    type: 'text',
+  },
 ];
 
 const MessagesPageEnhanced: React.FC = () => {
@@ -186,21 +186,29 @@ const MessagesPageEnhanced: React.FC = () => {
   // Filter conversations based on search
   const filteredConversations = conversations.filter(conv =>
     conv.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    conv.lastMessage.content.toLowerCase().includes(searchQuery.toLowerCase())
+    conv.lastMessage.content.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const formatTime = (date: Date) => {
     const now = new Date();
     const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60));
     
-    if (diffInMinutes < 1) return 'Just now';
-    if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
-    if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)}h ago`;
+    if (diffInMinutes < 1) {
+return 'Just now';
+}
+    if (diffInMinutes < 60) {
+return `${diffInMinutes}m ago`;
+}
+    if (diffInMinutes < 1440) {
+return `${Math.floor(diffInMinutes / 60)}h ago`;
+}
     return `${Math.floor(diffInMinutes / 1440)}d ago`;
   };
 
   const handleSendMessage = () => {
-    if (!newMessage.trim() || !selectedConversation) return;
+    if (!newMessage.trim() || !selectedConversation) {
+return;
+}
 
     const message = {
       id: `msg-${Date.now()}`,
@@ -209,7 +217,7 @@ const MessagesPageEnhanced: React.FC = () => {
       senderName: 'You',
       timestamp: new Date(),
       read: true,
-      type: 'text' as const
+      type: 'text' as const,
     };
 
     setMessages(prev => [...prev, message]);
@@ -219,7 +227,7 @@ const MessagesPageEnhanced: React.FC = () => {
     setConversations(prev => prev.map(conv => 
       conv.id === selectedConversation
         ? { ...conv, lastMessage: { ...message, senderId: 'current-user' } }
-        : conv
+        : conv,
     ));
   };
 

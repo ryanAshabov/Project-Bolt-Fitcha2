@@ -18,7 +18,7 @@ export const useNotifications = () => {
         isRead: false,
         createdAt: new Date(Date.now() - 30 * 60 * 1000),
         actionUrl: '/games/game-1',
-        priority: 'high'
+        priority: 'high',
       },
       {
         id: '2',
@@ -30,7 +30,7 @@ export const useNotifications = () => {
         isRead: false,
         createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000),
         actionUrl: '/games/game-2',
-        priority: 'medium'
+        priority: 'medium',
       },
       {
         id: '3',
@@ -41,8 +41,8 @@ export const useNotifications = () => {
         data: { achievementId: 'team-player' },
         isRead: true,
         createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000),
-        priority: 'low'
-      }
+        priority: 'low',
+      },
     ];
 
     setNotifications(mockNotifications);
@@ -54,15 +54,15 @@ export const useNotifications = () => {
       prev.map(notification => 
         notification.id === notificationId 
           ? { ...notification, isRead: true }
-          : notification
-      )
+          : notification,
+      ),
     );
     setUnreadCount(prev => Math.max(0, prev - 1));
   };
 
   const markAllAsRead = () => {
     setNotifications(prev => 
-      prev.map(notification => ({ ...notification, isRead: true }))
+      prev.map(notification => ({ ...notification, isRead: true })),
     );
     setUnreadCount(0);
   };
@@ -71,7 +71,7 @@ export const useNotifications = () => {
     const newNotification: Notification = {
       ...notification,
       id: Date.now().toString(),
-      createdAt: new Date()
+      createdAt: new Date(),
     };
     
     setNotifications(prev => [newNotification, ...prev]);
@@ -94,6 +94,6 @@ export const useNotifications = () => {
     markAsRead,
     markAllAsRead,
     addNotification,
-    removeNotification
+    removeNotification,
   };
 };

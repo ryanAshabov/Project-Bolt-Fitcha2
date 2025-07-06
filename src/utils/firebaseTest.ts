@@ -34,7 +34,7 @@ export const testFirebaseConnection = async (): Promise<void> => {
       await setDoc(testDocRef, {
         timestamp: new Date(),
         test: 'Firebase connection test',
-        success: true
+        success: true,
       });
       console.log('✅ Firestore write test successful');
       
@@ -69,7 +69,7 @@ export const testFirebaseConnection = async (): Promise<void> => {
           lastName: 'User',
           email: testEmail,
           createdAt: new Date(),
-          testProfile: true
+          testProfile: true,
         });
         console.log('✅ User profile creation test successful');
         
@@ -112,7 +112,7 @@ export const testUserProfileCreation = async (userId: string, userData: Record<s
     await setDoc(userDocRef, {
       ...userData,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     });
     
     console.log('✅ User profile write successful');

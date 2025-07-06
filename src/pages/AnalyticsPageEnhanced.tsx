@@ -11,7 +11,7 @@ import {
   ArrowUp,
   ArrowDown,
   Minus,
-  MapPin
+  MapPin,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 
@@ -29,7 +29,7 @@ const mockAnalyticsData = {
     goals: 67,
     assists: 34,
     cleanSheets: 23,
-    improvement: 15.2 // percentage improvement
+    improvement: 15.2, // percentage improvement
   },
 
   monthly: [
@@ -38,53 +38,53 @@ const mockAnalyticsData = {
     { month: 'نوفمبر', games: 20, wins: 14, rating: 4.9, hours: 40 },
     { month: 'أكتوبر', games: 15, wins: 8, rating: 4.6, hours: 30 },
     { month: 'سبتمبر', games: 22, wins: 16, rating: 4.8, hours: 44 },
-    { month: 'أغسطس', games: 19, wins: 13, rating: 4.7, hours: 38 }
+    { month: 'أغسطس', games: 19, wins: 13, rating: 4.7, hours: 38 },
   ],
 
   weeklyPerformance: [
     { week: 'هذا الأسبوع', games: 3, wins: 2, rating: 4.7, change: 0.1 },
     { week: 'الأسبوع الماضي', games: 4, wins: 3, rating: 4.6, change: -0.2 },
     { week: 'قبل أسبوعين', games: 5, wins: 4, rating: 4.8, change: 0.3 },
-    { week: 'قبل 3 أسابيع', games: 2, wins: 1, rating: 4.5, change: -0.1 }
+    { week: 'قبل 3 أسابيع', games: 2, wins: 1, rating: 4.5, change: -0.1 },
   ],
 
   gameTypes: [
     { type: 'كرة القدم', games: 89, winRate: 70.8, avgRating: 4.9 },
     { type: 'كرة السلة', games: 32, winRate: 62.5, avgRating: 4.6 },
-    { type: 'كرة الطائرة', games: 24, winRate: 66.7, avgRating: 4.8 }
+    { type: 'كرة الطائرة', games: 24, winRate: 66.7, avgRating: 4.8 },
   ],
 
   positions: [
     { position: 'وسط الملعب', games: 65, performance: 4.9 },
     { position: 'مهاجم', games: 45, performance: 4.7 },
-    { position: 'مدافع', games: 35, performance: 4.8 }
+    { position: 'مدافع', games: 35, performance: 4.8 },
   ],
 
   achievements: {
     recent: [
       { title: 'صانع الألعاب', date: '2024-01-14', type: 'games' },
       { title: 'النجم الساطع', date: '2024-01-10', type: 'rating' },
-      { title: 'المحارب الجديد', date: '2024-01-05', type: 'wins' }
+      { title: 'المحارب الجديد', date: '2024-01-05', type: 'wins' },
     ],
     progress: [
       { title: 'المحارب', current: 98, target: 100, percentage: 98 },
       { title: 'الماراثونر', current: 289, target: 500, percentage: 57.8 },
-      { title: 'القناص', current: 67, target: 100, percentage: 67 }
-    ]
+      { title: 'القناص', current: 67, target: 100, percentage: 67 },
+    ],
   },
 
   venues: [
     { name: 'ملعب الملك فهد', games: 35, winRate: 74.3, avgRating: 4.9 },
     { name: 'نادي الأهلي', games: 28, winRate: 67.9, avgRating: 4.8 },
     { name: 'ملعب الأمير فيصل', games: 22, winRate: 63.6, avgRating: 4.7 },
-    { name: 'مجمع الرياض الرياضي', games: 18, winRate: 72.2, avgRating: 4.8 }
+    { name: 'مجمع الرياض الرياضي', games: 18, winRate: 72.2, avgRating: 4.8 },
   ],
 
   timeDistribution: [
     { time: 'الصباح (6-12)', games: 45, winRate: 71.1 },
     { time: 'بعد الظهر (12-18)', games: 62, winRate: 66.1 },
-    { time: 'المساء (18-24)', games: 38, winRate: 68.4 }
-  ]
+    { time: 'المساء (18-24)', games: 38, winRate: 68.4 },
+  ],
 };
 
 type TimeFilter = 'week' | 'month' | 'year' | 'all';
@@ -95,14 +95,22 @@ const AnalyticsPageEnhanced: React.FC = () => {
   const [showDetails, setShowDetails] = useState(false);
 
   const getChangeIcon = (change: number) => {
-    if (change > 0) return <ArrowUp className="w-4 h-4 text-green-600" />;
-    if (change < 0) return <ArrowDown className="w-4 h-4 text-red-600" />;
+    if (change > 0) {
+return <ArrowUp className="w-4 h-4 text-green-600" />;
+}
+    if (change < 0) {
+return <ArrowDown className="w-4 h-4 text-red-600" />;
+}
     return <Minus className="w-4 h-4 text-gray-600" />;
   };
 
   const getChangeColor = (change: number) => {
-    if (change > 0) return 'text-green-600';
-    if (change < 0) return 'text-red-600';
+    if (change > 0) {
+return 'text-green-600';
+}
+    if (change < 0) {
+return 'text-red-600';
+}
     return 'text-gray-600';
   };
 
@@ -263,7 +271,7 @@ const AnalyticsPageEnhanced: React.FC = () => {
                         style={{ 
                           width: selectedMetric === 'games' 
                             ? `${(month.games / 25) * 100}%` 
-                            : `${(month.rating / 5) * 100}%` 
+                            : `${(month.rating / 5) * 100}%`, 
                         }}
                       />
                     </div>

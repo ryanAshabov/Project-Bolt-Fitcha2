@@ -32,7 +32,7 @@ import {
   Sparkles,
   Menu,
   X,
-  Play
+  Play,
 } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { Button } from '../ui/Button';

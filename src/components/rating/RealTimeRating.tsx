@@ -30,7 +30,7 @@ export const RealTimeRating: React.FC<RealTimeRatingProps> = ({ court }) => {
     windSpeed: 12,
     wifiStrength: 4.0,
     parkingAvailability: 3.5,
-    lastUpdated: new Date()
+    lastUpdated: new Date(),
   });
 
   const [isLive, setIsLive] = useState(true);
@@ -44,7 +44,7 @@ export const RealTimeRating: React.FC<RealTimeRatingProps> = ({ court }) => {
         temperature: Math.max(15, Math.min(35, prev.temperature + (Math.random() - 0.5) * 2)),
         humidity: Math.max(30, Math.min(90, prev.humidity + (Math.random() - 0.5) * 5)),
         windSpeed: Math.max(0, Math.min(30, prev.windSpeed + (Math.random() - 0.5) * 3)),
-        lastUpdated: new Date()
+        lastUpdated: new Date(),
       }));
     }, 5000);
 
@@ -52,15 +52,25 @@ export const RealTimeRating: React.FC<RealTimeRatingProps> = ({ court }) => {
   }, []);
 
   const getConditionColor = (value: number) => {
-    if (value >= 4) return 'text-emerald-600 bg-emerald-100';
-    if (value >= 3) return 'text-yellow-600 bg-yellow-100';
+    if (value >= 4) {
+return 'text-emerald-600 bg-emerald-100';
+}
+    if (value >= 3) {
+return 'text-yellow-600 bg-yellow-100';
+}
     return 'text-red-600 bg-red-100';
   };
 
   const getCrowdLevel = (density: number) => {
-    if (density >= 4) return { label: 'مزدحم جداً', color: 'text-red-600 bg-red-100' };
-    if (density >= 3) return { label: 'مزدحم', color: 'text-yellow-600 bg-yellow-100' };
-    if (density >= 2) return { label: 'متوسط', color: 'text-blue-600 bg-blue-100' };
+    if (density >= 4) {
+return { label: 'مزدحم جداً', color: 'text-red-600 bg-red-100' };
+}
+    if (density >= 3) {
+return { label: 'مزدحم', color: 'text-yellow-600 bg-yellow-100' };
+}
+    if (density >= 2) {
+return { label: 'متوسط', color: 'text-blue-600 bg-blue-100' };
+}
     return { label: 'هادئ', color: 'text-emerald-600 bg-emerald-100' };
   };
 
@@ -68,7 +78,7 @@ export const RealTimeRating: React.FC<RealTimeRatingProps> = ({ court }) => {
     return date.toLocaleTimeString('ar-SA', { 
       hour: '2-digit', 
       minute: '2-digit',
-      second: '2-digit'
+      second: '2-digit',
     });
   };
 

@@ -23,7 +23,7 @@ import {
   Coffee,
   Plus,
   CheckCircle,
-  Star
+  Star,
 } from 'lucide-react';
 
 const activityCategories = {
@@ -38,8 +38,8 @@ const activityCategories = {
       { name: 'Football', price: 20, popular: true },
       { name: 'Basketball', price: 15, popular: true },
       { name: 'Tennis', price: 25, popular: false },
-      { name: 'Volleyball', price: 12, popular: true }
-    ]
+      { name: 'Volleyball', price: 12, popular: true },
+    ],
   },
   wellness: {
     name: 'Wellness & Mindfulness',
@@ -51,8 +51,8 @@ const activityCategories = {
     activities: [
       { name: 'Yoga', price: 18, popular: true },
       { name: 'Meditation', price: 10, popular: true },
-      { name: 'Pilates', price: 22, popular: false }
-    ]
+      { name: 'Pilates', price: 22, popular: false },
+    ],
   },
   gaming: {
     name: 'Gaming & Esports',
@@ -64,8 +64,8 @@ const activityCategories = {
     activities: [
       { name: 'FIFA Tournament', price: 25, popular: true },
       { name: 'Chess Match', price: 8, popular: false },
-      { name: 'Poker Night', price: 30, popular: true }
-    ]
+      { name: 'Poker Night', price: 30, popular: true },
+    ],
   },
   fitness: {
     name: 'Fitness & Training',
@@ -77,8 +77,8 @@ const activityCategories = {
     activities: [
       { name: 'Gym Session', price: 20, popular: true },
       { name: 'CrossFit', price: 25, popular: true },
-      { name: 'Zumba Class', price: 15, popular: true }
-    ]
+      { name: 'Zumba Class', price: 15, popular: true },
+    ],
   },
   outdoor: {
     name: 'Outdoor Adventures',
@@ -90,8 +90,8 @@ const activityCategories = {
     activities: [
       { name: 'Cycling Tour', price: 15, popular: true },
       { name: 'Running Group', price: 5, popular: true },
-      { name: 'Hiking Trip', price: 25, popular: false }
-    ]
+      { name: 'Hiking Trip', price: 25, popular: false },
+    ],
   },
   social: {
     name: 'Social & Cultural',
@@ -103,9 +103,9 @@ const activityCategories = {
     activities: [
       { name: 'Coffee Meetup', price: 8, popular: true },
       { name: 'Dinner Party', price: 35, popular: true },
-      { name: 'Cinema Night', price: 15, popular: true }
-    ]
-  }
+      { name: 'Cinema Night', price: 15, popular: true },
+    ],
+  },
 };
 
 interface GameFormData {
@@ -147,7 +147,7 @@ export const CreateGamePageV2: React.FC = () => {
     maxParticipants: 4,
     skillLevel: 'All Levels',
     isPaid: false,
-    pricePerPerson: 0
+    pricePerPerson: 0,
   });
 
   const [isLoading, setIsLoading] = useState(false);

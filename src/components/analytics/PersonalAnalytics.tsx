@@ -6,7 +6,9 @@ export const PersonalAnalytics: React.FC = () => {
   const { user } = useAuth();
   const [timeframe, setTimeframe] = useState<'week' | 'month' | 'year'>('month');
 
-  if (!user) return null;
+  if (!user) {
+return null;
+}
 
   const mockAnalytics = {
     week: {
@@ -15,7 +17,7 @@ export const PersonalAnalytics: React.FC = () => {
       improvement: '+15%',
       favoriteTime: '6-8 PM',
       topSport: 'Basketball',
-      socialScore: 85
+      socialScore: 85,
     },
     month: {
       gamesPlayed: 12,
@@ -23,7 +25,7 @@ export const PersonalAnalytics: React.FC = () => {
       improvement: '+23%',
       favoriteTime: '6-8 PM',
       topSport: 'Basketball',
-      socialScore: 88
+      socialScore: 88,
     },
     year: {
       gamesPlayed: 127,
@@ -31,8 +33,8 @@ export const PersonalAnalytics: React.FC = () => {
       improvement: '+45%',
       favoriteTime: '6-8 PM',
       topSport: 'Basketball',
-      socialScore: 92
-    }
+      socialScore: 92,
+    },
   };
 
   const analytics = mockAnalytics[timeframe];
@@ -44,7 +46,7 @@ export const PersonalAnalytics: React.FC = () => {
       icon: Trophy,
       color: 'text-blue-600',
       bgColor: 'bg-blue-100',
-      change: analytics.improvement
+      change: analytics.improvement,
     },
     {
       title: 'Hours Played',
@@ -52,7 +54,7 @@ export const PersonalAnalytics: React.FC = () => {
       icon: Clock,
       color: 'text-emerald-600',
       bgColor: 'bg-emerald-100',
-      change: '+12%'
+      change: '+12%',
     },
     {
       title: 'Social Score',
@@ -60,7 +62,7 @@ export const PersonalAnalytics: React.FC = () => {
       icon: Users,
       color: 'text-purple-600',
       bgColor: 'bg-purple-100',
-      change: '+8%'
+      change: '+8%',
     },
     {
       title: 'Win Rate',
@@ -68,8 +70,8 @@ export const PersonalAnalytics: React.FC = () => {
       icon: Target,
       color: 'text-yellow-600',
       bgColor: 'bg-yellow-100',
-      change: '+5%'
-    }
+      change: '+5%',
+    },
   ];
 
   return (

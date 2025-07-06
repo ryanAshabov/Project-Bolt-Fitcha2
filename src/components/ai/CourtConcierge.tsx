@@ -24,9 +24,9 @@ export const CourtConcierge: React.FC = () => {
         'أريد ملعب تنس قريب',
         'ما هي الملاعب المتاحة مساءً؟',
         'أريد ملعب كرة قدم رخيص',
-        'اقترح لي ملعب مناسب'
-      ]
-    }
+        'اقترح لي ملعب مناسب',
+      ],
+    },
   ]);
   const [input, setInput] = useState('');
   const [isListening, setIsListening] = useState(false);
@@ -38,14 +38,16 @@ export const CourtConcierge: React.FC = () => {
   }, [messages]);
 
   const handleSendMessage = async (message: string) => {
-    if (!message.trim()) return;
+    if (!message.trim()) {
+return;
+}
 
     // Add user message
     const userMessage: Message = {
       id: Date.now().toString(),
       type: 'user',
       content: message,
-      timestamp: new Date()
+      timestamp: new Date(),
     };
 
     setMessages(prev => [...prev, userMessage]);
@@ -75,17 +77,17 @@ export const CourtConcierge: React.FC = () => {
             distance: '2.3 km',
             price: 40,
             rating: 4.9,
-            available: ['14:00', '16:00', '18:00']
+            available: ['14:00', '16:00', '18:00'],
           },
           {
             name: 'Royal Tennis Club',
             distance: '3.1 km',
             price: 35,
             rating: 4.7,
-            available: ['15:00', '17:00', '19:00']
-          }
+            available: ['15:00', '17:00', '19:00'],
+          },
         ],
-        suggestions: ['احجز الآن', 'اعرض المزيد', 'غير الوقت']
+        suggestions: ['احجز الآن', 'اعرض المزيد', 'غير الوقت'],
       };
     }
 
@@ -101,10 +103,10 @@ export const CourtConcierge: React.FC = () => {
             distance: '1.8 km',
             price: 35,
             rating: 4.5,
-            available: ['16:00', '18:00', '20:00']
-          }
+            available: ['16:00', '18:00', '20:00'],
+          },
         ],
-        suggestions: ['احجز الآن', 'ابحث عن ملاعب أخرى']
+        suggestions: ['احجز الآن', 'ابحث عن ملاعب أخرى'],
       };
     }
 
@@ -120,10 +122,10 @@ export const CourtConcierge: React.FC = () => {
             distance: '4.2 km',
             price: 15,
             rating: 4.2,
-            available: ['09:00', '11:00', '13:00']
-          }
+            available: ['09:00', '11:00', '13:00'],
+          },
         ],
-        suggestions: ['احجز الآن', 'ابحث في نطاق أوسع']
+        suggestions: ['احجز الآن', 'ابحث في نطاق أوسع'],
       };
     }
 
@@ -136,8 +138,8 @@ export const CourtConcierge: React.FC = () => {
         'أريد ملعب تنس',
         'أريد ملعب كرة قدم',
         'ما هي الملاعب القريبة؟',
-        'اعرض الملاعب الرخيصة'
-      ]
+        'اعرض الملاعب الرخيصة',
+      ],
     };
   };
 

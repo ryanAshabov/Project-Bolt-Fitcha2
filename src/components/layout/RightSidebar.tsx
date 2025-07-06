@@ -24,7 +24,7 @@ export const RightSidebar: React.FC = () => {
     completed: true,
     unlockedAt: new Date(),
     category: 'social',
-    rarity: 'rare'
+    rarity: 'rare',
   };
 
   const upcomingGames = [
@@ -33,15 +33,15 @@ export const RightSidebar: React.FC = () => {
       sport: 'Basketball',
       time: 'Today, 6:00 PM',
       location: 'Golden Gate Courts',
-      players: 3
+      players: 3,
     },
     {
       id: '2',
       sport: 'Tennis',
       time: 'Tomorrow, 3:00 PM',
       location: 'Elite Tennis Center',
-      players: 1
-    }
+      players: 1,
+    },
   ];
 
   return (
@@ -322,7 +322,7 @@ export const RightSidebar: React.FC = () => {
             { sport: 'Basketball', players: 247, trend: '+12%', icon: '🏀' },
             { sport: 'Tennis', players: 189, trend: '+8%', icon: '🎾' },
             { sport: 'Soccer', players: 156, trend: '+15%', icon: '⚽' },
-            { sport: 'Volleyball', players: 98, trend: '+5%', icon: '🏐' }
+            { sport: 'Volleyball', players: 98, trend: '+5%', icon: '🏐' },
           ].map((item) => (
             <div key={item.sport} className="flex items-center justify-between">
               <div className="flex items-center space-x-2">

@@ -9,7 +9,7 @@ interface EmailVerificationPageProps {
 }
 
 export const EmailVerificationPage: React.FC<EmailVerificationPageProps> = ({ 
-  email: propEmail 
+  email: propEmail, 
 }) => {
   const [isResending, setIsResending] = useState(false);
   const [resendSuccess, setResendSuccess] = useState(false);

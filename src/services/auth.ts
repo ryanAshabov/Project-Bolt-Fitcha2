@@ -21,14 +21,14 @@ import {
   updateProfile,
   User as FirebaseUser,
   AuthError,
-  UserCredential
+  UserCredential,
 } from 'firebase/auth';
 import { 
   doc, 
   setDoc, 
   getDoc, 
   updateDoc, 
-  serverTimestamp
+  serverTimestamp,
 } from 'firebase/firestore';
 import { auth, db } from './firebase';
 import { User } from '../types';
@@ -65,14 +65,14 @@ export const registerUser = async (userData: SignupData): Promise<AuthResponse> 
     const userCredential: UserCredential = await createUserWithEmailAndPassword(
       auth,
       userData.email,
-      userData.password
+      userData.password,
     );
 
     const firebaseUser = userCredential.user;
 
     // Update Firebase Auth profile
     await updateProfile(firebaseUser, {
-      displayName: `${userData.firstName} ${userData.lastName}`
+      displayName: `${userData.firstName} ${userData.lastName}`,
     });
 
     // Create user document in Firestore
@@ -105,21 +105,21 @@ export const registerUser = async (userData: SignupData): Promise<AuthResponse> 
           achievements: true,
           weatherAlerts: true,
           pushNotifications: true,
-          emailNotifications: false
+          emailNotifications: false,
         },
         privacy: {
           showLocation: true,
           showOnlineStatus: true,
           allowGameInvites: 'everyone',
-          showStatistics: true
+          showStatistics: true,
         },
         gameDefaults: {
           preferredSports: ['Basketball'],
           skillLevel: 'Beginner',
           maxDistance: 10,
           preferredTimes: ['Evening'],
-          paymentPreference: 'both'
-        }
+          paymentPreference: 'both',
+        },
       },
       statistics: {
         totalGames: 0,
@@ -130,26 +130,26 @@ export const registerUser = async (userData: SignupData): Promise<AuthResponse> 
         favoriteSport: 'Basketball',
         mostPlayedWith: [],
         monthlyGames: [],
-        courtVisits: []
-      }
+        courtVisits: [],
+      },
     };
 
     // Save user to Firestore
     await setDoc(doc(db, 'users', firebaseUser.uid), {
       ...newUser,
       createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp()
+      updatedAt: serverTimestamp(),
     });
 
     // Return the complete user object
     const completeUser: User = {
       id: firebaseUser.uid,
-      ...newUser
+      ...newUser,
     };
 
     return {
       success: true,
-      user: completeUser
+      user: completeUser,
     };
 
   } catch (error) {
@@ -157,7 +157,7 @@ export const registerUser = async (userData: SignupData): Promise<AuthResponse> 
     console.error('Registration error:', authError);
     return {
       success: false,
-      error: getAuthErrorMessage(authError.code)
+      error: getAuthErrorMessage(authError.code),
     };
   }
 };
@@ -175,7 +175,7 @@ export const loginUser = async (email: string, password: string): Promise<AuthRe
     const userCredential: UserCredential = await signInWithEmailAndPassword(
       auth,
       email,
-      password
+      password,
     );
 
     const firebaseUser = userCredential.user;
@@ -193,17 +193,17 @@ export const loginUser = async (email: string, password: string): Promise<AuthRe
     await updateDoc(doc(db, 'users', firebaseUser.uid), {
       isOnline: true,
       lastLoginAt: serverTimestamp(),
-      updatedAt: serverTimestamp()
+      updatedAt: serverTimestamp(),
     });
 
     const user: User = {
       id: firebaseUser.uid,
-      ...userData
+      ...userData,
     } as User;
 
     return {
       success: true,
-      user
+      user,
     };
 
   } catch (error) {
@@ -211,7 +211,7 @@ export const loginUser = async (email: string, password: string): Promise<AuthRe
     console.error('Login error:', authError);
     return {
       success: false,
-      error: getAuthErrorMessage(authError.code)
+      error: getAuthErrorMessage(authError.code),
     };
   }
 };
@@ -230,7 +230,7 @@ export const logoutUser = async (): Promise<boolean> => {
       await updateDoc(doc(db, 'users', currentUser.uid), {
         isOnline: false,
         lastSeenAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        updatedAt: serverTimestamp(),
       });
     }
 
@@ -259,7 +259,7 @@ export const getCurrentUserData = async (uid: string): Promise<User | null> => {
     const userData = userDoc.data();
     return {
       id: uid,
-      ...userData
+      ...userData,
     } as User;
 
   } catch (error) {
@@ -279,7 +279,7 @@ export const updateUserProfile = async (uid: string, updates: Partial<User>): Pr
   try {
     await updateDoc(doc(db, 'users', uid), {
       ...updates,
-      updatedAt: serverTimestamp()
+      updatedAt: serverTimestamp(),
     });
     return true;
   } catch (error) {
@@ -302,7 +302,7 @@ export const resetPassword = async (email: string): Promise<AuthResponse> => {
     const authError = error as AuthError;
     return {
       success: false,
-      error: getAuthErrorMessage(authError.code)
+      error: getAuthErrorMessage(authError.code),
     };
   }
 };
@@ -321,7 +321,7 @@ export const resendEmailVerification = async (user: FirebaseUser): Promise<AuthR
     const authError = error as AuthError;
     return {
       success: false,
-      error: authError.message || 'Failed to send verification email.'
+      error: authError.message || 'Failed to send verification email.',
     };
   }
 };
@@ -333,7 +333,7 @@ export const resendEmailVerification = async (user: FirebaseUser): Promise<AuthR
  * @returns User-friendly error message
  */
 const getAuthErrorMessage = (errorCode: string): string => {
-  console.log('Firebase Auth Error Code:', errorCode); // Debug logging
+  console.warn('Firebase Auth Error Code:', errorCode); // Debug logging
   
   switch (errorCode) {
     case 'auth/email-already-in-use':

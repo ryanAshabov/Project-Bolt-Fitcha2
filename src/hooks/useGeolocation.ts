@@ -13,14 +13,14 @@ export const useGeolocation = () => {
   const [state, setState] = useState<GeolocationState>({
     coordinates: null,
     loading: false,
-    error: null
+    error: null,
   });
 
   const getCurrentLocation = () => {
     if (!navigator.geolocation) {
       setState(prev => ({
         ...prev,
-        error: 'Geolocation is not supported by this browser'
+        error: 'Geolocation is not supported by this browser',
       }));
       return;
     }
@@ -32,24 +32,24 @@ export const useGeolocation = () => {
         setState({
           coordinates: {
             lat: position.coords.latitude,
-            lng: position.coords.longitude
+            lng: position.coords.longitude,
           },
           loading: false,
-          error: null
+          error: null,
         });
       },
       (error) => {
         setState(prev => ({
           ...prev,
           loading: false,
-          error: error.message
+          error: error.message,
         }));
       },
       {
         enableHighAccuracy: true,
         timeout: 10000,
-        maximumAge: 300000 // 5 minutes
-      }
+        maximumAge: 300000, // 5 minutes
+      },
     );
   };
 
@@ -57,7 +57,7 @@ export const useGeolocation = () => {
     lat1: number,
     lng1: number,
     lat2: number,
-    lng2: number
+    lng2: number,
   ): number => {
     const R = 6371; // Earth's radius in kilometers
     const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -77,6 +77,6 @@ export const useGeolocation = () => {
   return {
     ...state,
     getCurrentLocation,
-    calculateDistance
+    calculateDistance,
   };
 };

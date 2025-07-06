@@ -34,7 +34,7 @@ export const ARCourtPreview: React.FC = () => {
   const startCamera = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ 
-        video: { facingMode: 'environment' } 
+        video: { facingMode: 'environment' }, 
       });
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
@@ -62,7 +62,7 @@ export const ARCourtPreview: React.FC = () => {
         price: 25,
         position: { x: 30, y: 40 },
         sport: 'Basketball',
-        available: true
+        available: true,
       },
       {
         id: '2',
@@ -72,7 +72,7 @@ export const ARCourtPreview: React.FC = () => {
         price: 40,
         position: { x: 70, y: 30 },
         sport: 'Tennis',
-        available: false
+        available: false,
       },
       {
         id: '3',
@@ -82,8 +82,8 @@ export const ARCourtPreview: React.FC = () => {
         price: 35,
         position: { x: 50, y: 60 },
         sport: 'Soccer',
-        available: true
-      }
+        available: true,
+      },
     ];
     setOverlays(mockOverlays);
   };
@@ -136,7 +136,7 @@ export const ARCourtPreview: React.FC = () => {
           className="absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
           style={{ 
             left: `${overlay.position.x}%`, 
-            top: `${overlay.position.y}%` 
+            top: `${overlay.position.y}%`, 
           }}
           onClick={() => setSelectedCourt(overlay)}
         >

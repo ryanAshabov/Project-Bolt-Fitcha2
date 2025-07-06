@@ -18,7 +18,7 @@ import { BrowserRouter } from 'react-router-dom';
  */
 const customRender = (
   ui: ReactElement,
-  options?: Omit<RenderOptions, 'wrapper'>
+  options?: Omit<RenderOptions, 'wrapper'>,
 ) => {
   const Wrapper = ({ children }: { children: React.ReactNode }) => {
     return (
@@ -60,15 +60,15 @@ export const mockTestUser = {
   preferences: {
     notifications: true,
     privacy: 'public',
-    language: 'en'
+    language: 'en',
   },
   statistics: {
     gamesPlayed: 0,
     wins: 0,
-    totalHours: 0
+    totalHours: 0,
   },
   trustScore: 100,
-  availability: []
+  availability: [],
 };
 
 /**
@@ -80,5 +80,5 @@ export const mockEnvVars = {
   VITE_FIREBASE_PROJECT_ID: 'test-project',
   VITE_FIREBASE_STORAGE_BUCKET: 'test.appspot.com',
   VITE_FIREBASE_MESSAGING_SENDER_ID: '123456789',
-  VITE_FIREBASE_APP_ID: 'test-app-id'
+  VITE_FIREBASE_APP_ID: 'test-app-id',
 };

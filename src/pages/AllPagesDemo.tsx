@@ -11,7 +11,7 @@ import {
   Zap,
   CheckCircle,
   Play,
-  Eye
+  Eye,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 
@@ -24,7 +24,7 @@ const AllPagesDemo: React.FC = () => {
       icon: Gamepad2,
       color: 'bg-blue-500',
       status: 'مكتمل',
-      features: ['نماذج ذكية', 'خطوات تفاعلية', 'اختيار الملاعب', 'دعوة اللاعبين']
+      features: ['نماذج ذكية', 'خطوات تفاعلية', 'اختيار الملاعب', 'دعوة اللاعبين'],
     },
     {
       title: 'البحث عن شركاء',
@@ -33,7 +33,7 @@ const AllPagesDemo: React.FC = () => {
       icon: Users,
       color: 'bg-green-500',
       status: 'مكتمل',
-      features: ['بحث متقدم', 'فلاتر ذكية', 'ملفات شخصية', 'دعوات فورية']
+      features: ['بحث متقدم', 'فلاتر ذكية', 'ملفات شخصية', 'دعوات فورية'],
     },
     {
       title: 'الرسائل والدردشة',
@@ -42,7 +42,7 @@ const AllPagesDemo: React.FC = () => {
       icon: MessageCircle,
       color: 'bg-purple-500',
       status: 'مكتمل',
-      features: ['دردشة فورية', 'مجموعات', 'مشاركة الملفات', 'إشعارات']
+      features: ['دردشة فورية', 'مجموعات', 'مشاركة الملفات', 'إشعارات'],
     },
     {
       title: 'اكتشاف الملاعب',
@@ -51,7 +51,7 @@ const AllPagesDemo: React.FC = () => {
       icon: MapPin,
       color: 'bg-orange-500',
       status: 'مكتمل',
-      features: ['خرائط تفاعلية', 'حجز فوري', 'مراجعات', 'توافر الأوقات']
+      features: ['خرائط تفاعلية', 'حجز فوري', 'مراجعات', 'توافر الأوقات'],
     },
     {
       title: 'الملف الشخصي',
@@ -60,7 +60,7 @@ const AllPagesDemo: React.FC = () => {
       icon: User,
       color: 'bg-indigo-500',
       status: 'مكتمل',
-      features: ['ملف شامل', 'إحصائيات', 'إنجازات', 'أصدقاء']
+      features: ['ملف شامل', 'إحصائيات', 'إنجازات', 'أصدقاء'],
     },
     {
       title: 'لوحة التحليلات',
@@ -69,7 +69,7 @@ const AllPagesDemo: React.FC = () => {
       icon: BarChart3,
       color: 'bg-red-500',
       status: 'مكتمل',
-      features: ['رسوم بيانية', 'تتبع الأداء', 'تقارير', 'إحصائيات متقدمة']
+      features: ['رسوم بيانية', 'تتبع الأداء', 'تقارير', 'إحصائيات متقدمة'],
     },
     {
       title: 'الشبكة الاجتماعية',
@@ -78,7 +78,7 @@ const AllPagesDemo: React.FC = () => {
       icon: Network,
       color: 'bg-pink-500',
       status: 'مكتمل',
-      features: ['أصدقاء', 'مجموعات', 'طلبات صداقة', 'مقترحات']
+      features: ['أصدقاء', 'مجموعات', 'طلبات صداقة', 'مقترحات'],
     },
     {
       title: 'الميزات الذكية',
@@ -87,8 +87,8 @@ const AllPagesDemo: React.FC = () => {
       icon: Zap,
       color: 'bg-yellow-500',
       status: 'موجود',
-      features: ['ذكاء اصطناعي', 'تحليل الفيديو', 'توصيات', 'مساعد ذكي']
-    }
+      features: ['ذكاء اصطناعي', 'تحليل الفيديو', 'توصيات', 'مساعد ذكي'],
+    },
   ];
 
   const testPages = [
@@ -96,20 +96,20 @@ const AllPagesDemo: React.FC = () => {
       title: 'صفحة اختبار إنشاء اللعبة',
       description: 'نسخة مبسطة للاختبار السريع',
       path: '/test',
-      color: 'bg-gray-500'
+      color: 'bg-gray-500',
     },
     {
       title: 'إنشاء لعبة (نسخة تجريبية)',
       description: 'نسخة تجريبية بدون مصادقة',
       path: '/create-game-demo',
-      color: 'bg-cyan-500'
+      color: 'bg-cyan-500',
     },
     {
       title: 'إنشاء لعبة V2',
       description: 'النسخة الثانية من صفحة إنشاء الألعاب',
       path: '/create-game-v2',
-      color: 'bg-teal-500'
-    }
+      color: 'bg-teal-500',
+    },
   ];
 
   return (

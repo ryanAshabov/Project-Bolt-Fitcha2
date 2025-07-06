@@ -30,7 +30,7 @@ import {
   CheckCheck,
   Check,
   Calendar,
-  Zap
+  Zap,
 } from 'lucide-react';
 import { useChat } from '../../hooks/useChat';
 import { Button } from '../ui/Button';
@@ -47,7 +47,7 @@ interface ChatInterfaceProps {
 const ChatInterface: React.FC<ChatInterfaceProps> = ({ 
   selectedChatId, 
   currentUserId,
-  onChatSelect 
+  onChatSelect, 
 }) => {
   const { messages, loading, typing, sendMessage, sendQuickMessage } = useChat(selectedChatId || '');
   const [newMessage, setNewMessage] = useState('');
@@ -57,11 +57,11 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
   // Quick message templates
   const quickMessages = [
     { id: 'on-way', text: "I'm on my way! 🚗", icon: '🚗' },
-    { id: 'late', text: "Running 10 minutes late ⏰", icon: '⏰' },
+    { id: 'late', text: 'Running 10 minutes late ⏰', icon: '⏰' },
     { id: 'arrived', text: "I'm here! 📍", icon: '📍' },
-    { id: 'ready', text: "Ready to play! 🏀", icon: '🏀' },
-    { id: 'good-game', text: "Good game everyone! 🎉", icon: '🎉' },
-    { id: 'next-time', text: "Let's play again soon! 👋", icon: '👋' }
+    { id: 'ready', text: 'Ready to play! 🏀', icon: '🏀' },
+    { id: 'good-game', text: 'Good game everyone! 🎉', icon: '🎉' },
+    { id: 'next-time', text: "Let's play again soon! 👋", icon: '👋' },
   ];
 
   // Auto scroll to bottom
@@ -72,7 +72,9 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
   // Send message handler
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newMessage.trim()) return;
+    if (!newMessage.trim()) {
+return;
+}
 
     await sendMessage(newMessage);
     setNewMessage('');
@@ -94,8 +96,8 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
     gameInfo: {
       sport: 'Basketball',
       date: 'Today, 6:00 PM',
-      location: 'City Sports Complex'
-    }
+      location: 'City Sports Complex',
+    },
   };
 
   if (!selectedChatId) {

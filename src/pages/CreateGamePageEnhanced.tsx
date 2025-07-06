@@ -28,7 +28,7 @@ import {
   Brain,
   Music,
   Trophy,
-  CheckCircle
+  CheckCircle,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
@@ -42,8 +42,8 @@ const ACTIVITY_TYPES = {
     color: 'from-blue-500 to-cyan-500',
     activities: [
       'Basketball', 'Football', 'Soccer', 'Tennis', 'Volleyball', 'Baseball',
-      'Swimming', 'Running', 'Cycling', 'Golf', 'Boxing', 'Wrestling'
-    ]
+      'Swimming', 'Running', 'Cycling', 'Golf', 'Boxing', 'Wrestling',
+    ],
   },
   wellness: {
     label: 'Wellness & Fitness',
@@ -51,8 +51,8 @@ const ACTIVITY_TYPES = {
     color: 'from-green-500 to-emerald-500',
     activities: [
       'Yoga', 'Pilates', 'Meditation', 'Gym Workout', 'CrossFit', 'Zumba',
-      'Personal Training', 'Stretching', 'Cardio', 'Weight Training'
-    ]
+      'Personal Training', 'Stretching', 'Cardio', 'Weight Training',
+    ],
   },
   gaming: {
     label: 'Gaming & Esports',
@@ -60,8 +60,8 @@ const ACTIVITY_TYPES = {
     color: 'from-purple-500 to-violet-500',
     activities: [
       'Video Games', 'Board Games', 'Card Games', 'Chess', 'Poker',
-      'Esports Tournament', 'LAN Party', 'Mobile Gaming'
-    ]
+      'Esports Tournament', 'LAN Party', 'Mobile Gaming',
+    ],
   },
   mental: {
     label: 'Mental & Brain',
@@ -69,8 +69,8 @@ const ACTIVITY_TYPES = {
     color: 'from-indigo-500 to-blue-500',
     activities: [
       'Study Group', 'Book Club', 'Trivia Night', 'Puzzle Solving',
-      'Language Exchange', 'Debate Club', 'Quiz Competition'
-    ]
+      'Language Exchange', 'Debate Club', 'Quiz Competition',
+    ],
   },
   creative: {
     label: 'Creative & Arts',
@@ -78,8 +78,8 @@ const ACTIVITY_TYPES = {
     color: 'from-pink-500 to-rose-500',
     activities: [
       'Music Jam', 'Art Workshop', 'Photography Walk', 'Writing Circle',
-      'Dance Class', 'Theater', 'Crafting', 'Painting'
-    ]
+      'Dance Class', 'Theater', 'Crafting', 'Painting',
+    ],
   },
   social: {
     label: 'Social & Networking',
@@ -87,9 +87,9 @@ const ACTIVITY_TYPES = {
     color: 'from-orange-500 to-red-500',
     activities: [
       'Coffee Meetup', 'Networking Event', 'Dinner Party', 'Picnic',
-      'Happy Hour', 'Group Travel', 'Workshop', 'Conference'
-    ]
-  }
+      'Happy Hour', 'Group Travel', 'Workshop', 'Conference',
+    ],
+  },
 };
 
 // Skill Levels
@@ -97,7 +97,7 @@ const SKILL_LEVELS = [
   { value: 'beginner', label: 'Beginner', description: 'New to this activity' },
   { value: 'intermediate', label: 'Intermediate', description: 'Some experience' },
   { value: 'advanced', label: 'Advanced', description: 'Very experienced' },
-  { value: 'professional', label: 'Professional', description: 'Expert level' }
+  { value: 'professional', label: 'Professional', description: 'Expert level' },
 ];
 
 // Time slots
@@ -107,7 +107,7 @@ const TIME_SLOTS = [
   'Afternoon (12-3 PM)',
   'Late Afternoon (3-6 PM)',
   'Evening (6-9 PM)',
-  'Night (9 PM+)'
+  'Night (9 PM+)',
 ];
 
 interface GameFormData {
@@ -155,7 +155,7 @@ export const CreateGamePageEnhanced: React.FC = () => {
     isPrivate: false,
     inviteOnly: false,
     recurring: false,
-    recurringPattern: 'weekly'
+    recurringPattern: 'weekly',
   });
 
   const [invitedFriends] = useState<string[]>([]);
@@ -175,18 +175,34 @@ export const CreateGamePageEnhanced: React.FC = () => {
 
     switch (step) {
       case 1:
-        if (!formData.category) newErrors.category = 'Please select an activity category';
-        if (!formData.activity) newErrors.activity = 'Please select a specific activity';
+        if (!formData.category) {
+newErrors.category = 'Please select an activity category';
+}
+        if (!formData.activity) {
+newErrors.activity = 'Please select a specific activity';
+}
         break;
       case 2:
-        if (!formData.title.trim()) newErrors.title = 'Game title is required';
-        if (!formData.description.trim()) newErrors.description = 'Description is required';
-        if (!formData.date) newErrors.date = 'Date is required';
-        if (!formData.time) newErrors.time = 'Time is required';
+        if (!formData.title.trim()) {
+newErrors.title = 'Game title is required';
+}
+        if (!formData.description.trim()) {
+newErrors.description = 'Description is required';
+}
+        if (!formData.date) {
+newErrors.date = 'Date is required';
+}
+        if (!formData.time) {
+newErrors.time = 'Time is required';
+}
         break;
       case 3:
-        if (!formData.location.trim()) newErrors.location = 'Location is required';
-        if (formData.maxParticipants < 2) newErrors.maxParticipants = 'At least 2 participants required';
+        if (!formData.location.trim()) {
+newErrors.location = 'Location is required';
+}
+        if (formData.maxParticipants < 2) {
+newErrors.maxParticipants = 'At least 2 participants required';
+}
         break;
       case 4:
         if (formData.costType === 'paid' && formData.cost <= 0) {
@@ -231,7 +247,9 @@ export const CreateGamePageEnhanced: React.FC = () => {
 
   // Handle game creation
   const handleCreateGame = async () => {
-    if (!validateStep(4)) return;
+    if (!validateStep(4)) {
+return;
+}
 
     setIsCreating(true);
     try {
@@ -242,7 +260,7 @@ export const CreateGamePageEnhanced: React.FC = () => {
         createdAt: new Date().toISOString(),
         participants: [user?.id],
         invitedUsers: invitedFriends,
-        status: 'active'
+        status: 'active',
       };
 
       console.log('Creating game:', gameData);

@@ -113,7 +113,7 @@ export class RateLimiter {
     
     // Remove old attempts outside the time window
     const validAttempts = attempts.filter(
-      timestamp => now - timestamp < this.windowMs
+      timestamp => now - timestamp < this.windowMs,
     );
     
     if (validAttempts.length >= this.maxAttempts) {
@@ -158,7 +158,9 @@ export const secureStorage = {
   getItem: (key: string): string | null => {
     try {
       const encrypted = localStorage.getItem(key);
-      if (!encrypted) return null;
+      if (!encrypted) {
+return null;
+}
       
       // In production, implement proper decryption
       return atob(encrypted); // Base64 decoding
@@ -194,7 +196,7 @@ export const cspUtils = {
     try {
       const urlObj = new URL(url);
       return allowedDomains.some(domain => 
-        urlObj.hostname === domain || urlObj.hostname.endsWith(`.${domain}`)
+        urlObj.hostname === domain || urlObj.hostname.endsWith(`.${domain}`),
       );
     } catch {
       return false;

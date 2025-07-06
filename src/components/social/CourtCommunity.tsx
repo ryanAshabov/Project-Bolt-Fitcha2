@@ -53,7 +53,7 @@ export const CourtCommunity: React.FC<{ courtId: string }> = ({ courtId }) => {
       isPro: true,
       isOnline: true,
       role: 'admin',
-      joinedDate: new Date('2024-01-15')
+      joinedDate: new Date('2024-01-15'),
     },
     {
       id: '2',
@@ -65,8 +65,8 @@ export const CourtCommunity: React.FC<{ courtId: string }> = ({ courtId }) => {
       isPro: false,
       isOnline: false,
       role: 'moderator',
-      joinedDate: new Date('2024-02-20')
-    }
+      joinedDate: new Date('2024-02-20'),
+    },
   ];
 
   const communityEvents: CommunityEvent[] = [
@@ -77,7 +77,7 @@ export const CourtCommunity: React.FC<{ courtId: string }> = ({ courtId }) => {
       date: new Date('2025-01-20'),
       participants: 12,
       maxParticipants: 16,
-      organizer: communityMembers[0]
+      organizer: communityMembers[0],
     },
     {
       id: '2',
@@ -86,8 +86,8 @@ export const CourtCommunity: React.FC<{ courtId: string }> = ({ courtId }) => {
       date: new Date('2025-01-18'),
       participants: 6,
       maxParticipants: 8,
-      organizer: communityMembers[1]
-    }
+      organizer: communityMembers[1],
+    },
   ];
 
   const communityPosts: CommunityPost[] = [
@@ -98,7 +98,7 @@ export const CourtCommunity: React.FC<{ courtId: string }> = ({ courtId }) => {
       timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
       likes: 23,
       comments: 8,
-      type: 'tip'
+      type: 'tip',
     },
     {
       id: '2',
@@ -107,8 +107,8 @@ export const CourtCommunity: React.FC<{ courtId: string }> = ({ courtId }) => {
       timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000),
       likes: 5,
       comments: 12,
-      type: 'question'
-    }
+      type: 'question',
+    },
   ];
 
   const getRoleIcon = (role: string) => {
@@ -130,7 +130,9 @@ export const CourtCommunity: React.FC<{ courtId: string }> = ({ courtId }) => {
   };
 
   const handleCreatePost = () => {
-    if (!newPost.trim()) return;
+    if (!newPost.trim()) {
+return;
+}
     // Here you would typically send to backend
     console.log('Creating post:', newPost);
     setNewPost('');
@@ -162,7 +164,7 @@ export const CourtCommunity: React.FC<{ courtId: string }> = ({ courtId }) => {
             { id: 'feed', label: 'التحديثات', icon: MessageCircle },
             { id: 'members', label: 'الأعضاء', icon: Users },
             { id: 'events', label: 'الفعاليات', icon: Calendar },
-            { id: 'leaderboard', label: 'المتصدرين', icon: Trophy }
+            { id: 'leaderboard', label: 'المتصدرين', icon: Trophy },
           ].map((tab) => {
             const Icon = tab.icon;
             return (

@@ -25,7 +25,7 @@ import {
   onSnapshot,
   Unsubscribe,
   QueryDocumentSnapshot,
-  DocumentData
+  DocumentData,
 } from 'firebase/firestore';
 import { db } from './firebase';
 import { Court } from '../types';
@@ -83,7 +83,7 @@ export interface BookingRecord extends BookingData {
 export const getCourts = async (
   filters: CourtFilters = {},
   pageSize: number = 20,
-  lastDoc?: QueryDocumentSnapshot<DocumentData>
+  lastDoc?: QueryDocumentSnapshot<DocumentData>,
 ): Promise<{ courts: Court[]; hasMore: boolean; lastDoc: QueryDocumentSnapshot<DocumentData> | null }> => {
   try {
     let q = query(collection(db, 'courts'));
@@ -115,7 +115,7 @@ export const getCourts = async (
     querySnapshot.forEach((doc) => {
       courts.push({
         id: doc.id,
-        ...doc.data()
+        ...doc.data(),
       } as Court);
       newLastDoc = doc;
     });
@@ -126,20 +126,20 @@ export const getCourts = async (
     if (filters.priceRange) {
       filteredCourts = filteredCourts.filter(court => 
         court.price >= filters.priceRange!.min && 
-        court.price <= filters.priceRange!.max
+        court.price <= filters.priceRange!.max,
       );
     }
 
     if (filters.amenities && filters.amenities.length > 0) {
       filteredCourts = filteredCourts.filter(court =>
-        filters.amenities!.every(amenity => court.amenities.includes(amenity))
+        filters.amenities!.every(amenity => court.amenities.includes(amenity)),
       );
     }
 
     return {
       courts: filteredCourts,
       hasMore: querySnapshot.size === pageSize,
-      lastDoc: newLastDoc
+      lastDoc: newLastDoc,
     };
 
   } catch (error) {
@@ -164,7 +164,7 @@ export const getCourtById = async (courtId: string): Promise<Court | null> => {
 
     return {
       id: courtDoc.id,
-      ...courtDoc.data()
+      ...courtDoc.data(),
     } as Court;
 
   } catch (error) {
@@ -182,14 +182,14 @@ export const getCourtById = async (courtId: string): Promise<Court | null> => {
  */
 export const createCourt = async (
   courtData: Omit<Court, 'id'>,
-  ownerId: string
+  ownerId: string,
 ): Promise<string> => {
   try {
     const docRef = await addDoc(collection(db, 'courts'), {
       ...courtData,
       ownerId,
       createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp()
+      updatedAt: serverTimestamp(),
     });
 
     return docRef.id;
@@ -208,12 +208,12 @@ export const createCourt = async (
  */
 export const updateCourt = async (
   courtId: string,
-  updates: Partial<Court>
+  updates: Partial<Court>,
 ): Promise<boolean> => {
   try {
     await updateDoc(doc(db, 'courts', courtId), {
       ...updates,
-      updatedAt: serverTimestamp()
+      updatedAt: serverTimestamp(),
     });
     return true;
   } catch (error) {
@@ -251,7 +251,7 @@ export const bookCourt = async (bookingData: BookingData): Promise<string> => {
       ...bookingData,
       status: 'confirmed',
       createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp()
+      updatedAt: serverTimestamp(),
     });
 
     // Update court availability
@@ -260,7 +260,7 @@ export const bookCourt = async (bookingData: BookingData): Promise<string> => {
       bookingData.date,
       bookingData.startTime,
       bookingData.endTime,
-      false
+      false,
     );
 
     return bookingRef.id;
@@ -290,7 +290,7 @@ export const cancelBooking = async (bookingId: string): Promise<boolean> => {
     await updateDoc(doc(db, 'bookings', bookingId), {
       status: 'cancelled',
       cancelledAt: serverTimestamp(),
-      updatedAt: serverTimestamp()
+      updatedAt: serverTimestamp(),
     });
 
     // Free up the court time slot
@@ -299,7 +299,7 @@ export const cancelBooking = async (bookingId: string): Promise<boolean> => {
       booking.date,
       booking.startTime,
       booking.endTime,
-      true
+      true,
     );
 
     return true;
@@ -324,13 +324,15 @@ const updateCourtAvailability = async (
   date: string,
   startTime: string,
   endTime: string,
-  isAvailable: boolean
+  isAvailable: boolean,
 ): Promise<boolean> => {
   try {
     // This would typically update a separate availability collection
     // For now, we'll update the court document directly
     const court = await getCourtById(courtId);
-    if (!court) return false;
+    if (!court) {
+return false;
+}
 
     // Update availability array
     const updatedAvailability = court.availability.map(slot => {
@@ -342,7 +344,7 @@ const updateCourtAvailability = async (
 
     await updateDoc(doc(db, 'courts', courtId), {
       availability: updatedAvailability,
-      updatedAt: serverTimestamp()
+      updatedAt: serverTimestamp(),
     });
 
     return true;
@@ -361,13 +363,13 @@ const updateCourtAvailability = async (
  */
 export const getUserBookings = async (
   userId: string,
-  status?: string
+  status?: string,
 ): Promise<BookingRecord[]> => {
   try {
     let q = query(
       collection(db, 'bookings'),
       where('userId', '==', userId),
-      orderBy('createdAt', 'desc')
+      orderBy('createdAt', 'desc'),
     );
 
     if (status) {
@@ -380,7 +382,7 @@ export const getUserBookings = async (
     querySnapshot.forEach((doc) => {
       bookings.push({
         id: doc.id,
-        ...doc.data()
+        ...doc.data(),
       } as BookingRecord);
     });
 
@@ -400,7 +402,7 @@ export const getUserBookings = async (
  */
 export const searchCourts = async (
   searchQuery: string,
-  filters: CourtFilters = {}
+  filters: CourtFilters = {},
 ): Promise<Court[]> => {
   try {
     // For now, we'll do a simple text search
@@ -410,7 +412,7 @@ export const searchCourts = async (
     const filteredCourts = courts.filter(court =>
       court.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       court.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      court.sport.some(sport => sport.toLowerCase().includes(searchQuery.toLowerCase()))
+      court.sport.some(sport => sport.toLowerCase().includes(searchQuery.toLowerCase())),
     );
 
     return filteredCourts;
@@ -429,7 +431,7 @@ export const searchCourts = async (
  */
 export const subscribeToCourtUpdates = (
   courtId: string,
-  callback: (court: Court | null) => void
+  callback: (court: Court | null) => void,
 ): Unsubscribe => {
   return onSnapshot(
     doc(db, 'courts', courtId),
@@ -437,7 +439,7 @@ export const subscribeToCourtUpdates = (
       if (doc.exists()) {
         callback({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         } as Court);
       } else {
         callback(null);
@@ -446,7 +448,7 @@ export const subscribeToCourtUpdates = (
     (error) => {
       console.error('Error in court subscription:', error);
       callback(null);
-    }
+    },
   );
 };
 
@@ -461,7 +463,7 @@ export const subscribeToCourtUpdates = (
 export const getCourtsNearLocation = async (
   latitude: number,
   longitude: number,
-  radiusKm: number = 10
+  radiusKm: number = 10,
 ): Promise<Court[]> => {
   try {
     // For now, we'll fetch all courts and filter by distance
@@ -469,13 +471,15 @@ export const getCourtsNearLocation = async (
     const { courts } = await getCourts();
 
     const nearByCourts = courts.filter(court => {
-      if (!court.coordinates) return false;
+      if (!court.coordinates) {
+return false;
+}
       
       const distance = calculateDistance(
         latitude,
         longitude,
         court.coordinates.lat,
-        court.coordinates.lng
+        court.coordinates.lng,
       );
       
       return distance <= radiusKm;
@@ -508,7 +512,7 @@ const calculateDistance = (
   lat1: number,
   lon1: number,
   lat2: number,
-  lon2: number
+  lon2: number,
 ): number => {
   const R = 6371; // Earth's radius in kilometers
   const dLat = (lat2 - lat1) * Math.PI / 180;

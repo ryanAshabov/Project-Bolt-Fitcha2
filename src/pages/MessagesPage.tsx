@@ -23,7 +23,7 @@ import {
   Bell,
   Settings,
   Zap,
-  Filter
+  Filter,
 } from 'lucide-react';
 import { Header } from '../components/layout/Header';
 import { Button } from '../components/ui/Button';
@@ -57,7 +57,7 @@ export const MessagesPage: React.FC = () => {
     totalChats: 12,
     unreadMessages: 5,
     activeGames: 3,
-    onlineFriends: 8
+    onlineFriends: 8,
   });
 
   // Quick actions for enhanced messaging
@@ -67,29 +67,29 @@ export const MessagesPage: React.FC = () => {
       label: 'New Message',
       icon: <MessageSquare className="h-4 w-4" />,
       color: 'blue',
-      action: () => setSelectedChatId('')
+      action: () => setSelectedChatId(''),
     },
     {
       id: 'create-group',
       label: 'Create Group',
       icon: <Users className="h-4 w-4" />,
       color: 'green',
-      action: () => console.log('Create group')
+      action: () => console.log('Create group'),
     },
     {
       id: 'game-chat',
       label: 'Game Chat',
       icon: <GamepadIcon className="h-4 w-4" />,
       color: 'purple',
-      action: () => console.log('Game chat')
+      action: () => console.log('Game chat'),
     },
     {
       id: 'quick-match',
       label: 'Quick Match',
       icon: <Zap className="h-4 w-4" />,
       color: 'yellow',
-      action: () => console.log('Quick match')
-    }
+      action: () => console.log('Quick match'),
+    },
   ];
 
   return (

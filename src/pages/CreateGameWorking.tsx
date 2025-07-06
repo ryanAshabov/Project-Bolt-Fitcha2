@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   Trophy, Heart, Gamepad2, Brain, Music, Users, 
-  ChevronRight, CheckCircle, ArrowLeft
+  ChevronRight, CheckCircle, ArrowLeft,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 
@@ -15,38 +15,38 @@ const CATEGORIES = {
     label: 'Sports & Athletics',
     icon: Trophy,
     color: 'from-blue-500 to-cyan-500',
-    activities: ['Basketball', 'Football', 'Tennis', 'Swimming', 'Volleyball', 'Golf']
+    activities: ['Basketball', 'Football', 'Tennis', 'Swimming', 'Volleyball', 'Golf'],
   },
   wellness: {
     label: 'Wellness & Fitness',
     icon: Heart,
     color: 'from-green-500 to-emerald-500',
-    activities: ['Yoga', 'Pilates', 'Gym Workout', 'CrossFit', 'Meditation', 'Running']
+    activities: ['Yoga', 'Pilates', 'Gym Workout', 'CrossFit', 'Meditation', 'Running'],
   },
   gaming: {
     label: 'Gaming & Esports',
     icon: Gamepad2,
     color: 'from-purple-500 to-violet-500',
-    activities: ['Video Games', 'Board Games', 'Chess', 'Poker', 'Esports', 'LAN Party']
+    activities: ['Video Games', 'Board Games', 'Chess', 'Poker', 'Esports', 'LAN Party'],
   },
   mental: {
     label: 'Mental & Brain',
     icon: Brain,
     color: 'from-indigo-500 to-blue-500',
-    activities: ['Study Group', 'Book Club', 'Trivia Night', 'Debate Club', 'Language Exchange']
+    activities: ['Study Group', 'Book Club', 'Trivia Night', 'Debate Club', 'Language Exchange'],
   },
   creative: {
     label: 'Creative & Arts',
     icon: Music,
     color: 'from-pink-500 to-rose-500',
-    activities: ['Music Jam', 'Art Workshop', 'Photography', 'Writing Circle', 'Dance Class']
+    activities: ['Music Jam', 'Art Workshop', 'Photography', 'Writing Circle', 'Dance Class'],
   },
   social: {
     label: 'Social & Networking',
     icon: Users,
     color: 'from-orange-500 to-red-500',
-    activities: ['Coffee Meetup', 'Networking Event', 'Dinner Party', 'Workshop', 'Happy Hour']
-  }
+    activities: ['Coffee Meetup', 'Networking Event', 'Dinner Party', 'Workshop', 'Happy Hour'],
+  },
 };
 
 const CreateGameWorking: React.FC = () => {
@@ -63,7 +63,7 @@ const CreateGameWorking: React.FC = () => {
     maxParticipants: 4,
     costType: 'free' as 'free' | 'paid' | 'split',
     cost: 0,
-    privacy: 'public' as 'public' | 'private' | 'invite-only'
+    privacy: 'public' as 'public' | 'private' | 'invite-only',
   });
 
   const totalSteps = 4;
@@ -82,7 +82,7 @@ const CreateGameWorking: React.FC = () => {
       // Auto-generate title suggestion
       setGameData(prev => ({
         ...prev,
-        title: prev.title || `${activity} Session`
+        title: prev.title || `${activity} Session`,
       }));
       setCurrentStep(3);
     }
@@ -105,7 +105,7 @@ const CreateGameWorking: React.FC = () => {
     console.log('Creating game:', {
       category: selectedCategory,
       activity: selectedActivity,
-      ...gameData
+      ...gameData,
     });
     
     // Show success message and redirect
@@ -181,7 +181,9 @@ const CreateGameWorking: React.FC = () => {
 
   const renderStep2 = () => {
     const category = CATEGORIES[selectedCategory as keyof typeof CATEGORIES];
-    if (!category) return null;
+    if (!category) {
+return null;
+}
 
     return (
       <div className="space-y-6">
@@ -305,7 +307,7 @@ const CreateGameWorking: React.FC = () => {
               {[
                 { value: 'free', label: 'Free', desc: 'No cost to join' },
                 { value: 'paid', label: 'Paid Entry', desc: 'Fixed cost per person' },
-                { value: 'split', label: 'Split Cost', desc: 'Divide total cost among participants' }
+                { value: 'split', label: 'Split Cost', desc: 'Divide total cost among participants' },
               ].map((option) => (
                 <label key={option.value} className="flex items-center space-x-3 cursor-pointer">
                   <input

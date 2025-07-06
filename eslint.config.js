@@ -35,26 +35,26 @@ export default tseslint.config(
       'react-hooks/exhaustive-deps': 'warn',
       
       // General code quality rules
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
+     'no-console': ['error', { allow: ['warn', 'error'] }],
       'no-debugger': 'error',
-      'no-duplicate-imports': 'error',
+     'no-duplicate-imports': 'error',
       'no-unused-expressions': 'error',
-      'prefer-const': 'error',
+     'prefer-const': 'error',
       'no-var': 'error',
       
       // Code style rules
-      'eqeqeq': ['error', 'always'],
-      'curly': ['error', 'all'],
-      'brace-style': ['error', '1tbs'],
-      'comma-dangle': ['error', 'always-multiline'],
-      'quotes': ['error', 'single', { avoidEscape: true }],
-      'semi': ['error', 'always'],
+     'eqeqeq': ['error', 'always'],
+     'curly': ['error', 'all'],
+     'brace-style': ['error', '1tbs'],
+     'comma-dangle': ['error', 'always-multiline'],
+     'quotes': ['error', 'single', { avoidEscape: true }],
+     'semi': ['error', 'always'],
       
       // Best practices
-      'no-magic-numbers': ['warn', { ignore: [0, 1, -1] }],
-      'max-len': ['warn', { code: 100, ignoreUrls: true }],
-      'complexity': ['warn', 10],
-      'max-depth': ['warn', 4],
+     'no-magic-numbers': ['warn', { ignore: [0, 1, -1] }],
+     'max-len': ['warn', { code: 100, ignoreUrls: true }],
+     'complexity': ['warn', 10],
+     'max-depth': ['warn', 4],
     },
   }
 );

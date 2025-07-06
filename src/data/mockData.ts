@@ -7,7 +7,7 @@ export const mockBadges: Badge[] = [
     icon: '⭐',
     color: 'text-yellow-500',
     description: 'Consistently rated 4.5+ stars',
-    rarity: 'rare'
+    rarity: 'rare',
   },
   {
     id: '2',
@@ -15,7 +15,7 @@ export const mockBadges: Badge[] = [
     icon: '🏆',
     color: 'text-blue-500',
     description: 'Completed 50+ bookings',
-    rarity: 'epic'
+    rarity: 'epic',
   },
   {
     id: '3',
@@ -23,7 +23,7 @@ export const mockBadges: Badge[] = [
     icon: '🤝',
     color: 'text-emerald-500',
     description: 'Excellent teamwork rating',
-    rarity: 'rare'
+    rarity: 'rare',
   },
   {
     id: '4',
@@ -31,8 +31,8 @@ export const mockBadges: Badge[] = [
     icon: '🌅',
     color: 'text-orange-500',
     description: 'Prefers morning sessions',
-    rarity: 'common'
-  }
+    rarity: 'common',
+  },
 ];
 
 export const mockAchievements: Achievement[] = [
@@ -46,7 +46,7 @@ export const mockAchievements: Achievement[] = [
     completed: true,
     unlockedAt: new Date('2024-01-15'),
     category: 'games',
-    rarity: 'common'
+    rarity: 'common',
   },
   {
     id: 'team-player',
@@ -58,7 +58,7 @@ export const mockAchievements: Achievement[] = [
     completed: true,
     unlockedAt: new Date('2024-12-01'),
     category: 'social',
-    rarity: 'rare'
+    rarity: 'rare',
   },
   {
     id: 'court-explorer',
@@ -69,7 +69,7 @@ export const mockAchievements: Achievement[] = [
     target: 5,
     completed: false,
     category: 'exploration',
-    rarity: 'epic'
+    rarity: 'epic',
   },
   {
     id: 'consistency-king',
@@ -80,8 +80,8 @@ export const mockAchievements: Achievement[] = [
     target: 30,
     completed: false,
     category: 'consistency',
-    rarity: 'legendary'
-  }
+    rarity: 'legendary',
+  },
 ];
 
 // Celebrity Users - Global Sports Stars
@@ -107,7 +107,7 @@ export const celebrityUsers: User[] = [
     badges: [
       { id: 'goat', name: 'GOAT', icon: '🐐', color: 'text-yellow-500', description: 'Greatest of All Time', rarity: 'legendary' },
       { id: 'world-cup', name: 'World Cup Winner', icon: '🏆', color: 'text-gold-500', description: 'FIFA World Cup Champion', rarity: 'legendary' },
-      { id: 'ballon-dor', name: '8x Ballon d\'Or', icon: '⚽', color: 'text-yellow-500', description: 'Eight-time Ballon d\'Or winner', rarity: 'legendary' }
+      { id: 'ballon-dor', name: '8x Ballon d\'Or', icon: '⚽', color: 'text-yellow-500', description: 'Eight-time Ballon d\'Or winner', rarity: 'legendary' },
     ],
     availability: ['Evening', 'Weekend'],
     trustScore: 100,
@@ -121,25 +121,25 @@ export const celebrityUsers: User[] = [
         achievements: true,
         weatherAlerts: false,
         pushNotifications: true,
-        emailNotifications: false
+        emailNotifications: false,
       },
       privacy: {
         showLocation: true,
         showOnlineStatus: true,
         allowGameInvites: 'connections',
-        showStatistics: true
+        showStatistics: true,
       },
       gameDefaults: {
         preferredSports: ['Football', 'Padel'],
         skillLevel: 'Professional',
         maxDistance: 50,
         preferredTimes: ['Evening'],
-        paymentPreference: 'both'
-      }
+        paymentPreference: 'both',
+      },
     },
     socialLinks: {
       instagram: '@leomessi',
-      twitter: '@TeamMessi'
+      twitter: '@TeamMessi',
     },
     statistics: {
       totalGames: 1200,
@@ -152,13 +152,13 @@ export const celebrityUsers: User[] = [
       monthlyGames: [
         { month: 'Jan', count: 25 },
         { month: 'Feb', count: 28 },
-        { month: 'Mar', count: 30 }
+        { month: 'Mar', count: 30 },
       ],
       courtVisits: [
         { courtId: '1', visits: 45 },
-        { courtId: '2', visits: 32 }
-      ]
-    }
+        { courtId: '2', visits: 32 },
+      ],
+    },
   },
   {
     id: 'cristiano-7',
@@ -180,7 +180,7 @@ export const celebrityUsers: User[] = [
     winRate: 94,
     badges: [
       { id: 'mr-champions', name: 'Mr. Champions League', icon: '🏆', color: 'text-blue-500', description: '5x Champions League Winner', rarity: 'legendary' },
-      { id: 'euro-champion', name: 'Euro Champion', icon: '🇵🇹', color: 'text-green-500', description: 'European Championship Winner', rarity: 'legendary' }
+      { id: 'euro-champion', name: 'Euro Champion', icon: '🇵🇹', color: 'text-green-500', description: 'European Championship Winner', rarity: 'legendary' },
     ],
     availability: ['Morning', 'Evening'],
     trustScore: 100,
@@ -194,25 +194,25 @@ export const celebrityUsers: User[] = [
         achievements: true,
         weatherAlerts: false,
         pushNotifications: true,
-        emailNotifications: false
+        emailNotifications: false,
       },
       privacy: {
         showLocation: true,
         showOnlineStatus: true,
         allowGameInvites: 'connections',
-        showStatistics: true
+        showStatistics: true,
       },
       gameDefaults: {
         preferredSports: ['Football'],
         skillLevel: 'Professional',
         maxDistance: 30,
         preferredTimes: ['Morning'],
-        paymentPreference: 'both'
-      }
+        paymentPreference: 'both',
+      },
     },
     socialLinks: {
       instagram: '@cristiano',
-      twitter: '@Cristiano'
+      twitter: '@Cristiano',
     },
     statistics: {
       totalGames: 1150,
@@ -225,13 +225,13 @@ export const celebrityUsers: User[] = [
       monthlyGames: [
         { month: 'Jan', count: 22 },
         { month: 'Feb', count: 26 },
-        { month: 'Mar', count: 28 }
+        { month: 'Mar', count: 28 },
       ],
       courtVisits: [
         { courtId: '3', visits: 38 },
-        { courtId: '1', visits: 25 }
-      ]
-    }
+        { courtId: '1', visits: 25 },
+      ],
+    },
   },
   {
     id: 'serena-williams',
@@ -253,7 +253,7 @@ export const celebrityUsers: User[] = [
     winRate: 92,
     badges: [
       { id: 'grand-slam-queen', name: 'Grand Slam Queen', icon: '👑', color: 'text-purple-500', description: '23 Grand Slam Singles Titles', rarity: 'legendary' },
-      { id: 'olympic-gold', name: 'Olympic Champion', icon: '🥇', color: 'text-yellow-500', description: '4x Olympic Gold Medalist', rarity: 'legendary' }
+      { id: 'olympic-gold', name: 'Olympic Champion', icon: '🥇', color: 'text-yellow-500', description: '4x Olympic Gold Medalist', rarity: 'legendary' },
     ],
     availability: ['Morning', 'Afternoon'],
     trustScore: 100,
@@ -267,25 +267,25 @@ export const celebrityUsers: User[] = [
         achievements: true,
         weatherAlerts: true,
         pushNotifications: true,
-        emailNotifications: true
+        emailNotifications: true,
       },
       privacy: {
         showLocation: true,
         showOnlineStatus: true,
         allowGameInvites: 'connections',
-        showStatistics: true
+        showStatistics: true,
       },
       gameDefaults: {
         preferredSports: ['Tennis'],
         skillLevel: 'Professional',
         maxDistance: 25,
         preferredTimes: ['Morning'],
-        paymentPreference: 'both'
-      }
+        paymentPreference: 'both',
+      },
     },
     socialLinks: {
       instagram: '@serenawilliams',
-      twitter: '@SerenaWilliams'
+      twitter: '@SerenaWilliams',
     },
     statistics: {
       totalGames: 890,
@@ -298,14 +298,14 @@ export const celebrityUsers: User[] = [
       monthlyGames: [
         { month: 'Jan', count: 18 },
         { month: 'Feb', count: 20 },
-        { month: 'Mar', count: 22 }
+        { month: 'Mar', count: 22 },
       ],
       courtVisits: [
         { courtId: '2', visits: 55 },
-        { courtId: '1', visits: 12 }
-      ]
-    }
-  }
+        { courtId: '1', visits: 12 },
+      ],
+    },
+  },
 ];
 
 // Sports Media Organizations
@@ -330,7 +330,7 @@ export const sportsMediaUsers: User[] = [
     winRate: 0,
     badges: [
       { id: 'media-giant', name: 'Media Giant', icon: '📺', color: 'text-red-500', description: 'Leading Sports Network', rarity: 'legendary' },
-      { id: 'breaking-news', name: 'Breaking News', icon: '⚡', color: 'text-yellow-500', description: 'First to Report', rarity: 'epic' }
+      { id: 'breaking-news', name: 'Breaking News', icon: '⚡', color: 'text-yellow-500', description: 'First to Report', rarity: 'epic' },
     ],
     availability: ['24/7'],
     trustScore: 98,
@@ -344,25 +344,25 @@ export const sportsMediaUsers: User[] = [
         achievements: false,
         weatherAlerts: false,
         pushNotifications: true,
-        emailNotifications: true
+        emailNotifications: true,
       },
       privacy: {
         showLocation: true,
         showOnlineStatus: true,
         allowGameInvites: 'none',
-        showStatistics: false
+        showStatistics: false,
       },
       gameDefaults: {
         preferredSports: ['All Sports'],
         skillLevel: 'Professional',
         maxDistance: 0,
         preferredTimes: ['24/7'],
-        paymentPreference: 'free'
-      }
+        paymentPreference: 'free',
+      },
     },
     socialLinks: {
       instagram: '@espn',
-      twitter: '@espn'
+      twitter: '@espn',
     },
     statistics: {
       totalGames: 0,
@@ -373,8 +373,8 @@ export const sportsMediaUsers: User[] = [
       favoriteSport: 'All Sports',
       mostPlayedWith: [],
       monthlyGames: [],
-      courtVisits: []
-    }
+      courtVisits: [],
+    },
   },
   {
     id: 'bein-sports',
@@ -396,7 +396,7 @@ export const sportsMediaUsers: User[] = [
     winRate: 0,
     badges: [
       { id: 'middle-east-leader', name: 'MENA Sports Leader', icon: '🌍', color: 'text-green-500', description: 'Leading Sports Network in MENA', rarity: 'epic' },
-      { id: 'exclusive-content', name: 'Exclusive Content', icon: '🎬', color: 'text-purple-500', description: 'Premium Sports Coverage', rarity: 'rare' }
+      { id: 'exclusive-content', name: 'Exclusive Content', icon: '🎬', color: 'text-purple-500', description: 'Premium Sports Coverage', rarity: 'rare' },
     ],
     availability: ['24/7'],
     trustScore: 96,
@@ -410,25 +410,25 @@ export const sportsMediaUsers: User[] = [
         achievements: false,
         weatherAlerts: false,
         pushNotifications: true,
-        emailNotifications: true
+        emailNotifications: true,
       },
       privacy: {
         showLocation: true,
         showOnlineStatus: true,
         allowGameInvites: 'none',
-        showStatistics: false
+        showStatistics: false,
       },
       gameDefaults: {
         preferredSports: ['Football'],
         skillLevel: 'Professional',
         maxDistance: 0,
         preferredTimes: ['24/7'],
-        paymentPreference: 'free'
-      }
+        paymentPreference: 'free',
+      },
     },
     socialLinks: {
       instagram: '@beinsports_en',
-      twitter: '@beINSPORTS_EN'
+      twitter: '@beINSPORTS_EN',
     },
     statistics: {
       totalGames: 0,
@@ -439,9 +439,9 @@ export const sportsMediaUsers: User[] = [
       favoriteSport: 'Football',
       mostPlayedWith: [],
       monthlyGames: [],
-      courtVisits: []
-    }
-  }
+      courtVisits: [],
+    },
+  },
 ];
 
 // Combine all users
@@ -477,25 +477,25 @@ export const mockUsers: User[] = [
         achievements: true,
         weatherAlerts: true,
         pushNotifications: true,
-        emailNotifications: false
+        emailNotifications: false,
       },
       privacy: {
         showLocation: true,
         showOnlineStatus: true,
         allowGameInvites: 'everyone',
-        showStatistics: true
+        showStatistics: true,
       },
       gameDefaults: {
         preferredSports: ['Basketball', 'Tennis'],
         skillLevel: 'Advanced',
         maxDistance: 10,
         preferredTimes: ['Evening'],
-        paymentPreference: 'both'
-      }
+        paymentPreference: 'both',
+      },
     },
     socialLinks: {
       instagram: '@john_sports',
-      twitter: '@john_doe_sports'
+      twitter: '@john_doe_sports',
     },
     statistics: {
       totalGames: 127,
@@ -508,13 +508,13 @@ export const mockUsers: User[] = [
       monthlyGames: [
         { month: 'Jan', count: 12 },
         { month: 'Feb', count: 15 },
-        { month: 'Mar', count: 18 }
+        { month: 'Mar', count: 18 },
       ],
       courtVisits: [
         { courtId: '1', visits: 25 },
-        { courtId: '2', visits: 18 }
-      ]
-    }
+        { courtId: '2', visits: 18 },
+      ],
+    },
   },
   ...celebrityUsers,
   ...sportsMediaUsers,
@@ -549,21 +549,21 @@ export const mockUsers: User[] = [
         achievements: true,
         weatherAlerts: true,
         pushNotifications: true,
-        emailNotifications: true
+        emailNotifications: true,
       },
       privacy: {
         showLocation: true,
         showOnlineStatus: true,
         allowGameInvites: 'connections',
-        showStatistics: true
+        showStatistics: true,
       },
       gameDefaults: {
         preferredSports: ['Tennis'],
         skillLevel: 'Professional',
         maxDistance: 15,
         preferredTimes: ['Afternoon'],
-        paymentPreference: 'paid'
-      }
+        paymentPreference: 'paid',
+      },
     },
     statistics: {
       totalGames: 203,
@@ -576,13 +576,13 @@ export const mockUsers: User[] = [
       monthlyGames: [
         { month: 'Jan', count: 18 },
         { month: 'Feb', count: 22 },
-        { month: 'Mar', count: 25 }
+        { month: 'Mar', count: 25 },
       ],
       courtVisits: [
         { courtId: '2', visits: 45 },
-        { courtId: '1', visits: 12 }
-      ]
-    }
+        { courtId: '1', visits: 12 },
+      ],
+    },
   },
   {
     id: '3',
@@ -615,21 +615,21 @@ export const mockUsers: User[] = [
         achievements: true,
         weatherAlerts: false,
         pushNotifications: true,
-        emailNotifications: false
+        emailNotifications: false,
       },
       privacy: {
         showLocation: false,
         showOnlineStatus: false,
         allowGameInvites: 'everyone',
-        showStatistics: false
+        showStatistics: false,
       },
       gameDefaults: {
         preferredSports: ['Soccer', 'Basketball'],
         skillLevel: 'Intermediate',
         maxDistance: 5,
         preferredTimes: ['Weekend'],
-        paymentPreference: 'free'
-      }
+        paymentPreference: 'free',
+      },
     },
     statistics: {
       totalGames: 89,
@@ -642,13 +642,13 @@ export const mockUsers: User[] = [
       monthlyGames: [
         { month: 'Jan', count: 8 },
         { month: 'Feb', count: 12 },
-        { month: 'Mar', count: 15 }
+        { month: 'Mar', count: 15 },
       ],
       courtVisits: [
         { courtId: '3', visits: 35 },
-        { courtId: '1', visits: 8 }
-      ]
-    }
+        { courtId: '1', visits: 8 },
+      ],
+    },
   },
   {
     id: '4',
@@ -681,21 +681,21 @@ export const mockUsers: User[] = [
         achievements: true,
         weatherAlerts: true,
         pushNotifications: true,
-        emailNotifications: true
+        emailNotifications: true,
       },
       privacy: {
         showLocation: true,
         showOnlineStatus: true,
         allowGameInvites: 'everyone',
-        showStatistics: true
+        showStatistics: true,
       },
       gameDefaults: {
         preferredSports: ['Volleyball'],
         skillLevel: 'Advanced',
         maxDistance: 8,
         preferredTimes: ['Morning'],
-        paymentPreference: 'both'
-      }
+        paymentPreference: 'both',
+      },
     },
     statistics: {
       totalGames: 156,
@@ -708,14 +708,14 @@ export const mockUsers: User[] = [
       monthlyGames: [
         { month: 'Jan', count: 14 },
         { month: 'Feb', count: 16 },
-        { month: 'Mar', count: 20 }
+        { month: 'Mar', count: 20 },
       ],
       courtVisits: [
         { courtId: '1', visits: 28 },
-        { courtId: '3', visits: 15 }
-      ]
-    }
-  }
+        { courtId: '3', visits: 15 },
+      ],
+    },
+  },
 ];
 
 export const mockCourts: Court[] = [
@@ -732,7 +732,7 @@ export const mockCourts: Court[] = [
     image: 'https://images.pexels.com/photos/1752757/pexels-photo-1752757.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=2',
     images: [
       'https://images.pexels.com/photos/1752757/pexels-photo-1752757.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=2',
-      'https://images.pexels.com/photos/1544966/pexels-photo-1544966.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=2'
+      'https://images.pexels.com/photos/1544966/pexels-photo-1544966.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=2',
     ],
     amenities: ['Parking', 'Restrooms', 'Water Fountain', 'Lighting', 'Scoreboard'],
     isIndoor: false,
@@ -740,7 +740,7 @@ export const mockCourts: Court[] = [
     rules: ['No glass containers', 'Proper athletic wear required', 'Maximum 2 hours per booking'],
     contactInfo: {
       phone: '+1 (555) 123-4567',
-      email: 'info@goldengatebasketball.com'
+      email: 'info@goldengatebasketball.com',
     },
     operatingHours: {
       monday: { open: '06:00', close: '22:00' },
@@ -749,14 +749,14 @@ export const mockCourts: Court[] = [
       thursday: { open: '06:00', close: '22:00' },
       friday: { open: '06:00', close: '23:00' },
       saturday: { open: '07:00', close: '23:00' },
-      sunday: { open: '07:00', close: '21:00' }
+      sunday: { open: '07:00', close: '21:00' },
     },
     weatherDependent: true,
     availability: [
       { id: '1', startTime: '09:00', endTime: '10:00', date: '2025-01-15', isAvailable: true, price: 25 },
       { id: '2', startTime: '10:00', endTime: '11:00', date: '2025-01-15', isAvailable: false, price: 25 },
-      { id: '3', startTime: '11:00', endTime: '12:00', date: '2025-01-15', isAvailable: true, price: 25 }
-    ]
+      { id: '3', startTime: '11:00', endTime: '12:00', date: '2025-01-15', isAvailable: true, price: 25 },
+    ],
   },
   {
     id: '2',
@@ -776,7 +776,7 @@ export const mockCourts: Court[] = [
     contactInfo: {
       phone: '+1 (555) 987-6543',
       email: 'bookings@elitetenniscenter.com',
-      website: 'www.elitetenniscenter.com'
+      website: 'www.elitetenniscenter.com',
     },
     operatingHours: {
       monday: { open: '05:00', close: '23:00' },
@@ -785,13 +785,13 @@ export const mockCourts: Court[] = [
       thursday: { open: '05:00', close: '23:00' },
       friday: { open: '05:00', close: '24:00' },
       saturday: { open: '06:00', close: '24:00' },
-      sunday: { open: '06:00', close: '22:00' }
+      sunday: { open: '06:00', close: '22:00' },
     },
     weatherDependent: false,
     availability: [
       { id: '4', startTime: '14:00', endTime: '15:00', date: '2025-01-15', isAvailable: true, price: 40 },
-      { id: '5', startTime: '15:00', endTime: '16:00', date: '2025-01-15', isAvailable: true, price: 40 }
-    ]
+      { id: '5', startTime: '15:00', endTime: '16:00', date: '2025-01-15', isAvailable: true, price: 40 },
+    ],
   },
   {
     id: '3',
@@ -809,7 +809,7 @@ export const mockCourts: Court[] = [
     description: 'Well-maintained community soccer fields perfect for recreational and competitive play.',
     rules: ['Cleats required', 'No pets allowed', 'Respect field conditions'],
     contactInfo: {
-      phone: '+1 (555) 456-7890'
+      phone: '+1 (555) 456-7890',
     },
     operatingHours: {
       monday: { open: '08:00', close: '20:00' },
@@ -818,13 +818,13 @@ export const mockCourts: Court[] = [
       thursday: { open: '08:00', close: '20:00' },
       friday: { open: '08:00', close: '21:00' },
       saturday: { open: '07:00', close: '21:00' },
-      sunday: { open: '07:00', close: '19:00' }
+      sunday: { open: '07:00', close: '19:00' },
     },
     weatherDependent: true,
     availability: [
-      { id: '6', startTime: '18:00', endTime: '19:00', date: '2025-01-15', isAvailable: true, price: 35 }
-    ]
-  }
+      { id: '6', startTime: '18:00', endTime: '19:00', date: '2025-01-15', isAvailable: true, price: 35 },
+    ],
+  },
 ];
 
 // Celebrity and Media Posts
@@ -832,7 +832,7 @@ export const celebrityPosts: Post[] = [
   {
     id: 'messi-post-1',
     author: mockUsers.find(u => u.id === 'messi-10')!,
-    content: "Just finished an amazing training session! 🔥 The passion for football never fades. Who wants to join me for a friendly match this weekend? #NeverStopDreaming #Football #Miami",
+    content: 'Just finished an amazing training session! 🔥 The passion for football never fades. Who wants to join me for a friendly match this weekend? #NeverStopDreaming #Football #Miami',
     image: 'https://images.pexels.com/photos/1752757/pexels-photo-1752757.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=2',
     timestamp: new Date(Date.now() - 3 * 60 * 60 * 1000),
     likes: 2500000,
@@ -841,19 +841,19 @@ export const celebrityPosts: Post[] = [
     isLiked: false,
     type: 'training',
     location: 'Inter Miami Training Facility',
-    tags: ['football', 'training', 'miami', 'intermami']
+    tags: ['football', 'training', 'miami', 'intermami'],
   },
   {
     id: 'espn-share-messi',
     author: mockUsers.find(u => u.id === 'espn-official')!,
-    content: "🚨 BREAKING: Lionel Messi just posted on Fitcha about his training session! The GOAT is using the same platform as everyday athletes. This is the future of sports social networking! 🐐⚽\n\n#Messi #Fitcha #SportsNews #Football",
+    content: '🚨 BREAKING: Lionel Messi just posted on Fitcha about his training session! The GOAT is using the same platform as everyday athletes. This is the future of sports social networking! 🐐⚽\n\n#Messi #Fitcha #SportsNews #Football',
     timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
     likes: 125000,
     comments: 8500,
     shares: 25000,
     isLiked: false,
     type: 'text',
-    tags: ['messi', 'breaking-news', 'fitcha', 'sports-tech']
+    tags: ['messi', 'breaking-news', 'fitcha', 'sports-tech'],
   },
   {
     id: 'cristiano-post-1',
@@ -867,19 +867,19 @@ export const celebrityPosts: Post[] = [
     isLiked: false,
     type: 'training',
     location: 'Al Nassr Training Center, Riyadh',
-    tags: ['cr7', 'training', 'alnassr', 'riyadh']
+    tags: ['cr7', 'training', 'alnassr', 'riyadh'],
   },
   {
     id: 'bein-sports-share',
     author: mockUsers.find(u => u.id === 'bein-sports')!,
-    content: "🌟 The biggest stars in sports are joining Fitcha! From Messi to Cristiano, athletes worldwide are connecting on this revolutionary platform. \n\nThe future of sports social networking is here! 🚀\n\n#Fitcha #SportsRevolution #GlobalSports #beINSPORTS",
+    content: '🌟 The biggest stars in sports are joining Fitcha! From Messi to Cristiano, athletes worldwide are connecting on this revolutionary platform. \n\nThe future of sports social networking is here! 🚀\n\n#Fitcha #SportsRevolution #GlobalSports #beINSPORTS',
     timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000),
     likes: 85000,
     comments: 5200,
     shares: 18000,
     isLiked: false,
     type: 'text',
-    tags: ['fitcha', 'sports-revolution', 'global-sports']
+    tags: ['fitcha', 'sports-revolution', 'global-sports'],
   },
   {
     id: 'serena-post-1',
@@ -893,8 +893,8 @@ export const celebrityPosts: Post[] = [
     isLiked: false,
     type: 'training',
     location: 'Los Angeles Tennis Club',
-    tags: ['tennis', 'community', 'women-in-sports']
-  }
+    tags: ['tennis', 'community', 'women-in-sports'],
+  },
 ];
 
 export const mockPosts: Post[] = [
@@ -902,7 +902,7 @@ export const mockPosts: Post[] = [
   {
     id: '1',
     author: mockUsers[0],
-    content: "Just finished an amazing basketball session! 🏀 The new shooting technique is really paying off. Looking forward to the tournament next week!",
+    content: 'Just finished an amazing basketball session! 🏀 The new shooting technique is really paying off. Looking forward to the tournament next week!',
     image: 'https://images.pexels.com/photos/1752757/pexels-photo-1752757.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=2',
     timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
     likes: 47,
@@ -911,12 +911,12 @@ export const mockPosts: Post[] = [
     isLiked: true,
     type: 'training',
     location: 'Golden Gate Basketball Courts',
-    tags: ['basketball', 'training', 'improvement']
+    tags: ['basketball', 'training', 'improvement'],
   },
   {
     id: '2',
     author: mockUsers[1],
-    content: "Great match today! 🎾 The weather was perfect and my opponent was really challenging. Love these competitive games!",
+    content: 'Great match today! 🎾 The weather was perfect and my opponent was really challenging. Love these competitive games!',
     timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000),
     likes: 23,
     comments: 6,
@@ -931,15 +931,15 @@ export const mockPosts: Post[] = [
       duration: 90,
       weather: 'Sunny, 22°C',
       mvp: 'Sarah Johnson',
-      highlights: ['Great backhand winners', 'Consistent serving']
+      highlights: ['Great backhand winners', 'Consistent serving'],
     },
     location: 'Elite Tennis Center',
-    tags: ['tennis', 'match', 'victory']
+    tags: ['tennis', 'match', 'victory'],
   },
   {
     id: '3',
     author: mockUsers[2],
-    content: "Achieved my personal best in the 5K run today! 🏃‍♂️ Training consistency is key. Who wants to join me for a run this weekend?",
+    content: 'Achieved my personal best in the 5K run today! 🏃‍♂️ Training consistency is key. Who wants to join me for a run this weekend?',
     image: 'https://images.pexels.com/photos/2402777/pexels-photo-2402777.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=2',
     timestamp: new Date(Date.now() - 8 * 60 * 60 * 1000),
     likes: 89,
@@ -947,8 +947,8 @@ export const mockPosts: Post[] = [
     shares: 15,
     isLiked: false,
     type: 'achievement',
-    tags: ['running', 'personal-best', 'training']
-  }
+    tags: ['running', 'personal-best', 'training'],
+  },
 ];
 
 export const mockConversations: Conversation[] = [
@@ -959,14 +959,14 @@ export const mockConversations: Conversation[] = [
     lastMessage: {
       id: '1',
       sender: mockUsers[1],
-      content: "Hey! Are you free for a tennis match tomorrow at 3 PM?",
+      content: 'Hey! Are you free for a tennis match tomorrow at 3 PM?',
       timestamp: new Date(Date.now() - 30 * 60 * 1000),
       isRead: false,
-      type: 'text'
+      type: 'text',
     },
     unreadCount: 2,
     isActive: true,
-    createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000)
+    createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000),
   },
   {
     id: '2',
@@ -975,14 +975,14 @@ export const mockConversations: Conversation[] = [
     lastMessage: {
       id: '2',
       sender: mockUsers[2],
-      content: "Thanks for the great basketball game! Same time next week?",
+      content: 'Thanks for the great basketball game! Same time next week?',
       timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
       isRead: true,
-      type: 'text'
+      type: 'text',
     },
     unreadCount: 0,
     isActive: true,
-    createdAt: new Date(Date.now() - 48 * 60 * 60 * 1000)
+    createdAt: new Date(Date.now() - 48 * 60 * 60 * 1000),
   },
   {
     id: '3',
@@ -991,18 +991,18 @@ export const mockConversations: Conversation[] = [
     lastMessage: {
       id: '3',
       sender: mockUsers[3],
-      content: "Court is confirmed for 6 PM! See everyone there 🏀",
+      content: 'Court is confirmed for 6 PM! See everyone there 🏀',
       timestamp: new Date(Date.now() - 45 * 60 * 1000),
       isRead: false,
-      type: 'text'
+      type: 'text',
     },
     unreadCount: 1,
     gameId: 'game-1',
     name: 'Basketball Game - Tonight',
     avatar: 'https://images.pexels.com/photos/1752757/pexels-photo-1752757.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&dpr=2',
     isActive: true,
-    createdAt: new Date(Date.now() - 72 * 60 * 60 * 1000)
-  }
+    createdAt: new Date(Date.now() - 72 * 60 * 60 * 1000),
+  },
 ];
 
 export const mockMatchInvites: MatchInvite[] = [
@@ -1015,10 +1015,10 @@ export const mockMatchInvites: MatchInvite[] = [
     date: '2025-01-16',
     time: '15:00',
     court: mockCourts[1],
-    message: "Hey! Want to play some tennis tomorrow? I found a great court!",
+    message: 'Hey! Want to play some tennis tomorrow? I found a great court!',
     status: 'pending',
     timestamp: new Date(Date.now() - 30 * 60 * 1000),
-    expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000)
+    expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
   },
   {
     id: '2',
@@ -1028,9 +1028,9 @@ export const mockMatchInvites: MatchInvite[] = [
     sport: 'Basketball',
     date: '2025-01-17',
     time: '18:00',
-    message: "Basketball game this Friday evening? Let me know!",
+    message: 'Basketball game this Friday evening? Let me know!',
     status: 'pending',
     timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
-    expiresAt: new Date(Date.now() + 48 * 60 * 60 * 1000)
-  }
+    expiresAt: new Date(Date.now() + 48 * 60 * 60 * 1000),
+  },
 ];

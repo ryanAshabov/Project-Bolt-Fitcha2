@@ -49,7 +49,7 @@ export const validatePassword = (password: string): { isValid: boolean; errors: 
 
   return {
     isValid: errors.length === 0,
-    errors
+    errors,
   };
 };
 
@@ -91,7 +91,7 @@ export const validateLength = (
   value: string,
   min: number,
   max: number,
-  fieldName: string
+  fieldName: string,
 ): string | null => {
   if (value.length < min) {
     return `${fieldName} must be at least ${min} characters`;
@@ -115,7 +115,7 @@ export const validateNumber = (
   value: number,
   min: number,
   max: number,
-  fieldName: string
+  fieldName: string,
 ): string | null => {
   if (isNaN(value)) {
     return `${fieldName} must be a valid number`;
@@ -140,7 +140,7 @@ export const validateNumber = (
 export const validateDate = (
   dateString: string,
   minDate?: Date,
-  maxDate?: Date
+  maxDate?: Date,
 ): string | null => {
   const date = new Date(dateString);
   
@@ -259,7 +259,7 @@ export const isValidSport = (sport: string): boolean => {
     'Squash',
     'Hockey',
     'Cricket',
-    'Rugby'
+    'Rugby',
   ];
   
   return validSports.includes(sport);

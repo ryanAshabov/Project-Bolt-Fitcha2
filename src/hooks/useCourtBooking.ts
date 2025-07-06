@@ -29,7 +29,7 @@ export const useCourtBooking = () => {
 
   const findOptimalCourt = async (
     players: User[],
-    filters: BookingFilters
+    filters: BookingFilters,
   ): Promise<CourtSuggestion[]> => {
     setLoading(true);
     setError(null);
@@ -47,7 +47,7 @@ export const useCourtBooking = () => {
           centerPoint.lat,
           centerPoint.lng,
           court.coordinates.lat,
-          court.coordinates.lng
+          court.coordinates.lng,
         );
 
         const matchScore = calculateMatchScore(court, filters, distance, players);
@@ -58,7 +58,7 @@ export const useCourtBooking = () => {
           distance,
           availableSlots: getAvailableSlots(court, filters.date, filters.time),
           matchScore,
-          reasons
+          reasons,
         };
       });
 
@@ -113,15 +113,15 @@ export const useCourtBooking = () => {
           thursday: { open: '06:00', close: '22:00' },
           friday: { open: '06:00', close: '23:00' },
           saturday: { open: '07:00', close: '23:00' },
-          sunday: { open: '07:00', close: '21:00' }
+          sunday: { open: '07:00', close: '21:00' },
         },
         weatherDependent: true,
         availability: [
           { id: '1', startTime: '09:00', endTime: '10:00', date: filters.date, isAvailable: true, price: 25 },
           { id: '2', startTime: '10:00', endTime: '11:00', date: filters.date, isAvailable: true, price: 25 },
           { id: '3', startTime: '18:00', endTime: '19:00', date: filters.date, isAvailable: true, price: 30 },
-          { id: '4', startTime: '19:00', endTime: '20:00', date: filters.date, isAvailable: true, price: 30 }
-        ]
+          { id: '4', startTime: '19:00', endTime: '20:00', date: filters.date, isAvailable: true, price: 30 },
+        ],
       },
       {
         id: '2',
@@ -144,14 +144,14 @@ export const useCourtBooking = () => {
           thursday: { open: '05:00', close: '23:00' },
           friday: { open: '05:00', close: '24:00' },
           saturday: { open: '06:00', close: '24:00' },
-          sunday: { open: '06:00', close: '22:00' }
+          sunday: { open: '06:00', close: '22:00' },
         },
         weatherDependent: false,
         availability: [
           { id: '5', startTime: '14:00', endTime: '15:00', date: filters.date, isAvailable: true, price: 40 },
           { id: '6', startTime: '15:00', endTime: '16:00', date: filters.date, isAvailable: true, price: 40 },
-          { id: '7', startTime: '18:00', endTime: '19:00', date: filters.date, isAvailable: true, price: 45 }
-        ]
+          { id: '7', startTime: '18:00', endTime: '19:00', date: filters.date, isAvailable: true, price: 45 },
+        ],
       },
       {
         id: '3',
@@ -174,14 +174,14 @@ export const useCourtBooking = () => {
           thursday: { open: '08:00', close: '20:00' },
           friday: { open: '08:00', close: '21:00' },
           saturday: { open: '07:00', close: '21:00' },
-          sunday: { open: '07:00', close: '19:00' }
+          sunday: { open: '07:00', close: '19:00' },
         },
         weatherDependent: true,
         availability: [
           { id: '8', startTime: '16:00', endTime: '17:00', date: filters.date, isAvailable: true, price: 35 },
-          { id: '9', startTime: '17:00', endTime: '18:00', date: filters.date, isAvailable: true, price: 35 }
-        ]
-      }
+          { id: '9', startTime: '17:00', endTime: '18:00', date: filters.date, isAvailable: true, price: 35 },
+        ],
+      },
     ];
 
     // Filter courts based on criteria
@@ -206,7 +206,7 @@ export const useCourtBooking = () => {
         slot.date === filters.date && 
         slot.isAvailable &&
         slot.startTime <= filters.time &&
-        slot.endTime > filters.time
+        slot.endTime > filters.time,
       );
 
       return hasAvailability;
@@ -217,7 +217,7 @@ export const useCourtBooking = () => {
     court: Court,
     filters: BookingFilters,
     distance: number,
-    players: User[]
+    players: User[],
   ): number => {
     let score = 0;
 
@@ -263,7 +263,7 @@ export const useCourtBooking = () => {
 
       // Check if court matches user's preferred sports
       const matchesPreferences = player.preferences?.gameDefaults?.preferredSports?.some(sport => 
-        court.sport.includes(sport)
+        court.sport.includes(sport),
       );
       if (matchesPreferences) {
         score += 3;
@@ -277,7 +277,7 @@ export const useCourtBooking = () => {
     court: Court,
     filters: BookingFilters,
     distance: number,
-    players: User[]
+    players: User[],
   ): string[] => {
     const reasons: string[] = [];
 
@@ -309,7 +309,7 @@ export const useCourtBooking = () => {
 
     // Check user history
     const hasPlayedHere = players.some(player => 
-      player.statistics?.courtVisits?.some(visit => visit.courtId === court.id)
+      player.statistics?.courtVisits?.some(visit => visit.courtId === court.id),
     );
     if (hasPlayedHere) {
       reasons.push('You\'ve played here before');
@@ -328,7 +328,7 @@ export const useCourtBooking = () => {
   const bookCourt = async (
     courtId: string,
     timeSlotId: string,
-    gameId?: string
+    gameId?: string,
   ): Promise<boolean> => {
     setLoading(true);
     setError(null);
@@ -355,7 +355,7 @@ export const useCourtBooking = () => {
     // In a real app, you'd use a places API to find actual meeting points
     return {
       ...centerPoint,
-      name: 'Optimal meeting point'
+      name: 'Optimal meeting point',
     };
   };
 
@@ -365,6 +365,6 @@ export const useCourtBooking = () => {
     findOptimalCourt,
     bookCourt,
     suggestMeetingPoint,
-    calculateCenterPoint
+    calculateCenterPoint,
   };
 };

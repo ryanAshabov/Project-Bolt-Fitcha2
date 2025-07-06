@@ -45,7 +45,7 @@ export const IoTIntegration: React.FC<{ courtId: string }> = ({ courtId }) => {
         unit: '°C',
         status: 'online',
         lastUpdate: new Date(),
-        location: 'وسط الملعب'
+        location: 'وسط الملعب',
       },
       {
         id: 'hum_001',
@@ -55,7 +55,7 @@ export const IoTIntegration: React.FC<{ courtId: string }> = ({ courtId }) => {
         unit: '%',
         status: 'online',
         lastUpdate: new Date(),
-        location: 'غرفة تغيير الملابس'
+        location: 'غرفة تغيير الملابس',
       },
       {
         id: 'occ_001',
@@ -65,7 +65,7 @@ export const IoTIntegration: React.FC<{ courtId: string }> = ({ courtId }) => {
         unit: 'أشخاص',
         status: 'online',
         lastUpdate: new Date(),
-        location: 'مدخل الملعب'
+        location: 'مدخل الملعب',
       },
       {
         id: 'air_001',
@@ -75,8 +75,8 @@ export const IoTIntegration: React.FC<{ courtId: string }> = ({ courtId }) => {
         unit: 'AQI',
         status: 'online',
         lastUpdate: new Date(),
-        location: 'منطقة الجلوس'
-      }
+        location: 'منطقة الجلوس',
+      },
     ];
 
     const mockDevices: IoTDevice[] = [
@@ -85,29 +85,29 @@ export const IoTIntegration: React.FC<{ courtId: string }> = ({ courtId }) => {
         name: 'إضاءة الملعب الذكية',
         type: 'smart_lighting',
         status: 'auto',
-        controllable: true
+        controllable: true,
       },
       {
         id: 'climate_001',
         name: 'نظام التكييف',
         type: 'climate_control',
         status: 'on',
-        controllable: true
+        controllable: true,
       },
       {
         id: 'camera_001',
         name: 'كاميرا الأمان',
         type: 'security_camera',
         status: 'on',
-        controllable: false
+        controllable: false,
       },
       {
         id: 'access_001',
         name: 'نظام التحكم بالدخول',
         type: 'access_control',
         status: 'on',
-        controllable: true
-      }
+        controllable: true,
+      },
     ];
 
     setSensors(mockSensors);
@@ -126,7 +126,7 @@ export const IoTIntegration: React.FC<{ courtId: string }> = ({ courtId }) => {
         : sensor.type === 'air_quality'
         ? Math.max(50, Math.min(100, sensor.value + (Math.random() - 0.5) * 10))
         : sensor.value,
-      lastUpdate: new Date()
+      lastUpdate: new Date(),
     })));
   };
 
@@ -164,9 +164,9 @@ export const IoTIntegration: React.FC<{ courtId: string }> = ({ courtId }) => {
       device.id === deviceId && device.controllable
         ? { 
             ...device, 
-            status: device.status === 'on' ? 'off' : 'on' 
+            status: device.status === 'on' ? 'off' : 'on', 
           }
-        : device
+        : device,
     ));
   };
 
@@ -233,7 +233,7 @@ export const IoTIntegration: React.FC<{ courtId: string }> = ({ courtId }) => {
                 <p className="text-xs text-slate-500 mt-1">
                   آخر تحديث: {sensor.lastUpdate.toLocaleTimeString('ar-SA', { 
                     hour: '2-digit', 
-                    minute: '2-digit' 
+                    minute: '2-digit', 
                   })}
                 </p>
               </div>

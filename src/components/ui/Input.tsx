@@ -20,7 +20,7 @@ export const Input: React.FC<InputProps> = ({
   icon: Icon,
   error,
   disabled = false,
-  className = ''
+  className = '',
 }) => {
   return (
     <div className="w-full">

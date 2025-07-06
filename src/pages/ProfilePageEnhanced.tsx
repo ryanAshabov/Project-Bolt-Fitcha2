@@ -24,7 +24,7 @@ import {
   BarChart3,
   UserPlus,
   MessageCircle,
-  Share2
+  Share2,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
@@ -58,7 +58,7 @@ const mockUserProfile = {
     monthlyGames: 18,
     goals: 67,
     assists: 34,
-    cleanSheets: 23
+    cleanSheets: 23,
   },
 
   // Achievements
@@ -68,7 +68,7 @@ const mockUserProfile = {
     { id: 3, title: 'صانع الألعاب', description: 'قم بتنظيم 10 ألعاب', icon: Users, earned: true, date: '2023-08-20' },
     { id: 4, title: 'النجم الساطع', description: 'احصل على تقييم 5 نجوم لمدة 5 مرات متتالية', icon: Star, earned: true, date: '2023-09-10' },
     { id: 5, title: 'المحارب', description: 'اربح 100 مباراة', icon: Trophy, earned: false, progress: 67 },
-    { id: 6, title: 'الماراثونر', description: 'العب 500 ساعة', icon: Clock, earned: false, progress: 57.8 }
+    { id: 6, title: 'الماراثونر', description: 'العب 500 ساعة', icon: Clock, earned: false, progress: 57.8 },
   ],
 
   // Recent Activity
@@ -77,14 +77,14 @@ const mockUserProfile = {
     { id: 2, type: 'achievement', title: 'حصل على إنجاز "صانع الألعاب"', date: '2024-01-14' },
     { id: 3, type: 'rating', title: 'حصل على تقييم 5 نجوم', date: '2024-01-13' },
     { id: 4, type: 'game', title: 'مباراة في نادي الأهلي', date: '2024-01-12', result: 'تعادل 1-1' },
-    { id: 5, type: 'friend', title: 'أضاف صديق جديد - سالم الأحمد', date: '2024-01-11' }
+    { id: 5, type: 'friend', title: 'أضاف صديق جديد - سالم الأحمد', date: '2024-01-11' },
   ],
 
   // Social Links
   socialLinks: {
     instagram: '@ahmed_fitcha',
     twitter: '@ahmed_football',
-    website: 'ahmedfootball.com'
+    website: 'ahmedfootball.com',
   },
 
   // Friends
@@ -92,8 +92,8 @@ const mockUserProfile = {
     { id: 1, name: 'سالم الأحمد', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face', status: 'online' },
     { id: 2, name: 'محمد العلي', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face', status: 'offline' },
     { id: 3, name: 'فيصل الخالد', avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face', status: 'playing' },
-    { id: 4, name: 'عبدالله السعد', avatar: 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?w=100&h=100&fit=crop&crop=face', status: 'online' }
-  ]
+    { id: 4, name: 'عبدالله السعد', avatar: 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?w=100&h=100&fit=crop&crop=face', status: 'online' },
+  ],
 };
 
 const ProfilePageEnhanced: React.FC = () => {
@@ -302,7 +302,7 @@ const ProfilePageEnhanced: React.FC = () => {
                 { id: 'stats', label: 'الإحصائيات', icon: BarChart3 },
                 { id: 'achievements', label: 'الإنجازات', icon: Trophy },
                 { id: 'activity', label: 'النشاطات', icon: Clock },
-                { id: 'friends', label: 'الأصدقاء', icon: Users }
+                { id: 'friends', label: 'الأصدقاء', icon: Users },
               ].map((tab) => {
                 const Icon = tab.icon;
                 return (

@@ -23,7 +23,7 @@ import {
   onAuthStateChanged,
   User as FirebaseUser,
   updateProfile,
-  AuthError
+  AuthError,
 } from 'firebase/auth';
 import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../services/firebase';
@@ -84,27 +84,27 @@ const createUserProfile = async (firebaseUser: FirebaseUser, additionalData?: Pa
             achievements: true,
             weatherAlerts: true,
             pushNotifications: true,
-            emailNotifications: true
+            emailNotifications: true,
           },
           privacy: {
             showLocation: true,
             showOnlineStatus: true,
             allowGameInvites: 'everyone',
-            showStatistics: true
+            showStatistics: true,
           },
           gameDefaults: {
             preferredSports: ['Basketball'],
             skillLevel: 'Intermediate',
             maxDistance: 10,
             preferredTimes: ['Evening'],
-            paymentPreference: 'both'
-          }
+            paymentPreference: 'both',
+          },
         },
         socialLinks: {
           instagram: '',
           twitter: '',
           facebook: '',
-          website: ''
+          website: '',
         },
         statistics: {
           totalGames: 0,
@@ -115,7 +115,7 @@ const createUserProfile = async (firebaseUser: FirebaseUser, additionalData?: Pa
           favoriteSport: 'Basketball',
           mostPlayedWith: [],
           monthlyGames: [],
-          courtVisits: []
+          courtVisits: [],
         },
         // Note: createdAt and updatedAt will be added separately as they're not part of User type
       };
@@ -124,7 +124,7 @@ const createUserProfile = async (firebaseUser: FirebaseUser, additionalData?: Pa
       await setDoc(userDocRef, {
         ...newUserData,
         createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        updatedAt: serverTimestamp(),
       });
       
       return { id: firebaseUser.uid, ...newUserData } as User;
@@ -138,7 +138,7 @@ const createUserProfile = async (firebaseUser: FirebaseUser, additionalData?: Pa
     console.error('Error details:', {
       name: errorDetails.name,
       message: errorDetails.message,
-      stack: errorDetails.stack
+      stack: errorDetails.stack,
     });
     
     throw new Error(`Failed to create user profile: ${errorDetails.message || 'Unknown error'}`);
@@ -240,12 +240,12 @@ export const useAuth = () => {
       const userCredential = await createUserWithEmailAndPassword(
         auth, 
         userData.email, 
-        userData.password
+        userData.password,
       );
 
       // Update Firebase Auth profile
       await updateProfile(userCredential.user, {
-        displayName: `${userData.firstName} ${userData.lastName}`
+        displayName: `${userData.firstName} ${userData.lastName}`,
       });
 
       // Send email verification
@@ -256,7 +256,7 @@ export const useAuth = () => {
       await createUserProfile(userCredential.user, {
         firstName: userData.firstName,
         lastName: userData.lastName,
-        location: userData.location
+        location: userData.location,
       });
 
       return true;
@@ -373,7 +373,7 @@ export const useAuth = () => {
       const userDocRef = doc(db, 'users', user.id);
       await setDoc(userDocRef, {
         ...updates,
-        updatedAt: serverTimestamp()
+        updatedAt: serverTimestamp(),
       }, { merge: true });
 
       // Update local user state
@@ -398,6 +398,6 @@ export const useAuth = () => {
     resetPassword,
     resendEmailVerification,
     updateUserProfile,
-    clearError
+    clearError,
   };
 };
