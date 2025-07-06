@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, Activity, AlertCircle } from 'lucide-react';
-import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
+import { Button } from '../ui/Button';
 import { useAuth } from '../../hooks/useAuth';
 
 export const LoginPage: React.FC = () => {
