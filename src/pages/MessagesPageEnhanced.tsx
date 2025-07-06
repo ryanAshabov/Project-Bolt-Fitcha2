@@ -31,6 +31,8 @@ import {
   File,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
+import { MobileContainer } from '../components/ui/MobileContainer';
+import { useDeviceDetection } from '../components/ui/MobileDetection';
 
 // Mock conversations data
 const mockConversations = [
@@ -171,6 +173,7 @@ const mockMessages = [
 
 const MessagesPageEnhanced: React.FC = () => {
   const [selectedConversation, setSelectedConversation] = useState<string | null>('conv-1');
+  const { isMobile } = useDeviceDetection();
   const [searchQuery, setSearchQuery] = useState('');
   const [newMessage, setNewMessage] = useState('');
   const [conversations, setConversations] = useState(mockConversations);
@@ -239,6 +242,154 @@ return;
   };
 
   const selectedConv = conversations.find(conv => conv.id === selectedConversation);
+
+  // Mobile version of the messages page
+  if (isMobile) {
+    // If a conversation is selected, show the chat view
+    if (selectedConversation && selectedConv) {
+      return (
+        <MobileContainer 
+          title={selectedConv.name} 
+          showBack 
+          onBack={() => setSelectedConversation(null)}
+          showSearch={false}
+        >
+          <div className="flex flex-col h-[calc(100vh-120px)]">
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+              {messages.map((message) => (
+                <div
+                  key={message.id}
+                  className={`flex ${message.senderId === 'current-user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div className={`max-w-[80%] px-4 py-2 rounded-lg ${
+                    message.senderId === 'current-user'
+                      ? 'bg-blue-500 text-white rounded-br-none'
+                      : 'bg-white border border-gray-200 text-gray-800 rounded-bl-none'
+                  }`}>
+                    {message.senderId !== 'current-user' && selectedConv.type === 'group' && (
+                      <p className="text-xs font-medium mb-1 opacity-75">{message.senderName}</p>
+                    )}
+                    <p className="text-sm">{message.content}</p>
+                    <div className={`flex items-center justify-end mt-1 space-x-1 ${
+                      message.senderId === 'current-user' ? 'text-blue-100' : 'text-gray-400'
+                    }`}>
+                      <span className="text-xs">{formatTime(message.timestamp)}</span>
+                      {message.senderId === 'current-user' && (
+                        <CheckCheck className={`h-3 w-3 ${message.read ? 'text-blue-200' : 'text-blue-300'}`} />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Message Input */}
+            <div className="bg-white border-t border-gray-200 p-3">
+              <div className="flex items-center space-x-2">
+                <button className="p-2 text-gray-500 rounded-full hover:bg-gray-100">
+                  <Paperclip className="h-5 w-5" />
+                </button>
+                
+                <div className="flex-1 relative">
+                  <input
+                    type="text"
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder="Type a message..."
+                    className="w-full px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  />
+                  <button className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500">
+                    <Smile className="h-5 w-5" />
+                  </button>
+                </div>
+                
+                <button
+                  onClick={handleSendMessage}
+                  disabled={!newMessage.trim()}
+                  className={`p-2 rounded-full ${
+                    newMessage.trim() 
+                      ? 'bg-blue-500 text-white' 
+                      : 'bg-gray-200 text-gray-400'
+                  }`}
+                >
+                  <Send className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </MobileContainer>
+      );
+    }
+    
+    // If no conversation is selected, show the conversation list
+    return (
+      <MobileContainer title="Messages" showSearch>
+        <div className="p-4">
+          {/* Conversations List */}
+          <div className="space-y-3">
+            {filteredConversations.map((conversation) => (
+              <div
+                key={conversation.id}
+                onClick={() => setSelectedConversation(conversation.id)}
+                className="bg-white rounded-xl shadow-sm p-3 flex items-center space-x-3"
+              >
+                <div className="relative">
+                  <img
+                    src={conversation.avatar}
+                    alt={conversation.name}
+                    className="w-12 h-12 rounded-full object-cover"
+                  />
+                  {conversation.type === 'direct' && conversation.isOnline && (
+                    <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+                  )}
+                  {conversation.type === 'group' && (
+                    <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-blue-500 border-2 border-white rounded-full flex items-center justify-center">
+                      <Users className="h-2.5 w-2.5 text-white" />
+                    </div>
+                  )}
+                </div>
+                
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-medium text-gray-900 truncate">{conversation.name}</h3>
+                    <span className="text-xs text-gray-500">
+                      {formatTime(conversation.lastMessage.timestamp)}
+                    </span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between mt-1">
+                    <p className="text-sm text-gray-600 truncate">
+                      {conversation.lastMessage.content}
+                    </p>
+                    {conversation.unreadCount > 0 && (
+                      <div className="ml-2 bg-blue-500 text-white text-xs rounded-full px-2 py-0.5 min-w-[20px] text-center">
+                        {conversation.unreadCount}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+            
+            {filteredConversations.length === 0 && (
+              <div className="bg-white rounded-xl shadow-sm p-8 text-center">
+                <MessageCircle className="h-12 w-12 text-gray-300 mx-auto mb-3" />
+                <h3 className="text-lg font-medium text-gray-800 mb-1">No conversations</h3>
+                <p className="text-gray-600">Start a new conversation</p>
+                <Button className="mt-4">
+                  <Plus className="h-4 w-4 mr-1" />
+                  New Message
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+      </MobileContainer>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 flex">

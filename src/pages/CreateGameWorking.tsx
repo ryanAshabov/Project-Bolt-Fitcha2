@@ -8,6 +8,8 @@ import {
   ChevronRight, CheckCircle, ArrowLeft,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
+import { MobileContainer } from '../components/ui/MobileContainer';
+import { useDeviceDetection } from '../components/ui/MobileDetection';
 
 // Activity Categories
 const CATEGORIES = {
@@ -52,6 +54,7 @@ const CATEGORIES = {
 const CreateGameWorking: React.FC = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
+  const { isMobile } = useDeviceDetection();
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedActivity, setSelectedActivity] = useState('');
   const [gameData, setGameData] = useState({
@@ -112,6 +115,85 @@ const CreateGameWorking: React.FC = () => {
     alert('Game created successfully! 🎉');
     navigate('/');
   };
+
+  // Mobile version of the create game page
+  if (isMobile) {
+    return (
+      <MobileContainer 
+        title={`Create Game (${currentStep}/${totalSteps})`} 
+        showBack 
+        onBack={handleBack}
+        showSearch={false}
+      >
+        <div className="p-4">
+          {/* Step Indicator */}
+          <div className="flex items-center justify-between mb-6 px-2">
+            {Array.from({ length: totalSteps }, (_, i) => (
+              <div key={i} className="flex items-center flex-1">
+                <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
+                  i + 1 <= currentStep 
+                    ? 'bg-blue-600 text-white' 
+                    : 'bg-gray-200 text-gray-600'
+                }`}>
+                  {i + 1}
+                </div>
+                {i < totalSteps - 1 && (
+                  <div className={`h-1 flex-1 mx-1 ${
+                    i + 1 < currentStep ? 'bg-blue-600' : 'bg-gray-200'
+                  }`} />
+                )}
+              </div>
+            ))}
+          </div>
+          
+          {/* Content */}
+          <div className="bg-white rounded-xl shadow-md p-4">
+            {currentStep === 1 && renderStep1()}
+            {currentStep === 2 && renderStep2()}
+            {currentStep === 3 && renderStep3()}
+            {currentStep === 4 && renderStep4()}
+          </div>
+          
+          {/* Navigation Buttons */}
+          <div className="flex justify-between mt-6">
+            {currentStep > 1 && (
+              <Button
+                variant="outline"
+                onClick={handleBack}
+                className="flex items-center"
+              >
+                <ArrowLeft className="h-4 w-4 mr-1" />
+                Back
+              </Button>
+            )}
+            
+            {currentStep < totalSteps ? (
+              <Button
+                onClick={handleNext}
+                disabled={
+                  (currentStep === 1 && !selectedCategory) ||
+                  (currentStep === 2 && !selectedActivity) ||
+                  (currentStep === 3 && (!gameData.title || !gameData.date || !gameData.time || !gameData.location))
+                }
+                className={`flex items-center ${currentStep === 1 && !selectedCategory ? 'ml-auto' : ''}`}
+              >
+                Continue
+                <ChevronRight className="h-4 w-4 ml-1" />
+              </Button>
+            ) : (
+              <Button
+                onClick={handleSubmit}
+                className="flex items-center bg-green-600 hover:bg-green-700"
+              >
+                Create Game
+                <CheckCircle className="h-4 w-4 ml-1" />
+              </Button>
+            )}
+          </div>
+        </div>
+      </MobileContainer>
+    );
+  }
 
   const renderStepIndicator = () => (
     <div className="flex items-center justify-center mb-8">

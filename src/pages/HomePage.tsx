@@ -3,8 +3,22 @@ import { Header } from '../components/layout/Header';
 import { Sidebar } from '../components/layout/Sidebar';
 import { Feed } from '../components/feed/Feed';
 import { RightSidebar } from '../components/layout/RightSidebar';
+import { MobileContainer } from '../components/ui/MobileContainer';
+import { useDeviceDetection } from '../components/ui/MobileDetection';
 
 export const HomePage: React.FC = () => {
+  const { isMobile } = useDeviceDetection();
+
+  if (isMobile) {
+    return (
+      <MobileContainer title="Home">
+        <div className="p-4">
+          <Feed />
+        </div>
+      </MobileContainer>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-slate-50">
       <Header />

@@ -64,6 +64,8 @@ import {
   CreditCard,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
+import { MobileContainer } from '../components/ui/MobileContainer';
+import { useDeviceDetection } from '../components/ui/MobileDetection';
 
 // Court categories with enhanced data
 const COURT_TYPES = [
@@ -277,6 +279,7 @@ const mockCourts = [
 const CourtsPageProfessional: React.FC = () => {
   // Basic state
   const [searchQuery, setSearchQuery] = useState('');
+  const { isMobile } = useDeviceDetection();
   const [selectedType, setSelectedType] = useState('');
   const [priceRange, setPriceRange] = useState('');
   const [sortBy, setSortBy] = useState('distance');
@@ -380,6 +383,220 @@ const CourtsPageProfessional: React.FC = () => {
     };
     return icons[amenity] || Users;
   };
+
+  // Mobile version of the courts page
+  if (isMobile) {
+    return (
+      <MobileContainer title="Courts" showSearch>
+        <div className="p-4">
+          {/* Mobile Filters */}
+          <div className="bg-white rounded-xl shadow-sm mb-4 p-4">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="font-medium text-gray-900">Filters</h3>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+              >
+                <Filter className="h-4 w-4 mr-1" />
+                {showAdvancedFilters ? 'Hide' : 'Show'}
+              </Button>
+            </div>
+            
+            {/* Court Type Horizontal Scroll */}
+            <div className="overflow-x-auto pb-2 -mx-4 px-4">
+              <div className="flex space-x-2">
+                <button
+                  onClick={() => setSelectedType('')}
+                  className={`px-3 py-2 rounded-lg whitespace-nowrap ${
+                    selectedType === '' 
+                      ? 'bg-blue-100 text-blue-700 font-medium' 
+                      : 'bg-gray-100 text-gray-700'
+                  }`}
+                >
+                  All Types
+                </button>
+                {COURT_TYPES.map((type) => (
+                  <button
+                    key={type.id}
+                    onClick={() => setSelectedType(type.id)}
+                    className={`px-3 py-2 rounded-lg flex items-center whitespace-nowrap ${
+                      selectedType === type.id 
+                        ? 'bg-blue-100 text-blue-700 font-medium' 
+                        : 'bg-gray-100 text-gray-700'
+                    }`}
+                  >
+                    <span className="mr-1">{type.icon}</span>
+                    <span>{type.name}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            
+            {/* Advanced Filters (Collapsible) */}
+            {showAdvancedFilters && (
+              <div className="mt-4 pt-4 border-t border-gray-200 space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Price Range
+                  </label>
+                  <div className="flex space-x-2">
+                    {['', '$', '$$', '$$$'].map((range) => (
+                      <button
+                        key={range || 'all'}
+                        onClick={() => setPriceRange(range)}
+                        className={`flex-1 py-2 rounded-lg text-center ${
+                          priceRange === range 
+                            ? 'bg-blue-100 text-blue-700 font-medium' 
+                            : 'bg-gray-100 text-gray-700'
+                        }`}
+                      >
+                        {range === '' ? 'All' : range}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Sort By
+                  </label>
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  >
+                    <option value="distance">Nearest</option>
+                    <option value="rating">Highest Rated</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="popularity">Most Popular</option>
+                  </select>
+                </div>
+                
+                <div className="flex items-center justify-between">
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={isIndoorOnly}
+                      onChange={(e) => setIsIndoorOnly(e.target.checked)}
+                      className="rounded text-blue-600"
+                    />
+                    <span className="ml-2 text-sm text-gray-700">Indoor Only</span>
+                  </label>
+                  
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={isVerifiedOnly}
+                      onChange={(e) => setIsVerifiedOnly(e.target.checked)}
+                      className="rounded text-blue-600"
+                    />
+                    <span className="ml-2 text-sm text-gray-700">Verified Only</span>
+                  </label>
+                </div>
+              </div>
+            )}
+          </div>
+          
+          {/* Mobile Court Cards */}
+          <div className="space-y-4">
+            {filteredCourts.map((court) => (
+              <div key={court.id} className="bg-white rounded-xl shadow-sm overflow-hidden">
+                {/* Court Image */}
+                <div className="relative h-40">
+                  <img
+                    src={court.images[0]}
+                    alt={court.name}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-2 left-2">
+                    <span className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-medium">
+                      {COURT_TYPES.find(t => t.id === court.type)?.icon} {COURT_TYPES.find(t => t.id === court.type)?.name}
+                    </span>
+                  </div>
+                  <div className="absolute top-2 right-2">
+                    <button
+                      onClick={() => toggleBookmark(court.id)}
+                      className="bg-white/90 backdrop-blur-sm p-1.5 rounded-full"
+                    >
+                      {bookmarkedCourts.includes(court.id) ? (
+                        <BookmarkCheck className="h-4 w-4 text-blue-500" />
+                      ) : (
+                        <Bookmark className="h-4 w-4" />
+                      )}
+                    </button>
+                  </div>
+                  <div className="absolute bottom-2 left-2">
+                    <span className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-medium">
+                      ${court.hourlyRate}/hr
+                    </span>
+                  </div>
+                </div>
+                
+                {/* Court Info */}
+                <div className="p-4">
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="font-semibold text-gray-900">{court.name}</h3>
+                    <div className="flex items-center">
+                      <Star className="h-4 w-4 text-yellow-500 fill-current" />
+                      <span className="ml-1 text-sm font-medium">{court.rating}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center text-sm text-gray-600 mb-3">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    <span>{court.address}</span>
+                  </div>
+                  
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {court.amenities.slice(0, 3).map((amenity) => (
+                      <span key={amenity} className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">
+                        {amenity.replace('_', ' ')}
+                      </span>
+                    ))}
+                    {court.amenities.length > 3 && (
+                      <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">
+                        +{court.amenities.length - 3}
+                      </span>
+                    )}
+                  </div>
+                  
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="text-sm text-gray-600">
+                      <Clock className="h-4 w-4 inline mr-1" />
+                      {court.openHours.monday.open} - {court.openHours.monday.close}
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      {court.indoor ? 'Indoor' : 'Outdoor'}
+                    </div>
+                  </div>
+                  
+                  <div className="flex space-x-2">
+                    <Button className="flex-1">
+                      <Calendar className="h-4 w-4 mr-1" />
+                      Book Now
+                    </Button>
+                    <Button variant="outline">
+                      <Navigation className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ))}
+            
+            {filteredCourts.length === 0 && (
+              <div className="bg-white rounded-xl shadow-sm p-8 text-center">
+                <MapPin className="h-12 w-12 text-gray-300 mx-auto mb-3" />
+                <h3 className="text-lg font-medium text-gray-800 mb-1">No courts found</h3>
+                <p className="text-gray-600">Try adjusting your filters</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </MobileContainer>
+    );
+  }
 
   const getPriceRangeSymbol = (range: string) => {
     switch (range) {

@@ -28,6 +28,8 @@ import {
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
+import { MobileContainer } from '../components/ui/MobileContainer';
+import { useDeviceDetection } from '../components/ui/MobileDetection';
 
 // Mock data for enhanced profile
 const mockUserProfile = {
@@ -99,6 +101,7 @@ const mockUserProfile = {
 const ProfilePageEnhanced: React.FC = () => {
   const [user] = useState(mockUserProfile);
   const [isEditing, setIsEditing] = useState(false);
+  const { isMobile } = useDeviceDetection();
   const [editedUser, setEditedUser] = useState(user);
   const [activeTab, setActiveTab] = useState<'overview' | 'stats' | 'achievements' | 'activity' | 'friends'>('overview');
 
@@ -140,6 +143,262 @@ const ProfilePageEnhanced: React.FC = () => {
       default: return Activity;
     }
   };
+
+  // Mobile version of the profile page
+  if (isMobile) {
+    return (
+      <MobileContainer title={user.name} showBack>
+        <div className="p-4">
+          {/* Profile Header - Mobile */}
+          <div className="bg-white rounded-xl shadow-md mb-4">
+            <div className="relative">
+              <div 
+                className="h-32 bg-cover bg-center rounded-t-xl"
+                style={{ backgroundImage: `url(${user.coverImage})` }}
+              >
+                <div className="absolute inset-0 bg-black bg-opacity-30 rounded-t-xl" />
+              </div>
+              
+              <div className="absolute -bottom-12 left-4">
+                <img
+                  src={user.avatar}
+                  alt={user.name}
+                  className="w-24 h-24 rounded-full border-4 border-white shadow-lg object-cover"
+                />
+              </div>
+              
+              {isEditing ? (
+                <div className="absolute top-2 right-2 flex space-x-2">
+                  <Button 
+                    size="sm" 
+                    onClick={handleSave}
+                    className="bg-green-600 hover:bg-green-700"
+                  >
+                    <Save className="h-4 w-4 mr-1" />
+                    Save
+                  </Button>
+                  <Button 
+                    size="sm" 
+                    variant="outline"
+                    onClick={handleCancel}
+                    className="bg-white"
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setIsEditing(true)}
+                  className="absolute top-2 right-2 bg-white"
+                >
+                  <Edit3 className="h-4 w-4 mr-1" />
+                  Edit
+                </Button>
+              )}
+            </div>
+            
+            <div className="pt-14 px-4 pb-4">
+              <h1 className="text-xl font-bold text-gray-900">{user.name}</h1>
+              <p className="text-gray-600 text-sm">{user.headline}</p>
+              
+              <div className="flex items-center mt-2 text-sm text-gray-600">
+                <MapPin className="h-4 w-4 mr-1" />
+                <span>{user.location}</span>
+              </div>
+              
+              <div className="flex items-center space-x-2 mt-3">
+                <div className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs flex items-center">
+                  <Star className="h-3 w-3 mr-1 fill-current" />
+                  <span>{user.rating}</span>
+                </div>
+                <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
+                  {user.level}
+                </div>
+                <div className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">
+                  {user.totalGames} مباراة
+                </div>
+              </div>
+              
+              <div className="flex justify-between mt-4">
+                <Button className="flex-1 mr-2">
+                  <MessageCircle className="h-4 w-4 mr-1" />
+                  رسالة
+                </Button>
+                <Button variant="outline" className="flex-1">
+                  <UserPlus className="h-4 w-4 mr-1" />
+                  إضافة
+                </Button>
+              </div>
+            </div>
+          </div>
+          
+          {/* Mobile Tabs */}
+          <div className="bg-white rounded-xl shadow-md mb-4 overflow-x-auto">
+            <div className="flex p-1">
+              {[
+                { id: 'overview', label: 'نظرة عامة' },
+                { id: 'stats', label: 'الإحصائيات' },
+                { id: 'achievements', label: 'الإنجازات' },
+                { id: 'activity', label: 'النشاطات' },
+                { id: 'friends', label: 'الأصدقاء' },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as any)}
+                  className={`px-4 py-2 text-sm font-medium rounded-lg whitespace-nowrap ${
+                    activeTab === tab.id
+                      ? 'bg-blue-100 text-blue-700'
+                      : 'text-gray-600 hover:bg-gray-100'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          {/* Mobile Tab Content */}
+          <div className="bg-white rounded-xl shadow-md p-4">
+            {activeTab === 'overview' && (
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-3">نبذة</h3>
+                {isEditing ? (
+                  <textarea
+                    value={editedUser.bio}
+                    onChange={(e) => setEditedUser({...editedUser, bio: e.target.value})}
+                    className="w-full p-3 border border-gray-300 rounded-lg resize-none"
+                    rows={4}
+                    placeholder="اكتب نبذة عنك..."
+                  />
+                ) : (
+                  <p className="text-gray-700">{user.bio}</p>
+                )}
+              </div>
+            )}
+            
+            {activeTab === 'stats' && (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="bg-blue-50 p-3 rounded-lg text-center">
+                    <p className="text-2xl font-bold text-blue-700">{user.stats.totalMatches}</p>
+                    <p className="text-sm text-blue-600">إجمالي المباريات</p>
+                  </div>
+                  <div className="bg-green-50 p-3 rounded-lg text-center">
+                    <p className="text-2xl font-bold text-green-700">{user.stats.winRate}%</p>
+                    <p className="text-sm text-green-600">معدل الفوز</p>
+                  </div>
+                  <div className="bg-yellow-50 p-3 rounded-lg text-center">
+                    <p className="text-2xl font-bold text-yellow-700">{user.stats.goals}</p>
+                    <p className="text-sm text-yellow-600">الأهداف</p>
+                  </div>
+                  <div className="bg-purple-50 p-3 rounded-lg text-center">
+                    <p className="text-2xl font-bold text-purple-700">{user.stats.assists}</p>
+                    <p className="text-sm text-purple-600">التمريرات الحاسمة</p>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {activeTab === 'achievements' && (
+              <div className="space-y-4">
+                {user.achievements.map((achievement) => {
+                  const Icon = achievement.icon;
+                  return (
+                    <div 
+                      key={achievement.id} 
+                      className={`p-4 rounded-lg border ${
+                        achievement.earned 
+                          ? 'bg-yellow-50 border-yellow-200' 
+                          : 'bg-gray-50 border-gray-200'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className={`p-2 rounded-full ${
+                          achievement.earned ? 'bg-yellow-500 text-white' : 'bg-gray-400 text-white'
+                        }`}>
+                          <Icon className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <h4 className="font-medium">{achievement.title}</h4>
+                          <p className="text-sm text-gray-600">{achievement.description}</p>
+                        </div>
+                      </div>
+                      
+                      {!achievement.earned && achievement.progress && (
+                        <div className="mt-3">
+                          <div className="flex justify-between text-xs mb-1">
+                            <span>التقدم</span>
+                            <span>{achievement.progress}%</span>
+                          </div>
+                          <div className="w-full bg-gray-300 rounded-full h-2">
+                            <div 
+                              className="bg-blue-500 h-2 rounded-full transition-all"
+                              style={{ width: `${achievement.progress}%` }}
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+            
+            {activeTab === 'activity' && (
+              <div className="space-y-3">
+                {user.recentActivity.map((activity) => {
+                  const Icon = getActivityIcon(activity.type);
+                  return (
+                    <div key={activity.id} className="border border-gray-200 rounded-lg p-3">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-blue-100 text-blue-600 rounded-full">
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-sm">{activity.title}</p>
+                          <p className="text-xs text-gray-500">
+                            {new Date(activity.date).toLocaleDateString('ar-SA')}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+            
+            {activeTab === 'friends' && (
+              <div className="space-y-3">
+                {user.friends.map((friend) => (
+                  <div key={friend.id} className="border border-gray-200 rounded-lg p-3">
+                    <div className="flex items-center gap-3">
+                      <div className="relative">
+                        <img
+                          src={friend.avatar}
+                          alt={friend.name}
+                          className="w-12 h-12 rounded-full object-cover"
+                        />
+                        <div className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-white ${getStatusColor(friend.status)}`} />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-medium">{friend.name}</h4>
+                        <p className="text-sm text-gray-600">{getStatusText(friend.status)}</p>
+                      </div>
+                      <Button size="sm" variant="outline">
+                        <MessageCircle className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </MobileContainer>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">

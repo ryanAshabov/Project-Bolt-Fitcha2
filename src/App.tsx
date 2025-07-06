@@ -2,6 +2,8 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 import { LoadingSpinner } from './components/ui/Loading';
+import { MobileNavbar } from './components/layout/MobileNavbar';
+import { useDeviceDetection } from './components/ui/MobileDetection';
 
 // Lazy load components for better performance
 const LoginPage = lazy(() => import('./components/auth/LoginPage').then(module => ({ default: module.LoginPage })));
@@ -23,17 +25,23 @@ const CreateGamePageEnhanced = lazy(() => import('./pages/CreateGamePageEnhanced
 const SmartFeaturesPage = lazy(() => import('./pages/SmartFeaturesPage').then(module => ({ default: module.SmartFeaturesPage })));
 
 // Loading fallback component
-const LoadingFallback = () => (
-  <div className="min-h-screen flex items-center justify-center bg-slate-50">
-    <div className="text-center">
-      <LoadingSpinner size="lg" color="primary" />
-      <p className="mt-4 text-slate-600">Loading...</p>
+const LoadingFallback = () => {
+  const { isMobile } = useDeviceDetection();
+  
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-slate-50">
+      <div className="text-center">
+        <LoadingSpinner size="lg" color="primary" />
+        <p className="mt-4 text-slate-600">Loading...</p>
+      </div>
+      {isMobile && <MobileNavbar />}
     </div>
-  </div>
-);
+  );
+};
 
 function App() {
   const { isAuthenticated } = useAuth();
+  const { isMobile } = useDeviceDetection();
 
   return (
     <Router>
@@ -118,6 +126,7 @@ function App() {
             />
           </Routes>
         </Suspense>
+        {isMobile && isAuthenticated && <MobileNavbar />}
       </div>
     </Router>
   );
