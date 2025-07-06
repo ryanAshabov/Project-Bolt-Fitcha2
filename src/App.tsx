@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 import { OnboardingProvider } from './components/onboarding/OnboardingProvider';
-import { ThemeProvider } from './hooks/useTheme';
+import { ThemeProvider } from './hooks/useTheme.tsx';
 import { LoadingSpinner } from './components/ui/Loading';
 import { MobileNavbar } from './components/layout/MobileNavbar';
 import { useDeviceDetection } from './components/ui/MobileDetection';
