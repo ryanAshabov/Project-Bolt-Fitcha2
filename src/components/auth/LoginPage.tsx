@@ -4,6 +4,7 @@ import { Mail, Lock, Eye, EyeOff, Activity, AlertCircle, LogIn, Github } from 'l
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 import { useAuth } from '../../hooks/useAuth';
+import { useTheme } from '../../hooks/useTheme';
 
 export const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
