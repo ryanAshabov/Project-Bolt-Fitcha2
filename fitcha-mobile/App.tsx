@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Notifications from 'expo-notifications';
@@ -18,6 +19,7 @@ import BottomTabNavigator from './src/navigation/BottomTabNavigator';
 import { setGlobalErrorHandler } from './src/utils/errorReporting';
 import { initializeOfflineSync } from './src/utils/offlineSync';
 import { addNotificationResponseHandler } from './src/utils/pushNotifications';
+import { useAuth } from './src/hooks/useAuth';
 
 // Keep splash screen visible while we initialize
 SplashScreen.preventAutoHideAsync();
