@@ -54,15 +54,15 @@ export const useNotifications = () => {
       prev.map(notification => 
         notification.id === notificationId 
           ? { ...notification, isRead: true }
-          : notification,
-      ),
+          : notification
+      )
     );
     setUnreadCount(prev => Math.max(0, prev - 1));
   }, []);
 
   const markAllAsRead = useCallback(() => {
     setNotifications(prev => 
-      prev.map(notification => ({ ...notification, isRead: true })),
+      prev.map(notification => ({ ...notification, isRead: true }))
     );
     setUnreadCount(0);
   }, []);
@@ -85,7 +85,6 @@ export const useNotifications = () => {
     setNotifications(prev => prev.filter(n => n.id !== notificationId));
     if (notification && !notification.isRead) {
       setUnreadCount(prev => Math.max(0, prev - 1));
-    }
     }
   }, [notifications]);
 
