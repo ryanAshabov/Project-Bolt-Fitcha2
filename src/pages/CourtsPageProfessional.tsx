@@ -3,31 +3,8 @@
  * 
  * Advanced courts discovery system with:
  * - Professional Court Database
- * - Advanced filtering and     },
-    services: ['Professional Coaching', 'Racket Stringing', 'Tournament Training', 'Fitness Programs'],
-    popularTimes: {
-      morning: 'Medium',
-      a  const getAmenityIcon = (amenity: string) => {
-    const icons: Record<string, React.ComponentType<{className?: string}>> = {
-      parking: Car,
-      wifi: Wifi,
-      cafe: Utensils,
-      restrooms: Users,
-      lockers: Shield,
-      showers: Users,
-      sauna: Users,
-      pro_shop: Users,
-      massage: Users,
-      juice_bar: Utensils,
-      equipment_rental: Users,
-      ac: Thermometer,
-      security: Shield,
-      medical_room: Activity
-    };
-    return icons[amenity] || Users;
-  };      evening: 'Very High'
-    }
-  },* - Real-time availability with pricing
+ * - Advanced filtering and search
+ * - Real-time availability with pricing
  * - Quick booking system
  * - Interactive features
  * - Professional UI/UX
@@ -66,6 +43,8 @@ import {
 import { Button } from '../components/ui/Button';
 import { MobileContainer } from '../components/ui/MobileContainer';
 import { useDeviceDetection } from '../components/ui/MobileDetection';
+import { CourtCard } from '../components/courts/CourtCard';
+import { Link } from 'react-router-dom';
 
 // Court categories with enhanced data
 const COURT_TYPES = [
@@ -502,87 +481,27 @@ const CourtsPageProfessional: React.FC = () => {
           {/* Mobile Court Cards */}
           <div className="space-y-4">
             {filteredCourts.map((court) => (
-              <div key={court.id} className="bg-white rounded-xl shadow-sm overflow-hidden">
-                {/* Court Image */}
-                <div className="relative h-40">
-                  <img
-                    src={court.images[0]}
-                    alt={court.name}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-2 left-2">
-                    <span className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-medium">
-                      {COURT_TYPES.find(t => t.id === court.type)?.icon} {COURT_TYPES.find(t => t.id === court.type)?.name}
-                    </span>
-                  </div>
-                  <div className="absolute top-2 right-2">
-                    <button
-                      onClick={() => toggleBookmark(court.id)}
-                      className="bg-white/90 backdrop-blur-sm p-1.5 rounded-full"
-                    >
-                      {bookmarkedCourts.includes(court.id) ? (
-                        <BookmarkCheck className="h-4 w-4 text-blue-500" />
-                      ) : (
-                        <Bookmark className="h-4 w-4" />
-                      )}
-                    </button>
-                  </div>
-                  <div className="absolute bottom-2 left-2">
-                    <span className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-medium">
-                      ${court.hourlyRate}/hr
-                    </span>
-                  </div>
-                </div>
-                
-                {/* Court Info */}
-                <div className="p-4">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-semibold text-gray-900">{court.name}</h3>
-                    <div className="flex items-center">
-                      <Star className="h-4 w-4 text-yellow-500 fill-current" />
-                      <span className="ml-1 text-sm font-medium">{court.rating}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center text-sm text-gray-600 mb-3">
-                    <MapPin className="h-4 w-4 mr-1" />
-                    <span>{court.address}</span>
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-1 mb-3">
-                    {court.amenities.slice(0, 3).map((amenity) => (
-                      <span key={amenity} className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">
-                        {amenity.replace('_', ' ')}
-                      </span>
-                    ))}
-                    {court.amenities.length > 3 && (
-                      <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">
-                        +{court.amenities.length - 3}
-                      </span>
-                    )}
-                  </div>
-                  
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="text-sm text-gray-600">
-                      <Clock className="h-4 w-4 inline mr-1" />
-                      {court.openHours.monday.open} - {court.openHours.monday.close}
-                    </div>
-                    <div className="text-sm text-gray-600">
-                      {court.indoor ? 'Indoor' : 'Outdoor'}
-                    </div>
-                  </div>
-                  
-                  <div className="flex space-x-2">
-                    <Button className="flex-1">
-                      <Calendar className="h-4 w-4 mr-1" />
-                      Book Now
-                    </Button>
-                    <Button variant="outline">
-                      <Navigation className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              </div>
+              <CourtCard 
+                key={court.id} 
+                court={{
+                  id: court.id,
+                  name: court.name,
+                  sport: court.sport,
+                  location: court.location,
+                  address: court.address,
+                  coordinates: court.coordinates,
+                  price: court.hourlyRate,
+                  rating: court.rating,
+                  reviews: court.reviews,
+                  image: court.images[0],
+                  amenities: court.amenities,
+                  isIndoor: court.indoor,
+                  availability: [],
+                  operatingHours: court.operatingHours,
+                  weatherDependent: court.weatherDependent,
+                }}
+                compact={true}
+              />
             ))}
             
             {filteredCourts.length === 0 && (
@@ -856,198 +775,27 @@ const CourtsPageProfessional: React.FC = () => {
         {/* Professional Courts Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
           {filteredCourts.map((court) => (
-            <div key={court.id} className="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-              {/* Enhanced Image Section */}
-              <div className="relative h-56">
-                <img
-                  src={court.images[0]}
-                  alt={court.name}
-                  className="w-full h-full object-cover"
-                />
-                
-                {/* Overlay Tags */}
-                <div className="absolute top-4 left-4">
-                  <span className="bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm font-semibold text-slate-800 flex items-center gap-2">
-                    {COURT_TYPES.find(t => t.id === court.type)?.icon} 
-                    {COURT_TYPES.find(t => t.id === court.type)?.name}
-                  </span>
-                </div>
-                
-                <div className="absolute top-4 right-4 flex gap-2">
-                  {court.isVerified && (
-                    <div className="bg-blue-500 text-white p-2 rounded-full">
-                      <CheckCircle className="h-4 w-4" />
-                    </div>
-                  )}
-                  <button
-                    onClick={() => toggleBookmark(court.id)}
-                    className="bg-white/90 backdrop-blur-sm text-slate-700 hover:text-blue-500 p-2 rounded-full transition-colors"
-                  >
-                    {bookmarkedCourts.includes(court.id) ? (
-                      <BookmarkCheck className="h-5 w-5 text-blue-500" />
-                    ) : (
-                      <Bookmark className="h-5 w-5" />
-                    )}
-                  </button>
-                </div>
-                
-                <div className="absolute bottom-4 left-4">
-                  <span className="bg-green-500 text-white px-3 py-1.5 rounded-full text-sm font-semibold">
-                    {court.priceRange} • ${court.hourlyRate}/hr
-                  </span>
-                </div>
-
-                {/* Popularity Indicator */}
-                <div className="absolute bottom-4 right-4">
-                  <span className="bg-black/70 text-white px-2 py-1 rounded-lg text-xs">
-                    {court.popularTimes.evening} demand
-                  </span>
-                </div>
-              </div>
-
-              {/* Enhanced Content */}
-              <div className="p-6">
-                {/* Header */}
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="text-xl font-bold text-slate-800 mb-2">{court.name}</h3>
-                    <div className="flex items-center space-x-2 text-sm text-slate-600">
-                      <MapPin className="h-4 w-4" />
-                      <span>{court.address}</span>
-                      <span>• {court.distance}km away</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Enhanced Rating */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center space-x-2">
-                    <div className="flex items-center space-x-1">
-                      <Star className="h-5 w-5 text-yellow-500 fill-current" />
-                      <span className="font-bold text-slate-800 text-lg">{court.rating}</span>
-                    </div>
-                    <span className="text-sm text-slate-600">({court.reviewCount} reviews)</span>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-sm text-slate-600">{court.courtCount} courts</div>
-                    <div className="text-xs text-slate-500">{court.surface}</div>
-                  </div>
-                </div>
-
-                {/* Description */}
-                <p className="text-sm text-slate-600 mb-4 line-clamp-2">{court.description}</p>
-
-                {/* Enhanced Amenities */}
-                <div className="mb-4">
-                  <div className="flex flex-wrap gap-1">
-                    {court.amenities.slice(0, 4).map((amenity) => {
-                      const Icon = getAmenityIcon(amenity);
-                      return (
-                        <span key={amenity} className="flex items-center space-x-1 px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs">
-                          <Icon className="h-3 w-3" />
-                          <span>{amenity.replace('_', ' ')}</span>
-                        </span>
-                      );
-                    })}
-                    {court.amenities.length > 4 && (
-                      <span className="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs">
-                        +{court.amenities.length - 4} more
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Operating Hours & Contact */}
-                <div className="flex items-center justify-between text-sm text-slate-600 mb-4">
-                  <div className="flex items-center space-x-1">
-                    <Clock className="h-4 w-4" />
-                    <span>{court.openHours}</span>
-                  </div>
-                  {court.website && (
-                    <div className="flex items-center space-x-1">
-                      <Globe className="h-4 w-4" />
-                      <span>{court.website}</span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Enhanced Availability with Real-time Pricing */}
-                <div className="mb-6">
-                  <h4 className="text-sm font-semibold text-slate-700 mb-3 flex items-center gap-2">
-                    <Calendar className="h-4 w-4" />
-                    Available Today
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {court.availability.today.slice(0, 3).map((slot, index) => {
-                      const timeDisplay = typeof slot === 'string' ? slot : slot.time;
-                      const isAvailable = typeof slot === 'string' ? true : slot.available;
-                      const slotPrice = typeof slot === 'string' ? court.hourlyRate : slot.price;
-                      
-                      return (
-                        <button
-                          key={index}
-                          onClick={() => isAvailable && handleQuickBook(court.id, timeDisplay)}
-                          disabled={!isAvailable}
-                          className={`px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200 flex items-center gap-2 ${
-                            isAvailable 
-                              ? 'bg-green-100 text-green-700 hover:bg-green-200 cursor-pointer' 
-                              : 'bg-red-100 text-red-700 cursor-not-allowed opacity-50'
-                          }`}
-                        >
-                          <span>{timeDisplay}</span>
-                          <span className="text-xs opacity-75">${slotPrice}</span>
-                        </button>
-                      );
-                    })}
-                    {court.availability.today.length > 3 && (
-                      <span className="px-3 py-2 bg-slate-100 text-slate-600 rounded-lg text-xs">
-                        +{court.availability.today.length - 3} more slots
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Enhanced Action Buttons */}
-                <div className="flex space-x-3">
-                  <Button 
-                    size="sm" 
-                    className="flex-1 flex items-center justify-center gap-2 py-3"
-                    onClick={() => handleQuickBook(court.id, 'next available')}
-                  >
-                    <CreditCard className="h-4 w-4" />
-                    Quick Book
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="flex items-center justify-center gap-2 px-4"
-                  >
-                    <Phone className="h-4 w-4" />
-                    Call
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="flex items-center justify-center gap-2 px-4"
-                  >
-                    <Navigation className="h-4 w-4" />
-                    Directions
-                  </Button>
-                </div>
-
-                {/* Additional Info */}
-                <div className="mt-4 pt-4 border-t border-slate-100">
-                  <div className="flex justify-between items-center text-xs text-slate-500">
-                    <span>Min. booking: {court.minBookingHours}h</span>
-                    <span>Cancel: {court.cancellationPolicy}</span>
-                    <span className="flex items-center gap-1">
-                      <Mail className="h-3 w-3" />
-                      <span>Email confirm</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Link to="/booking" key={court.id}>
+              <CourtCard 
+                court={{
+                  id: court.id,
+                  name: court.name,
+                  sport: court.sport,
+                  location: court.location,
+                  address: court.address,
+                  coordinates: court.coordinates,
+                  price: court.hourlyRate,
+                  rating: court.rating,
+                  reviews: court.reviews,
+                  image: court.images[0],
+                  amenities: court.amenities,
+                  isIndoor: court.indoor,
+                  availability: [],
+                  operatingHours: court.operatingHours,
+                  weatherDependent: court.weatherDependent,
+                }}
+              />
+            </Link>
           ))}
         </div>
 
