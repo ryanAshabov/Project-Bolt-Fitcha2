@@ -59,6 +59,16 @@ export const MobileNavbar: React.FC = () => {
           </Link>
           
           <Link 
+            to="/search" 
+            className={`flex flex-col items-center justify-center w-full h-full ${
+              isActive('/search') ? 'text-blue-600' : 'text-gray-500'
+            }`}
+          >
+            <Search className="h-5 w-5" />
+            <span className="text-xs mt-1">Search</span>
+          </Link>
+          
+          <Link 
             to="/create-game" 
             className="flex flex-col items-center justify-center w-full h-full"
           >

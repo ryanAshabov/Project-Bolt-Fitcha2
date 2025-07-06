@@ -108,6 +108,18 @@ export const Header: React.FC = memo(() => {
             </Link>
             
             <Link
+              to="/search"
+              className={`p-2.5 rounded-lg transition-all duration-200 ${
+                isActive('/search') 
+                  ? 'text-blue-600 bg-blue-50' 
+                  : 'text-slate-600 hover:text-blue-600 hover:bg-blue-50'
+              }`}
+              title="Search"
+            >
+              <Search className="h-6 w-6" />
+            </Link>
+            
+            <Link
               to="/messages"
               className={`p-2.5 rounded-lg transition-all duration-200 ${
                 isActive('/messages') 
