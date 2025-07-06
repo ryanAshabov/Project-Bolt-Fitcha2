@@ -66,15 +66,6 @@ export const APP_CONFIG = {
   DEBUG_MODE: import.meta.env.VITE_DEBUG_MODE === 'true',
 } as const;
 
-// UI Constants
-export const UI_CONSTANTS = {
-  HEADER_HEIGHT: 64,
-  SIDEBAR_WIDTH: 240,
-  MOBILE_BREAKPOINT: 768,
-  TABLET_BREAKPOINT: 1024,
-  DESKTOP_BREAKPOINT: 1280,
-} as const;
-
 // Pagination
 export const PAGINATION = {
   DEFAULT_PAGE_SIZE: 10,
