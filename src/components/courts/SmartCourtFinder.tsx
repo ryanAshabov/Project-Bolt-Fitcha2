@@ -68,8 +68,6 @@ export const SmartCourtFinder: React.FC<SmartCourtFinderProps> = ({
   const getPlayersForSuggestions = (): User[] => {
     return gameSession?.players || [user!];
   };
-return;
-}
 
   const findSuggestions = async () => {
     if (!coordinates) {
