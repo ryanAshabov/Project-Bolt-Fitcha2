@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { UI_CONSTANTS } from '../../utils/constants';
+import { useTheme } from '../../hooks/useTheme';
 
 /**
  * Hook to detect mobile devices and screen sizes
@@ -91,12 +92,14 @@ export const MobileAdaptive: React.FC<MobileAdaptiveProps> = ({
   tabletClassName = '',
   desktopClassName = '',
 }) => {
+  const { isDark } = useTheme();
   const { isMobile, isTablet, isDesktop } = useDeviceDetection();
 
   let adaptiveClassName = className;
   if (isMobile) adaptiveClassName += ` ${mobileClassName}`;
   if (isTablet) adaptiveClassName += ` ${tabletClassName}`;
   if (isDesktop) adaptiveClassName += ` ${desktopClassName}`;
+  if (isDark) adaptiveClassName += ' dark';
 
   return <div className={adaptiveClassName}>{children}</div>;
 };

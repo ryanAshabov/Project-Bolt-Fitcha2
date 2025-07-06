@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Mail, Lock, User, Eye, EyeOff, Activity, MapPin, AlertCircle } from 'lucide-react';
+import { Mail, Lock, User, Eye, EyeOff, Activity, MapPin, AlertCircle, Github } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 import { useAuth } from '../../hooks/useAuth';
+import { useTheme } from '../../hooks/useTheme';
 
 export const SignupPage: React.FC = () => {
   const [firstName, setFirstName] = useState('');
@@ -13,6 +14,9 @@ export const SignupPage: React.FC = () => {
   const [location, setLocation] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
+  
+  // Theme
+  const { isDark } = useTheme();
   
   const { 
     signup, 
@@ -84,10 +88,15 @@ export const SignupPage: React.FC = () => {
     // Navigation will be handled by the useEffect above when isAuthenticated becomes true
   };
 
+  const handleGithubSignup = async () => {
+    // This would be implemented in the useAuth hook
+    alert('GitHub signup would be implemented here');
+  };
+
   const isFormValid = firstName.trim() && lastName.trim() && email.trim() && password.trim() && location.trim() && agreeToTerms;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-emerald-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-emerald-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex items-center justify-center p-4">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <div className="flex items-center justify-center mb-6">
@@ -95,14 +104,14 @@ export const SignupPage: React.FC = () => {
               <Activity className="h-8 w-8 text-white" />
             </div>
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent dark:from-blue-400 dark:to-emerald-400">
             Join Fitcha
           </h1>
-          <p className="mt-2 text-slate-600">Connect with athletes and find your perfect sports partner</p>
+          <p className="mt-2 text-slate-600 dark:text-slate-300">Connect with athletes and find your perfect sports partner</p>
         </div>
 
-        <div className="bg-white p-8 rounded-2xl shadow-xl border border-slate-200">
-          <div className="mb-6 grid grid-cols-3 gap-3">
+        <div className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700">
+          <div className="mb-6 grid grid-cols-4 gap-3">
             <Button 
               variant="outline" 
               className="w-full" 
@@ -136,22 +145,30 @@ export const SignupPage: React.FC = () => {
                 <path fill="currentColor" d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
               </svg>
             </Button>
+            <Button 
+              variant="outline" 
+              className="w-full" 
+              disabled={isLoading}
+              onClick={handleGithubSignup}
+            >
+              <Github className="w-5 h-5" />
+            </Button>
           </div>
 
           <div className="relative mb-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-slate-300" />
+              <div className="w-full border-t border-slate-300 dark:border-slate-600" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-slate-500">Or</span>
+              <span className="px-2 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400">Or</span>
             </div>
           </div>
 
           {/* Error Message Display */}
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center space-x-3">
-              <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0" />
-              <p className="text-sm text-red-700">{error}</p>
+            <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg flex items-center space-x-3">
+              <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400 flex-shrink-0" />
+              <p className="text-sm text-red-700 dark:text-red-400">{error}</p>
             </div>
           )}
 
@@ -220,17 +237,17 @@ export const SignupPage: React.FC = () => {
                 type="checkbox"
                 checked={agreeToTerms}
                 onChange={(e) => setAgreeToTerms(e.target.checked)}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 rounded mt-0.5"
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-600 rounded mt-0.5"
                 disabled={isLoading}
                 required
               />
-              <label htmlFor="agree-terms" className="ml-2 text-sm text-slate-600">
+              <label htmlFor="agree-terms" className="ml-2 text-sm text-slate-600 dark:text-slate-300">
                 I agree to Fitcha's{' '}
-                <Link to="/terms" className="text-blue-600 hover:text-blue-700 font-medium">
+                <Link to="/terms" className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium">
                   Terms of Service
                 </Link>{' '}
                 and{' '}
-                <Link to="/privacy" className="text-blue-600 hover:text-blue-700 font-medium">
+                <Link to="/privacy" className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium">
                   Privacy Policy
                 </Link>
               </label>
@@ -246,9 +263,9 @@ export const SignupPage: React.FC = () => {
             </Button>
           </form>
 
-          <p className="mt-8 text-center text-sm text-slate-600">
+          <p className="mt-8 text-center text-sm text-slate-600 dark:text-slate-400">
             Already have an account?{' '}
-            <Link to="/login" className="font-medium text-blue-600 hover:text-blue-700">
+            <Link to="/login" className="font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">
               Sign in
             </Link>
           </p>

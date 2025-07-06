@@ -2,6 +2,7 @@ import React from 'react';
 import { MobileHeader } from '../layout/MobileHeader';
 import { MobileNavbar } from '../layout/MobileNavbar';
 import { useDeviceDetection } from './MobileDetection';
+import { useTheme } from '../../hooks/useTheme';
 
 interface MobileContainerProps {
   children: React.ReactNode;
@@ -30,13 +31,14 @@ export const MobileContainer: React.FC<MobileContainerProps> = ({
   fullHeight = false,
 }) => {
   const { isMobile } = useDeviceDetection();
+  const { isDark } = useTheme();
 
   if (!isMobile) {
     return <>{children}</>;
   }
 
   return (
-    <div className={`bg-gray-50 ${fullHeight ? 'min-h-screen' : ''}`}>
+    <div className={`bg-gray-50 dark:bg-slate-900 ${fullHeight ? 'min-h-screen' : ''}`}>
       {showHeader && (
         <MobileHeader
           title={title}

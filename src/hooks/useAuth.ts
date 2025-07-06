@@ -29,6 +29,7 @@ import {
   FacebookAuthProvider,
   OAuthProvider,
   signInWithPopup,
+  GithubAuthProvider,
 } from 'firebase/auth';
 import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../services/firebase';
@@ -175,6 +176,7 @@ export const useAuth = () => {
   const googleProvider = new GoogleAuthProvider();
   const facebookProvider = new FacebookAuthProvider();
   const appleProvider = new OAuthProvider('apple.com');
+  const githubProvider = new GithubAuthProvider();
 
   // Real-time Firebase Auth state listener
   useEffect(() => {
@@ -305,6 +307,27 @@ export const useAuth = () => {
     } catch (error) {
       const authError = error as AuthError;
       let errorMessage = 'Apple sign-in failed. Please try again.';
+      
+      setError(errorMessage);
+      setIsLoading(false);
+      return false;
+    }
+  };
+
+  /**
+   * Sign in with GitHub
+   */
+  const signInWithGithub = async (): Promise<boolean> => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const result = await signInWithPopup(auth, githubProvider);
+      // Firebase Auth state change will automatically handle user setup
+      return true;
+    } catch (error) {
+      const authError = error as AuthError;
+      let errorMessage = 'GitHub sign-in failed. Please try again.';
       
       setError(errorMessage);
       setIsLoading(false);
@@ -480,6 +503,7 @@ export const useAuth = () => {
     signInWithGoogle,
     signInWithFacebook,
     signInWithApple,
+    signInWithGithub,
     signup,
     logout,
     resetPassword,
