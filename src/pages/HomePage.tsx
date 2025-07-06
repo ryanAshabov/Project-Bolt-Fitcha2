@@ -3,11 +3,23 @@ import { Header } from '../components/layout/Header';
 import { Sidebar } from '../components/layout/Sidebar';
 import { Feed } from '../components/feed/Feed';
 import { RightSidebar } from '../components/layout/RightSidebar';
+import { useOnboarding } from '../hooks/useOnboarding';
 import { MobileContainer } from '../components/ui/MobileContainer';
 import { useDeviceDetection } from '../components/ui/MobileDetection';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const HomePage: React.FC = () => {
   const { isMobile } = useDeviceDetection();
+  const { hasCompletedOnboarding } = useOnboarding();
+  const navigate = useNavigate();
+
+  // Check if user has completed onboarding
+  useEffect(() => {
+    if (!hasCompletedOnboarding) {
+      navigate('/onboarding');
+    }
+  }, [hasCompletedOnboarding, navigate]);
 
   if (isMobile) {
     return (

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, Activity, AlertCircle } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 
 export const LoginPage: React.FC = () => {
@@ -12,12 +13,12 @@ export const LoginPage: React.FC = () => {
   const [rememberMe, setRememberMe] = useState(false);
   
   const { login, isLoading, error, clearError, isAuthenticated } = useAuth();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/');
+      navigate('/onboarding');
     }
   }, [isAuthenticated, navigate]);
 

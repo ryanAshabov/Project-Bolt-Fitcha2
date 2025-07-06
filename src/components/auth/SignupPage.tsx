@@ -20,7 +20,7 @@ export const SignupPage: React.FC = () => {
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/');
+      navigate('/onboarding');
     }
   }, [isAuthenticated, navigate]);
 

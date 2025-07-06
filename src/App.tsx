@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
+import { OnboardingProvider } from './components/onboarding/OnboardingProvider';
 import { LoadingSpinner } from './components/ui/Loading';
 import { MobileNavbar } from './components/layout/MobileNavbar';
 import { useDeviceDetection } from './components/ui/MobileDetection';
@@ -23,6 +24,7 @@ const CreateGameTest = lazy(() => import('./pages/CreateGameTest'));
 const CreateGamePageV2 = lazy(() => import('./pages/CreateGamePageV2').then(module => ({ default: module.CreateGamePageV2 })));
 const CreateGamePageEnhanced = lazy(() => import('./pages/CreateGamePageEnhanced').then(module => ({ default: module.CreateGamePageEnhanced })));
 const SmartFeaturesPage = lazy(() => import('./pages/SmartFeaturesPage').then(module => ({ default: module.SmartFeaturesPage })));
+const OnboardingPage = lazy(() => import('./pages/OnboardingPage'));
 const SearchPage = lazy(() => import('./pages/SearchPage'));
 const BookingPage = lazy(() => import('./pages/BookingPage'));
 
@@ -47,6 +49,7 @@ function App() {
 
   return (
     <Router>
+      <OnboardingProvider>
       <div className="App">
         <Suspense fallback={<LoadingFallback />}>
           <Routes>
@@ -123,6 +126,10 @@ function App() {
               element={isAuthenticated ? <BookingPage /> : <Navigate to="/login" />} 
             />
             <Route 
+              path="/onboarding" 
+              element={isAuthenticated ? <OnboardingPage /> : <Navigate to="/login" />} 
+            />
+            <Route 
               path="/search" 
               element={isAuthenticated ? <SearchPage /> : <Navigate to="/login" />} 
             />
@@ -138,6 +145,7 @@ function App() {
         </Suspense>
         {isMobile && isAuthenticated && <MobileNavbar />}
       </div>
+      </OnboardingProvider>
     </Router>
   );
 }
