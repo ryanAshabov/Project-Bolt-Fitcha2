@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { DivideIcon as LucideIcon } from 'lucide-react';
 
 interface ButtonProps {
@@ -52,3 +52,6 @@ export const Button: React.FC<ButtonProps> = ({
     </button>
   );
 };
+
+// Memoize the Button component for better performance
+export const MemoizedButton = memo(Button);

@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Calendar, Users, Trophy, Star, Crown } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 
-export const Sidebar: React.FC = () => {
+export const Sidebar: React.FC = memo(() => {
   const { user } = useAuth();
 
-  return (
-    <div className="w-80 space-y-6">
+  if (!user) {
+    return null;
       {/* User Profile Card */}
       <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
         <div className="h-16 bg-gradient-to-r from-blue-500 to-emerald-500"></div>
@@ -140,4 +140,7 @@ export const Sidebar: React.FC = () => {
       </div>
     </div>
   );
-};
+});
+
+// Add display name for debugging
+Sidebar.displayName = 'Sidebar';

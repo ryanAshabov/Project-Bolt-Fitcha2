@@ -67,10 +67,10 @@ export const storage = getStorage(app);
 export const functions = getFunctions(app);
 
 console.warn('✅ Firebase services initialized successfully');
-
-// Note: Emulator connections disabled to use production Firebase services
-// To enable emulators for development, uncomment the code below and start Firebase emulators
-/*
+console.warn('🔐 Auth service:', auth ? 'Ready' : 'Failed');
+console.warn('🗃️ Firestore service:', db ? 'Ready' : 'Failed');
+console.warn('📦 Storage service:', storage ? 'Ready' : 'Failed');
+console.warn('⚡ Functions service:', functions ? 'Ready' : 'Failed');
 if (import.meta.env.DEV) {
   // Only connect to emulators if not already connected
   try {

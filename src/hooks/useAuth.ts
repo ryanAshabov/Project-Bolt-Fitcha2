@@ -30,6 +30,17 @@ import { auth, db } from '../services/firebase';
 import { User } from '../types';
 
 /**
+ * Constants for authentication
+ */
+const AUTH_CONSTANTS = {
+  MIN_PASSWORD_LENGTH: 6,
+  MAX_PASSWORD_LENGTH: 128,
+  DEFAULT_AVATAR: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2',
+  DEFAULT_TRUST_SCORE: 75,
+  DEFAULT_RATING: 4.0,
+};
+
+/**
  * Interface for user registration data
  */
 interface SignupData {
@@ -58,7 +69,7 @@ const createUserProfile = async (firebaseUser: FirebaseUser, additionalData?: Pa
         firstName: additionalData?.firstName || firebaseUser.displayName?.split(' ')[0] || 'User',
         lastName: additionalData?.lastName || firebaseUser.displayName?.split(' ')[1] || '',
         email: firebaseUser.email || '',
-        avatar: firebaseUser.photoURL || 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2',
+        avatar: firebaseUser.photoURL || AUTH_CONSTANTS.DEFAULT_AVATAR,
         headline: additionalData?.headline || 'New Fitcha Member',
         location: additionalData?.location || '',
         coordinates: additionalData?.coordinates || { lat: 0, lng: 0 },
@@ -68,12 +79,12 @@ const createUserProfile = async (firebaseUser: FirebaseUser, additionalData?: Pa
         isPro: false,
         sports: additionalData?.sports || ['Basketball'],
         skillLevel: additionalData?.skillLevel || 'Beginner',
-        rating: 4.0,
+        rating: AUTH_CONSTANTS.DEFAULT_RATING,
         gamesPlayed: 0,
         winRate: 0,
         badges: additionalData?.badges || [],
         availability: additionalData?.availability || ['Evening'],
-        trustScore: 75,
+        trustScore: AUTH_CONSTANTS.DEFAULT_TRUST_SCORE,
         achievements: additionalData?.achievements || [],
         preferences: {
           theme: 'light',

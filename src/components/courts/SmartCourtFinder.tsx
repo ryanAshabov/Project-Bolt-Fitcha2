@@ -19,6 +19,7 @@ import {
 import { Court, User } from '../../types';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
+import { OptimizedImage } from '../ui/Image';
 import { useCourtBooking } from '../../hooks/useCourtBooking';
 import { useGeolocation } from '../../hooks/useGeolocation';
 import { useAuth } from '../../hooks/useAuth';
@@ -63,12 +64,19 @@ export const SmartCourtFinder: React.FC<SmartCourtFinderProps> = ({
     }
   }, [filters, coordinates, searchMode]);
 
-  const findSuggestions = async () => {
-    if (!coordinates) {
+  // Extracted to separate function to reduce complexity
+  const getPlayersForSuggestions = (): User[] => {
+    return gameSession?.players || [user!];
+  };
 return;
 }
 
-    const players = gameSession?.players || [user!];
+  const findSuggestions = async () => {
+    if (!coordinates) {
+      return;
+    }
+
+    const players = getPlayersForSuggestions();
     const courtSuggestions = await findOptimalCourt(players, filters);
     setSuggestions(courtSuggestions);
   };
@@ -78,17 +86,31 @@ return;
     onCourtSelect?.(court);
   };
 
+  // Extracted to separate function with constants to reduce complexity
+  const MATCH_SCORE_THRESHOLDS = {
+    EXCELLENT: 80,
+    GOOD: 60,
+    AVERAGE: 40,
+  };
+
+  const MATCH_SCORE_STYLES = {
+    EXCELLENT: 'text-emerald-600 bg-emerald-100',
+    GOOD: 'text-blue-600 bg-blue-100',
+    AVERAGE: 'text-yellow-600 bg-yellow-100',
+    POOR: 'text-red-600 bg-red-100',
+  };
+
   const getMatchScoreColor = (score: number) => {
-    if (score >= 80) {
-return 'text-emerald-600 bg-emerald-100';
-}
-    if (score >= 60) {
-return 'text-blue-600 bg-blue-100';
-}
-    if (score >= 40) {
-return 'text-yellow-600 bg-yellow-100';
-}
-    return 'text-red-600 bg-red-100';
+    if (score >= MATCH_SCORE_THRESHOLDS.EXCELLENT) {
+      return MATCH_SCORE_STYLES.EXCELLENT;
+    }
+    if (score >= MATCH_SCORE_THRESHOLDS.GOOD) {
+      return MATCH_SCORE_STYLES.GOOD;
+    }
+    if (score >= MATCH_SCORE_THRESHOLDS.AVERAGE) {
+      return MATCH_SCORE_STYLES.AVERAGE;
+    }
+    return MATCH_SCORE_STYLES.POOR;
   };
 
   const getSportIcon = (sport: string) => {
@@ -237,10 +259,13 @@ return 'text-yellow-600 bg-yellow-100';
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Max Price ($/hour)</label>
                 <Input
-                  type="number"
+                <OptimizedImage
                   value={filters.maxPrice}
                   onChange={(e) => setFilters(prev => ({ ...prev, maxPrice: parseInt(e.target.value) }))}
-                  icon={DollarSign}
+                  className="w-full h-full"
+                  objectFit="cover"
+                  width={400}
+                  height={200}
                 />
               </div>
 

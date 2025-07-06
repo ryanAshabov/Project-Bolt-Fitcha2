@@ -13,7 +13,7 @@
  * @version 1.0.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   Activity, 
@@ -41,7 +41,7 @@ import { NotificationCenter } from '../notifications/NotificationCenter';
 /**
  * Header component with responsive navigation and user authentication
  */
-export const Header: React.FC = () => {
+export const Header: React.FC = memo(() => {
   // Authentication and user data
   const { user, logout } = useAuth();
   const location = useLocation();
@@ -371,4 +371,7 @@ export const Header: React.FC = () => {
       </div>
     </header>
   );
-};
+});
+
+// Add display name for debugging
+Header.displayName = 'Header';

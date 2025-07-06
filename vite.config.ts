@@ -22,15 +22,28 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
-    target: 'esnext',
+    target: 'es2020',
     minify: 'terser',
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom'],
-          firebase: ['firebase/app', 'firebase/auth', 'firebase/firestore'],
-          ui: ['framer-motion', 'lucide-react'],
+          // Split vendor chunks for better caching
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-firebase': ['firebase/app', 'firebase/auth', 'firebase/firestore', 'firebase/storage', 'firebase/functions'],
+          'vendor-ui': ['framer-motion', 'lucide-react'],
+          'vendor-utils': ['date-fns'],
         },
+        // Optimize chunk size
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js',
+        assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
+      },
+    },
+    // Reduce bundle size by removing console.log in production
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
       },
     },
   },
@@ -51,11 +64,25 @@ export default defineConfig({
   // Dependency optimization
   optimizeDeps: {
     exclude: ['lucide-react'],
-    include: ['react', 'react-dom', 'framer-motion'],
+    include: [
+      'react', 
+      'react-dom', 
+      'framer-motion',
+      'react-router-dom',
+      'firebase/app',
+      'firebase/auth',
+      'firebase/firestore',
+    ],
   },
   
   // Environment variables
   define: {
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
+  },
+  
+  // Performance optimizations
+  esbuild: {
+    legalComments: 'none',
+    treeShaking: true,
   },
 });

@@ -2,11 +2,50 @@
  * Application constants and configuration values
  */
 
+// Time constants for better readability
+export const TIME_CONSTANTS = {
+  MILLISECOND: 1,
+  SECOND: 1000,
+  MINUTE: 60 * 1000,
+  HOUR: 60 * 60 * 1000,
+  DAY: 24 * 60 * 60 * 1000,
+  WEEK: 7 * 24 * 60 * 60 * 1000,
+  MONTH: 30 * 24 * 60 * 60 * 1000,
+};
+
+// File size constants
+export const FILE_SIZE_CONSTANTS = {
+  KB: 1024,
+  MB: 1024 * 1024,
+  GB: 1024 * 1024 * 1024,
+  MAX_UPLOAD_SIZE: 5 * 1024 * 1024, // 5MB
+  MAX_PROFILE_IMAGE_SIZE: 2 * 1024 * 1024, // 2MB
+};
+
+// Pagination constants
+export const PAGINATION_CONSTANTS = {
+  DEFAULT_PAGE_SIZE: 10,
+  POSTS_PER_PAGE: 20,
+  COURTS_PER_PAGE: 12,
+  USERS_PER_PAGE: 20,
+  MESSAGES_PER_PAGE: 50,
+};
+
+// UI constants
+export const UI_CONSTANTS = {
+  MOBILE_BREAKPOINT: 768,
+  TABLET_BREAKPOINT: 1024,
+  DESKTOP_BREAKPOINT: 1280,
+  HEADER_HEIGHT: 64,
+  SIDEBAR_WIDTH: 280,
+  ANIMATION_DURATION: 300,
+};
+
 // API Configuration
 export const API_CONFIG = {
   BASE_URL: import.meta.env.VITE_API_BASE_URL || 'https://api.fitcha.app',
   VERSION: import.meta.env.VITE_API_VERSION || 'v1',
-  TIMEOUT: 10000, // 10 seconds
+  TIMEOUT: 10 * TIME_CONSTANTS.SECOND, // 10 seconds
 } as const;
 
 // Firebase Configuration
@@ -47,11 +86,9 @@ export const PAGINATION = {
 
 // File Upload
 const FILE_SIZE_MB = 5;
-const BYTES_PER_KB = 1024;
-const KB_PER_MB = 1024;
 
 export const FILE_UPLOAD = {
-  MAX_SIZE: FILE_SIZE_MB * KB_PER_MB * BYTES_PER_KB, // 5MB
+  MAX_SIZE: FILE_SIZE_MB * FILE_SIZE_CONSTANTS.MB,
   ALLOWED_IMAGE_TYPES: ['image/jpeg', 'image/png', 'image/webp'],
   ALLOWED_VIDEO_TYPES: ['video/mp4', 'video/webm'],
   ALLOWED_DOCUMENT_TYPES: ['application/pdf', 'text/plain'],
@@ -113,21 +150,6 @@ export const ACHIEVEMENT_CATEGORIES = {
 } as const;
 
 // Time Constants
-const MS_PER_SECOND = 1000;
-const SECONDS_PER_MINUTE = 60;
-const MINUTES_PER_HOUR = 60;
-const HOURS_PER_DAY = 24;
-const DAYS_PER_WEEK = 7;
-const DAYS_PER_MONTH = 30;
-
-export const TIME_CONSTANTS = {
-  SECOND: MS_PER_SECOND,
-  MINUTE: SECONDS_PER_MINUTE * MS_PER_SECOND,
-  HOUR: MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MS_PER_SECOND,
-  DAY: HOURS_PER_DAY * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MS_PER_SECOND,
-  WEEK: DAYS_PER_WEEK * HOURS_PER_DAY * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MS_PER_SECOND,
-  MONTH: DAYS_PER_MONTH * HOURS_PER_DAY * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MS_PER_SECOND,
-} as const;
 
 // Cache Settings
 const USER_PROFILE_CACHE_MINUTES = 5;

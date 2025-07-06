@@ -42,7 +42,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
   private logErrorToService = (error: Error, errorInfo: ErrorInfo) => {
     // Log error to external service
-    console.log('Logging error to monitoring service:', { error, errorInfo });
+    console.warn('Logging error to monitoring service:', { error, errorInfo });
   };
 
   private handleReload = () => {

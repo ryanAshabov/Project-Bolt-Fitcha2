@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Heart, MessageCircle, Share2, MoreHorizontal, Trophy, Target, Crown, CheckCircle, Star } from 'lucide-react';
 import { Post } from '../../types';
 import { Button } from '../ui/Button';
+import { OptimizedImage } from '../ui/Image';
 
 interface PostCardProps {
   post: Post;
@@ -11,7 +12,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
   const [isLiked, setIsLiked] = useState(post.isLiked);
   const [likes, setLikes] = useState(post.likes);
 
-  const handleLike = () => {
+  const handleLike = (): void => {
     if (isLiked) {
       setLikes(likes - 1);
     } else {
@@ -36,10 +37,10 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
     }
   };
 
-  const formatLikes = (count: number) => {
     if (count >= 1000000) {
       return `${(count / 1000000).toFixed(1)}M`;
-    } else if (count >= 1000) {
+    }
+    if (count >= 1000) {
       return `${(count / 1000).toFixed(1)}K`;
     }
     return count.toString();
@@ -178,10 +179,13 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
         
         {post.image && (
           <div className="mt-4 rounded-lg overflow-hidden">
-            <img
+            <OptimizedImage
               src={post.image}
               alt="Post content"
-              className="w-full h-64 object-cover"
+              className="w-full h-64"
+              objectFit="cover"
+              width={600}
+              height={300}
             />
           </div>
         )}

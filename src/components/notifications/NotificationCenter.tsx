@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Bell, Check, CheckCheck, X, Clock, Trophy, Users, MessageCircle, AlertTriangle } from 'lucide-react';
 import { useNotifications } from '../../hooks/useNotifications';
 import { Button } from '../ui/Button';
@@ -9,11 +9,16 @@ export const NotificationCenter: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [filter, setFilter] = useState<'all' | 'unread'>('all');
 
-  const filteredNotifications = notifications.filter(notification => 
-    filter === 'all' || !notification.isRead,
+  // Memoize filtered notifications to prevent unnecessary re-renders
+  const filteredNotifications = useMemo(() => 
+    notifications.filter(notification => 
+      filter === 'all' || !notification.isRead,
+    ),
+    [notifications, filter],
   );
 
-  const getNotificationIcon = (type: string) => {
+  // Memoize notification icon function
+  const getNotificationIcon = useMemo(() => (type: string) => {
     switch (type) {
       case 'game_invite': return <Users className="h-5 w-5 text-blue-600" />;
       case 'player_joined': return <Users className="h-5 w-5 text-emerald-600" />;
@@ -23,16 +28,16 @@ export const NotificationCenter: React.FC = () => {
       case 'game_reminder': return <Clock className="h-5 w-5 text-indigo-600" />;
       default: return <Bell className="h-5 w-5 text-slate-600" />;
     }
-  };
+  }, []);
 
-  const getPriorityColor = (priority: string) => {
+  const getPriorityColor = useMemo(() => (priority: string) => {
     switch (priority) {
       case 'urgent': return 'border-l-red-500 bg-red-50';
       case 'high': return 'border-l-orange-500 bg-orange-50';
       case 'medium': return 'border-l-blue-500 bg-blue-50';
       default: return 'border-l-slate-300 bg-white';
     }
-  };
+  }, []);
 
   return (
     <div className="relative">

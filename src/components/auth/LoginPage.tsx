@@ -38,7 +38,7 @@ export const LoginPage: React.FC = () => {
     if (success) {
       // Navigation will be handled by the useEffect above
       // when isAuthenticated becomes true
-      console.log('Login successful, redirecting...');
+      console.warn('Login successful, redirecting...');
     }
     // Error handling is managed by the useAuth hook
   };

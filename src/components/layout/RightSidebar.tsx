@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, TrendingUp, Users, MapPin, Star, Crown, Calendar, Trophy, CheckCircle, Sparkles } from 'lucide-react';
 import { mockUsers, mockCourts, celebrityUsers, sportsMediaUsers } from '../../data/mockData';
@@ -7,7 +7,7 @@ import { WeatherWidget } from '../weather/WeatherWidget';
 import { AchievementCard } from '../achievements/AchievementCard';
 import { Achievement } from '../../types';
 
-export const RightSidebar: React.FC = () => {
+export const RightSidebar: React.FC = memo(() => {
   const suggestedUsers = mockUsers.slice(1, 4);
   const featuredCourts = mockCourts.slice(0, 2);
   const celebrities = celebrityUsers.slice(0, 2);
@@ -339,4 +339,7 @@ export const RightSidebar: React.FC = () => {
       </div>
     </div>
   );
-};
+});
+
+// Add display name for debugging
+RightSidebar.displayName = 'RightSidebar';

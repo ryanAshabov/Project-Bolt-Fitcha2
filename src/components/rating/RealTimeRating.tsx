@@ -33,7 +33,7 @@ export const RealTimeRating: React.FC<RealTimeRatingProps> = ({ court }) => {
     lastUpdated: new Date(),
   });
 
-  const [isLive, setIsLive] = useState(true);
+  const [isLive] = useState(true);
 
   useEffect(() => {
     // Simulate real-time updates
@@ -51,27 +51,55 @@ export const RealTimeRating: React.FC<RealTimeRatingProps> = ({ court }) => {
     return () => clearInterval(interval);
   }, []);
 
+  // Constants for rating thresholds
+  const RATING_THRESHOLDS = {
+    EXCELLENT: 4,
+    GOOD: 3,
+  };
+
+  // Constants for rating styles
+  const RATING_STYLES = {
+    EXCELLENT: 'text-emerald-600 bg-emerald-100',
+    GOOD: 'text-yellow-600 bg-yellow-100',
+    POOR: 'text-red-600 bg-red-100',
+  };
+
   const getConditionColor = (value: number) => {
-    if (value >= 4) {
-return 'text-emerald-600 bg-emerald-100';
-}
-    if (value >= 3) {
-return 'text-yellow-600 bg-yellow-100';
-}
-    return 'text-red-600 bg-red-100';
+    if (value >= RATING_THRESHOLDS.EXCELLENT) {
+      return RATING_STYLES.EXCELLENT;
+    }
+    if (value >= RATING_THRESHOLDS.GOOD) {
+      return RATING_STYLES.GOOD;
+    }
+    return RATING_STYLES.POOR;
+  };
+
+  // Constants for crowd density thresholds
+  const CROWD_THRESHOLDS = {
+    VERY_CROWDED: 4,
+    CROWDED: 3,
+    MODERATE: 2,
+  };
+
+  // Constants for crowd level data
+  const CROWD_LEVELS = {
+    VERY_CROWDED: { label: 'مزدحم جداً', color: 'text-red-600 bg-red-100' },
+    CROWDED: { label: 'مزدحم', color: 'text-yellow-600 bg-yellow-100' },
+    MODERATE: { label: 'متوسط', color: 'text-blue-600 bg-blue-100' },
+    QUIET: { label: 'هادئ', color: 'text-emerald-600 bg-emerald-100' },
   };
 
   const getCrowdLevel = (density: number) => {
-    if (density >= 4) {
-return { label: 'مزدحم جداً', color: 'text-red-600 bg-red-100' };
-}
-    if (density >= 3) {
-return { label: 'مزدحم', color: 'text-yellow-600 bg-yellow-100' };
-}
-    if (density >= 2) {
-return { label: 'متوسط', color: 'text-blue-600 bg-blue-100' };
-}
-    return { label: 'هادئ', color: 'text-emerald-600 bg-emerald-100' };
+    if (density >= CROWD_THRESHOLDS.VERY_CROWDED) {
+      return CROWD_LEVELS.VERY_CROWDED;
+    }
+    if (density >= CROWD_THRESHOLDS.CROWDED) {
+      return CROWD_LEVELS.CROWDED;
+    }
+    if (density >= CROWD_THRESHOLDS.MODERATE) {
+      return CROWD_LEVELS.MODERATE;
+    }
+    return CROWD_LEVELS.QUIET;
   };
 
   const formatTime = (date: Date) => {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Notification } from '../types';
 
 export const useNotifications = () => {
@@ -49,7 +49,7 @@ export const useNotifications = () => {
     setUnreadCount(mockNotifications.filter(n => !n.isRead).length);
   }, []);
 
-  const markAsRead = (notificationId: string) => {
+  const markAsRead = useCallback((notificationId: string) => {
     setNotifications(prev => 
       prev.map(notification => 
         notification.id === notificationId 
@@ -58,16 +58,16 @@ export const useNotifications = () => {
       ),
     );
     setUnreadCount(prev => Math.max(0, prev - 1));
-  };
+  }, []);
 
-  const markAllAsRead = () => {
+  const markAllAsRead = useCallback(() => {
     setNotifications(prev => 
       prev.map(notification => ({ ...notification, isRead: true })),
     );
     setUnreadCount(0);
-  };
+  }, []);
 
-  const addNotification = (notification: Omit<Notification, 'id' | 'createdAt'>) => {
+  const addNotification = useCallback((notification: Omit<Notification, 'id' | 'createdAt'>) => {
     const newNotification: Notification = {
       ...notification,
       id: Date.now().toString(),
@@ -78,9 +78,9 @@ export const useNotifications = () => {
     if (!newNotification.isRead) {
       setUnreadCount(prev => prev + 1);
     }
-  };
+  }, []);
 
-  const removeNotification = (notificationId: string) => {
+  const removeNotification = useCallback((notificationId: string) => {
     const notification = notifications.find(n => n.id === notificationId);
     setNotifications(prev => prev.filter(n => n.id !== notificationId));
     if (notification && !notification.isRead) {
@@ -95,5 +95,5 @@ export const useNotifications = () => {
     markAllAsRead,
     addNotification,
     removeNotification,
-  };
+  }, [notifications, unreadCount, markAsRead, markAllAsRead, addNotification, removeNotification]);
 };
